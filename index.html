@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producción Electrónica | IBERO Puebla</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #1a237e;
+            --primary-dark: #0d1459;
+            --primary-light: #303f9f;
+            --secondary: #00bcd4;
+            --secondary-dark: #008ba3;
+            --accent: #ff4081;
+            --light: #f5f7ff;
+            --dark: #121212;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            padding-top: 80px;
+            overflow-x: hidden;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+            color: var(--primary-dark);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* HEADER FIJO */
+        .header-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+
+        .header-fixed.scrolled {
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .menu .navbar ul {
+            display: flex;
+            gap: 5px;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 1rem;
+            padding: 12px 20px;
+            color: var(--dark);
+            display: block;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .menu .navbar ul li a:hover {
+            color: var(--primary);
+            background-color: rgba(26, 35, 126, 0.05);
+        }
+
+        .menu .navbar ul li a.active {
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.2);
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+            cursor: pointer;
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef2ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.05) 0%, rgba(0, 188, 212, 0.05) 100%);
+            top: -200px;
+            right: -100px;
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 64, 129, 0.05) 0%, rgba(26, 35, 126, 0.05) 100%);
+            bottom: -100px;
+            left: -100px;
+            z-index: 0;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            width: 55%;
+            padding-right: 40px;
+        }
+
+        .hero-text h1 {
+            color: var(--primary-dark);
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-image {
+            width: 45%;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: var(--transition);
+        }
+
+        .hero-image img:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 35px;
+            color: white;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(26, 35, 126, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(26, 35, 126, 0.3);
+            color: white;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            z-index: -1;
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+
+        .btn-primary:hover::after {
+            opacity: 1;
+        }
+
+        /* LOGOS SECTION */
+        .logos-section {
+            padding: 60px 0;
+            background-color: white;
+            position: relative;
+        }
+
+        .logos-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .logos-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .logo-item {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .logo-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .logo-item img {
+            max-height: 70px;
+            width: auto;
+            margin: 0 auto;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .logo-item:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* CARDS SECTION */
+        .cards-section {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            padding: 25px 25px 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            padding: 20px 25px;
+            flex-grow: 1;
+        }
+
+        .card-description {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .card-footer {
+            padding: 0 25px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%);
+        }
+
+        .card-icon img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .card-link {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .card-link:hover {
+            color: var(--secondary-dark);
+            gap: 10px;
+        }
+
+        /* TEAM SECTION */
+        .team-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-section .section-title {
+            color: white;
+        }
+
+        .team-section .section-title::after {
+            background: linear-gradient(to right, var(--secondary), white);
+        }
+
+        .team-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .team-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .team-member {
+            text-align: center;
+            max-width: 280px;
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-image-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            padding: 8px;
+            background: linear-gradient(135deg, var(--secondary) 0%, white 100%);
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .member-email {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .member-email:hover {
+            color: var(--secondary);
+        }
+
+        /* MAP SECTION */
+        .map-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            max-width: 1000px;
+            margin: 50px auto 30px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            display: block;
+        }
+
+        .map-info {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .map-address {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .map-address strong {
+            color: var(--primary-dark);
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 80px 0 40px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #121212 100%);
+            color: white;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .footer-logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* SCROLL TO TOP BUTTON */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(26, 35, 126, 0.4);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+            
+            .container {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 50px;
+            }
+            
+            .hero-image {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .menu label {
+                display: block;
+            }
+            
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                display: none;
+                width: 100%;
+                border-radius: 0 0 15px 15px;
+                overflow: hidden;
+            }
+            
+            .menu .navbar ul {
+                flex-direction: column;
+                padding: 20px 0;
+            }
+            
+            .menu .navbar ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .menu .navbar ul li a {
+                padding: 15px 20px;
+                border-radius: 0;
+            }
+            
+            #menu:checked ~ .navbar {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .hero {
+                padding: 100px 0 60px;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero-text p {
+                font-size: 1.05rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .cards-section, .team-section, .map-section {
+                padding: 70px 0;
+            }
+            
+            .team-container {
+                gap: 40px;
+            }
+            
+            .member-image-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .logos-container {
+                justify-content: center;
+            }
+            
+            .logo-item {
+                min-width: 100px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .btn-primary {
+                padding: 12px 30px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-member {
+                max-width: 100%;
+            }
+            
+            .footer {
+                padding: 60px 0 30px;
+            }
+            
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header fijo con logo y menú -->
+    <div class="header-fixed" id="header">
+        <div class="menu container">
+            <a href="#" class="logo">
+                <img src="imagenes/LOGO BLANCO Y NEGRO IBERO.png" alt="Logo IBERO" class="logo-img">
+                <span class="logo-text">Producción Electrónica</span>
+            </a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="https://cdn-icons-png.flaticon.com/512/56/56763.png" class="menu-icono" alt="Menú">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="#" class="active">Inicio</a></li>
+                    <li><a href="#herramientas">Herramientas</a></li>
+                    <li><a href="#integrantes">Integrantes</a></li>
+                    <li><a href="#mapa">Ubicación</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Producción Electrónica</h1>
+                    <p>
+                        La producción electrónica es la fase industrial en la que un diseño conceptual —creado en herramientas como KiCad y validado mediante prototipos con equipos como la fresadora SRM-20— se escala para fabricar miles o millones de unidades de forma automatizada, eficiente y confiable.
+                        El objetivo de esta página web es recopilar y difundir toda la información relevante sobre este proceso, incluyendo ejemplos prácticos de placas PCB desarrolladas, metodologías utilizadas y recursos clave para quienes deseen profundizar en el ámbito de la fabricación electrónica.
+                    </p>
+                    <a href="#herramientas" class="btn-primary">Explorar Herramientas</a>
+                </div>
+                <div class="hero-image">
+                    <img src="imagenes/iconofinal.png" alt="Icono de producción electrónica">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logos Section -->
+    <section class="logos-section">
+        <div class="container">
+            <h3 class="logos-title">Tecnologías y Herramientas</h3>
+            <div class="logos-container">
+                <div class="logo-item">
+                    <img src="imagenes/1.jpg" alt="Tecnología 1">
+                </div>
+                <div class="logo-item">
+                    <img src="imagenes/2.jpg" alt="Tecnología 2">
+                </div>
+                <div class="logo-item">
+                    <img src="imagenes/03.png" alt="Tecnología 3">
+                </div>
+                <div class="logo-item">
+                    <img src="imagenes/4.jpg" alt="Tecnología 4">
+                </div>
+                <div class="logo-item">
+                    <img src="imagenes/5.jpg" alt="Tecnología 5">
+                </div>
+                <div class="logo-item">
+                    <img src="imagenes/6.jpg" alt="Tecnología 6">
+                </div>
+                <div class="logo-item">
+                    <img src="imagenes/7.jpg" alt="Tecnología 7">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards-section" id="herramientas">
+        <div class="container">
+            <h2 class="section-title">Herramientas de Producción</h2>
+            <p class="section-subtitle">Explora nuestras herramientas y recursos para el diseño y fabricación de circuitos electrónicos</p>
+            
+            <div class="cards-container">
+                <!-- KiCad Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">KiCad</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Software gratuito y de código abierto para Windows, Linux y MacOS, que permite diseñar esquemas electrónicos y placas de circuito impreso (PCB).
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/kicad_logo.png" alt="Logo KiCad">
+                        </div>
+                        <a href="kicad.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+                
+                <!-- Mods Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Mods</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Programa web para preparar archivos y fabricar placas PCB con fresadoras CNC como la Roland.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/mods.png" alt="Logo Mods">
+                        </div>
+                        <a href="mods.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+                
+                <!-- NI Multisim Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">NI Multisim</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Entorno de captura y simulación de esquemas para simular circuitos electrónicos y prototipos de placas de circuito impreso (PCB).
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/icon multisim.png" alt="Logo NI Multisim">
+                        </div>
+                        <a href="multisim.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+                
+                <!-- MonoFab Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">MonoFab</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            La MonoFab SRM-20 es una fresadora de precisión que fabrica prototipos y PCBs directamente desde un diseño digital.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/MonoFab.webp" alt="Imagen MonoFab">
+                        </div>
+                        <a href="monofab.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+                
+                <!-- Pistas Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Pistas</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Visualización de las pistas que realizaremos a lo largo de este periodo en nuestros proyectos de producción electrónica.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/ejemploPista.jpg" alt="Ejemplo de pistas">
+                        </div>
+                        <a href="pistas.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+                
+                <!-- Soldadura Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Soldadura</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Guía completa sobre soldadura electrónica: herramientas, técnicas y mejores prácticas para crear conexiones permanentes y confiables.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/icon soldadura.png" alt="Soldadura Electrónica">
+                        </div>
+                        <a href="soldadura.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+                
+                <!-- Cortadora de Vinil Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Cortadora de Vinil</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Guía completa sobre cortadoras de vinil: tipos, partes, configuración y técnicas para crear diseños precisos en materiales adhesivos.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/cortadora.jpg" alt="Cortadora de Vinil">
+                        </div>
+                        <a href="cortadora-vinil.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+                
+                <!-- Altium Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Altium</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Altium Designer es un software profesional de diseño electrónico para crear esquemas, PCBs avanzadas y documentación de producción.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/LOGO ALTIUM.jpg" alt="Logo Altium">
+                        </div>
+                        <a href="altium.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+                
+                <!-- xTool Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">xTool</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Sistema de corte y grabado láser que permite trabajar con diversos materiales como madera, acrílico, cuero y más, ideal para prototipado rápido.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-icon">
+                            <img src="imagenes/xTool.png" alt="Logo xTool">
+                        </div>
+                        <a href="xtool.html" class="card-link">Explorar →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section" id="integrantes">
+        <div class="container">
+            <h2 class="section-title">Nuestro Equipo</h2>
+            <p class="section-subtitle">Conoce a los integrantes detrás de este proyecto de producción electrónica</p>
+            
+            <div class="team-container">
+                <!-- Integrante 1 -->
+                <div class="team-member">
+                    <div class="member-image-container">
+                        <img src="imagenes/FOTO ELIA GUAPA.jpg" alt="Elia del Carmen Valdés Ávila" class="member-image">
+                    </div>
+                    <h3 class="member-name">Elia del Carmen Valdés Ávila</h3>
+                    <p class="member-role">Estudiante de Mecatrónica</p>
+                    <a href="mailto:eliadelcarmen.valdes@iberopuebla.mx" class="member-email">eliadelcarmen.valdes@iberopuebla.mx</a>
+                </div>
+                
+                <!-- Integrante 2 -->
+                <div class="team-member">
+                    <div class="member-image-container">
+                        <img src="imagenes/montIntento.jpg" alt="Montserrat Vázquez Guzmán" class="member-image">
+                    </div>
+                    <h3 class="member-name">Montserrat Vázquez Guzmán</h3>
+                    <p class="member-role">Estudiante de Mecatrónica</p>
+                    <a href="mailto:montserrat.vazquez@iberopuebla.mx" class="member-email">montserrat.vazquez@iberopuebla.mx</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section" id="mapa">
+        <div class="container">
+            <h2 class="section-title">Nuestra Ubicación</h2>
+            <p class="section-subtitle">Visítanos en la Universidad Iberoamericana Puebla, donde realizamos nuestros proyectos de producción electrónica</p>
+            
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15077.06636873293!2d-98.243165!3d19.04045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc0bd82ffb71d%3A0x7e2ce0fe6c784a29!2sUniversidad%20Iberoamericana%20Puebla!5e0!3m2!1ses!2smx!4v1652451234567!5m2!1ses!2smx" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            
+            <div class="map-info">
+                <p class="map-address"><strong>Dirección:</strong> Boulevard del Niño Poblano 2901, Reserva Territorial Atlixcáyotl, 72430 Puebla, Pue.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="imagenes/iberoblanco.png" alt="Logo IBERO" class="footer-logo-img">
+                        <span class="footer-logo-text">Producción Electrónica</span>
+                    </div>
+                    <p class="footer-description">
+                        Plataforma educativa dedicada a la producción electrónica, diseño de circuitos y fabricación de PCBs en la Universidad Iberoamericana Puebla.
+                    </p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#herramientas">Herramientas</a></li>
+                        <li><a href="#integrantes">Integrantes</a></li>
+                        <li><a href="#mapa">Ubicación</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Herramientas</h3>
+                    <ul class="footer-links">
+                        <li><a href="kicad.html">KiCad</a></li>
+                        <li><a href="mods.html">Mods</a></li>
+                        <li><a href="multisim.html">NI Multisim</a></li>
+                        <li><a href="monofab.html">MonoFab</a></li>
+                        <li><a href="pistas.html">Pistas</a></li>
+                        <li><a href="soldadura.html">Soldadura</a></li>
+                        <li><a href="cortadora-vinil.html">Cortadora de Vinil</a></li>
+                        <li><a href="altium.html">Altium</a></li>
+                        <li><a href="xtool.html">xTool</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contacto@iberopuebla.mx">contacto@iberopuebla.mx</a></li>
+                        <li><a href="tel:+522222293000">+52 222 229 3000</a></li>
+                        <li><a href="#mapa">Boulevard del Niño Poblano 2901</a></li>
+                        <li><a href="#mapa">Puebla, México</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Universidad Iberoamericana Puebla - Producción Electrónica. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        ↑
+    </div>
+
+    <script>
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', function() {
+            // Show/hide scroll to top button
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+            
+            // Add scrolled class to header
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Scroll to top functionality
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const menuCheckbox = document.getElementById('menu');
+                    if (menuCheckbox.checked) {
+                        menuCheckbox.checked = false;
+                    }
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const menuCheckbox = document.getElementById('menu');
+            const menuLabel = document.querySelector('label[for="menu"]');
+            
+            if (menuCheckbox.checked && !e.target.closest('.navbar') && !e.target.closest('label[for="menu"]')) {
+                menuCheckbox.checked = false;
+            }
+        });
+        
+        // Add active class to current section in navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Always keep "Inicio" active when at the top
+            if (window.scrollY < 100) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#') {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

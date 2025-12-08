@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KiCad - Producción Electrónica</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background-color: #15409b;
+            display: flex;
+            align-items: center;
+            min-height: 40vh;
+            padding: 80px 0 0 0;
+        }
+
+        .menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .logo {
+            color: #EEEFF3;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .menu .navbar ul li {
+            position: relative;
+            float: left;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 20px;
+            color: #FFF9FA;
+            display: block;
+            font-weight: 600;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: #4cf3ff;
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: #FFF9FA;
+            font-size: 55px;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #D5D5D5;
+            margin-bottom: 45px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+        }
+
+        .btn-1 {
+            display: inline-block;
+            padding: 13px 35px;
+            color: #FFF9FA;
+            border: 1px solid #FFF9FA;
+            border-radius: 35px;
+        }
+
+        .btn-1:hover {
+            background-color: #4c9aff;
+            border: 1px solid #4c9aff;
+        }
+
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            color: #15409b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #15409b;
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            color: #1a4fb9;
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul li {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 10px;
+            list-style-type: disc;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            flex: 1 1 calc(33.333% - 20px);
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature h3 {
+            color: #15409b;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .menu-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-table th, .menu-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .menu-table th {
+            background-color: #15409b;
+            color: white;
+            font-weight: 600;
+        }
+
+        .menu-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .menu-table tr:hover {
+            background-color: #e6f0ff;
+        }
+
+        /* NUEVO ESTILO PARA LA GALERÍA DE IMÁGENES */
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .image-item {
+            flex: 0 1 calc(50% - 30px);
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .image-container {
+            height: 300px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-item:hover .image-container img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background: white;
+        }
+        
+        .image-caption p {
+            margin: 0;
+            font-weight: 500;
+            color: #15409b;
+            font-size: 16px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #15409b;
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #0d2e7a;
+        }
+
+        .footer {
+            padding: 50px 0;
+            background-color: #1F2229;
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: #FFF9FA;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .link a:hover {
+            color: #FFBD4C;
+        }
+
+        @media (max-width: 991px) {
+            .menu {
+                padding: 30px;
+            }
+
+            .menu label {
+                display: initial;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #FFBD4C;
+                display: none;
+            }
+
+            .menu .navbar ul li a:hover {
+                color: #2B2B2B;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+            }
+            
+            #menu:checked ~ .navbar{
+                display: initial;
+            }
+
+            .header {
+                min-height: 0vh;
+            }
+
+            .header-content {
+                padding: 30px;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 35px;
+            }
+
+            .header-img {
+                width: 100%;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                flex: 1 1 100%;
+            }
+            
+            .image-item {
+                flex: 1 1 100%;
+            }
+            
+            .image-container {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .image-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <div class="menu container">
+            <a href="index.html" class="logo">IBERO</a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="imagenes/menu.png" class="menu-icono" alt="">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Integrantes</a></li>
+                    <li><a href="#">Información</a></li>
+                    <li><a href="#">Diseños</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-content container">
+            <div class="header-txt">
+                <h1>KiCad</h1>
+                <p>
+                    Software de diseño de esquemas electrónicos y placas de circuito impreso (PCB) 
+                    de código abierto y multiplataforma.
+                </p>
+                <a href="index.html" class="btn-1">Volver al Inicio</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/kicad_logo.png" alt="Logo de KiCad">
+            </div>
+        </div> 
+    </header>
+
+    <section class="content container">
+        <div class="content-section">
+            <h2>¿Qué es KiCad?</h2>
+            <p>
+                KiCad es un software de diseño electrónico (EDA: Electronic Design Automation) 
+                de código abierto y multiplataforma, disponible para Windows, 
+                Linux y MacOS. Su objetivo principal es permitir a ingenieros, estudiantes 
+                y aficionados crear desde esquemáticos electrónicos hasta placas de circuito impreso (PCB) listas para fabricación.    
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2>Herramientas:</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Editor de Esquemas</h3>
+                    <p>para capturar circuitos electrónicos, organizar jerárquicamente el diseño 
+                    y comprobar su lógica eléctrica.
+                </p>
+                </div>
+                <div class="feature">
+                    <h3>Editor de PCB (Pcbnew)</h3>
+                    <p>Convierte esquemáticos en placas impresas, diseñar pistas, colocar componentes y optimizar el enrutamiento.</p>
+                </div>
+                <div class="feature">
+                    <h3>Visualizador 3D</h3>
+                    <p>Verifica cómo se verá la placa y al mismo tiempo 
+                        detectar posibles interferencias mecánicas.</p>
+                </div>
+                <div class="feature">
+                    <h3>Gerber Generation y Drill</h3>
+                    <p>Son formatos estándar que permiten mandar el diseño a fabricación.</p>
+                </div>
+                <div class="feature">
+                    <h3>Simulación SPICE y bibliotecas de componentes</h3>
+                    <p>Incluyen símbolos electrónicos, huellas físicas (footprints) y modelos 3D.</p>
+                </div>
+                <div class="feature">
+                    <h3>Código Abierto</h3>
+                    <p>Software libre y gratuito con una comunidad activa de desarrollo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Flujo de Trabajo en KiCad</h2>
+            <p>El proceso de diseño con KiCad generalmente sigue estos pasos:</p>
+            <ul>
+                <li>Creación del esquema electrónico con el editor de esquemas (Eeschema)</li>
+                <li>Asignación de footprints a los componentes</li>
+                <li>Generación de la netlist</li>
+                <li>Diseño del PCB con el editor de circuitos impresos (Pcbnew)</li>
+                <li>Colocación de componentes y enrutamiento de pistas</li>
+                <li>Verificación de reglas de diseño (DRC)</li>
+                <li>Generación de archivos de fabricación (Gerber, drill, etc.)</li>
+                <li>Visualización 3D del diseño final</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Editor de Esquemáticos (Eeschema)</h2>
+            <p>El editor de esquemáticos es donde comienza todo diseño en KiCad. Permite crear representaciones gráficas de circuitos electrónicos utilizando símbolos de componentes interconectados.</p>
+            
+            <h3>Funciones principales:</h3>
+            <ul>
+                <li><strong>Colocación de componentes:</strong> Añadir símbolos electrónicos desde bibliotecas</li>
+                <li><strong>Conexión de componentes:</strong> Utilizando cables (wires) o etiquetas (labels)</li>
+                <li><strong>Jerarquía:</strong> Crear esquemáticos multinivel con hojas anidadas</li>
+                <li><strong>Anotación:</strong> Asignar referencias únicas a cada componente (R1, R2, C1, etc.)</li>
+                <li><strong>Verificación eléctrica (ERC):</strong> Detectar errores en las conexiones</li>
+                <li><strong>Generación de netlist:</strong> Crear lista de conexiones para el PCB</li>
+            </ul>
+            
+            <h3>Barra de herramientas y menús esenciales:</h3>
+            <table class="menu-table">
+                <tr>
+                    <th>Menú/Herramienta</th>
+                    <th>Función</th>
+                </tr>
+                <tr>
+                    <td>Place → Symbol</td>
+                    <td>Insertar componentes desde bibliotecas</td>
+                </tr>
+                <tr>
+                    <td>Place → Wire</td>
+                    <td>Conectar componentes con cables</td>
+                </tr>
+                <tr>
+                    <td>Place → Label</td>
+                    <td>Añadir etiquetas para conexiones con nombre</td>
+                </tr>
+                <tr>
+                    <td>Place → Power Port</td>
+                    <td>Añadir símbolos de alimentación (VCC, GND)</td>
+                </tr>
+                <tr>
+                    <td>Place → No Connect Flag</td>
+                    <td>Marcar pines intencionalmente desconectados</td>
+                </tr>
+                <tr>
+                    <td>Tools → Annotate Schematic</td>
+                    <td>Asignar referencias a componentes</td>
+                </tr>
+                <tr>
+                    <td>Tools → Electrical Rules Checker</td>
+                    <td>Verificar errores eléctricos en el esquema</td>
+                </tr>
+                <tr>
+                    <td>Tools → Assign Footprints</td>
+                    <td>Asignar huellas físicas a componentes</td>
+                </tr>
+                <tr>
+                    <td>Tools → Generate Netlist</td>
+                    <td>Crear lista de conexiones para PCB</td>
+                </tr>
+            </table>
+            
+            <!-- GALERÍA MODIFICADA CON TEXTO DEBAJO DE CADA IMAGEN -->
+            <div class="image-gallery">
+                <div class="image-item">
+                    <div class="image-container">
+                        <img src="imagenes/esquematico.png" alt="Ejemplo de esquemático en KiCad">
+                    </div>
+                    <div class="image-caption">
+                        <p>Ejemplo de esquemático en KiCad</p>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-container">
+                        <img src="imagenes/interfaz de esquematico.png" alt="Interfaz del editor de esquemáticos">
+                    </div>
+                    <div class="image-caption">
+                        <p>Interfaz del editor de esquemáticos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Editor de PCB (Pcbnew)</h2>
+            <p>Pcbnew es el editor de placas de circuito impreso donde se diseña el layout físico basado en el esquemático.</p>
+            
+            <h3>Funciones principales:</h3>
+            <ul>
+                <li><strong>Colocación de componentes:</strong> Organizar componentes en la placa</li>
+                <li><strong>Enrutamiento:</strong> Conectar componentes con pistas de cobre</li>
+                <li><strong>Diseño de zonas:</strong> Crear áreas de cobre (pour) para alimentación o tierra</li>
+                <li><strong>Verificación de reglas (DRC):</strong> Asegurar que el diseño cumple con las reglas establecidas</li>
+                <li><strong>Generación de archivos de fabricación:</strong> Crear Gerbers, archivos de taladro, etc.</li>
+                <li><strong>Visualización 3D:</strong> Ver el diseño en tres dimensiones</li>
+            </ul>
+            
+            <h3>Barra de herramientas y menús esenciales:</h3>
+            <table class="menu-table">
+                <tr>
+                    <th>Menú/Herramienta</th>
+                    <th>Función</th>
+                </tr>
+                <tr>
+                    <td>File → Load Netlist</td>
+                    <td>Cargar conexiones desde el esquemático</td>
+                </tr>
+                <tr>
+                    <td>Place → Footprint</td>
+                    <td>Añadir componentes manualmente</td>
+                </tr>
+                <tr>
+                    <td>Route → Interactive Routing</td>
+                    <td>Enrutar pistas entre componentes</td>
+                </tr>
+                <tr>
+                    <td>Route → Differential Pair</td>
+                    <td>Enrutar pares diferenciales</td>
+                </tr>
+                <tr>
+                    <td>Place → Zone</td>
+                    <td>Crear zonas de cobre (pour)</td>
+                </tr>
+                <tr>
+                    <td>Place → Via</td>
+                    <td>Insertar vías para cambiar de capa</td>
+                </tr>
+                <tr>
+                    <td>Place → Keepout Area</td>
+                    <td>Definir áreas restrictivas</td>
+                </tr>
+                <tr>
+                    <td>Inspect → Measure</td>
+                    <td>Medir distancias entre puntos</td>
+                </tr>
+                <tr>
+                    <td>Tools → Design Rules Checker</td>
+                    <td>Verificar que el diseño cumple las reglas</td>
+                </tr>
+                <tr>
+                    <td>Tools → Update PCB from Schematic</td>
+                    <td>Sincronizar cambios del esquemático</td>
+                </tr>
+                <tr>
+                    <td>View → 3D Viewer</td>
+                    <td>Visualizar el diseño en 3D</td>
+                </tr>
+                <tr>
+                    <td>File → Fabrication Outputs</td>
+                    <td>Generar archivos para fabricación (Gerbers, drill, etc.)</td>
+                </tr>
+            </table>
+            
+            <h3>Capas importantes en PCB design:</h3>
+            <ul>
+                <li><strong>F.Cu/B.Cu:</strong> Capas de cobre frontal y posterior</li>
+                <li><strong>F.Silkscreen/B.Silkscreen:</strong> Serigrafía para marcar componentes</li>
+                <li><strong>F.Mask/B.Mask:</strong> Máscara de soldadura</li>
+                <li><strong>Edge.Cuts:</strong> Línea de corte que define el contorno de la placa</li>
+                <li><strong>Dwgs.User:</strong> Capa para notas y dibujos</li>
+            </ul>
+            
+            <!-- GALERÍA MODIFICADA CON TEXTO DEBAJO DE CADA IMAGEN -->
+            <div class="image-gallery">
+                <div class="image-item">
+                    <div class="image-container">
+                        <img src="imagenes/DiseñoElia.png" alt="Ejemplo de diseño PCB en KiCad">
+                    </div>
+                    <div class="image-caption">
+                        <p>Diseño PCB Elia</p>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-container">
+                        <img src="imagenes/Interfaz.png" alt="Interfaz del editor PCB">
+                    </div>
+                    <div class="image-caption">
+                        <p>Interfaz del editor PCB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Reglas de diseño</h2>
+            <p>
+                Para garantizar la funcionalidad y la fabricabilidad de la PCB, 
+                KiCad permite establecer y verificar reglas de diseño, tanto eléctricas como físicas. 
+                Estas reglas pueden configurarse globalmente o por clases de señales, 
+                y se validan mediante herramientas de verificación integradas.
+            </p>
+
+            <h3>1. Reglas Eléctricas (ERC)</h3>
+            <p>Aplican al esquemático:</p>
+            <ul>
+                <li>Verificar que todos los pines de alimentación estén definidos.</li>
+                <li>Asegurarse de que no haya pines sin conexión cuando deberían estar conectados.</li>
+                <li>Comprobar que las referencias de los componentes sean únicas y coherentes.</li>
+            </ul>
+            <h3>2. Reglas de Diseño (DRC)</h3>
+            <p>Aplican al layout de la placa:</p>
+            <ul>
+                <li>Ancho mínimo de pistas: depende de la corriente que circulará por ellas.</li>
+                <li>Separación mínima entre pistas y áreas de cobre (clearance): evita cortocircuitos y mejora la confiabilidad.</li>
+                <li>Tamaño mínimo de vías y taladros: asegura que los orificios puedan fabricarse correctamente.</li>
+                <li>Asignación correcta de huellas: los componentes deben encajar físicamente en el PCB.</li>
+                <li>Espacios en máscara de soldadura y serigrafía: deben respetarse para evitar puentes de soldadura o texto ilegible.</li>
+            </ul>
+            <h3>3. Clases de Nets</h3>
+            <p>KiCad permite agrupar señales en net classes para aplicar reglas específicas, por ejemplo:</p>
+            <ul>
+                <li>Señales de potencia con pistas más anchas.</li>
+                <li>Señales de alta frecuencia con restricciones de distancia.</li>
+                <li>Líneas de señal estándar con reglas más flexibles.</li>
+            </ul>
+            <h3>4. Verificación Automática</h3>
+            <ul>
+                <li>ERC (Electrical Rules Check): analiza errores lógicos en el esquemático.</li>
+                <li>DRC (Design Rules Check): comprueba que el PCB cumpla las restricciones físicas de diseño.</li>
+                <li>Vista 3D: asegura la correcta disposición mecánica y evita colisiones entre componentes.</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Consejos para principiantes</h2>
+            <ul>
+                <li>Comienza con diseños simples antes de abordar proyectos complejos</li>
+                <li>Utiliza siempre la verificación ERC y DRC antes de generar archivos de fabricación</li>
+                <li>Organiza tus componentes en bibliotecas personales para reutilizarlos en futuros proyectos</li>
+                <li>Aprovecha la comunidad de KiCad para resolver dudas y encontrar componentes</li>
+                <li>Experimenta con la vista 3D para detectar problemas de colocación de componentes</li>
+                <li>Configura las reglas de diseño según los requerimientos de tu fabricante de PCB</li>
+            </ul>
+        </div>
+        
+        <a href="index.html" class="back-btn">Volver a la Página Principal</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Integrantes</a></li>
+                    <li><a href="#">Información</a></li>
+                    <li><a href="#">Diseños</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><a href="kicad.html">KiCad</a></li>
+                    <li><a href="mods.html">Mods</a></li>
+                    <li><a href="monofab.html">MonoFab</a></li>
+                    <li><a href="pistas.html">Pistas</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Ejemplos</a></li>
+                    <li><a href="#">Foro</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Teléfono</a></li>
+                    <li><a href="#">Dirección</a></li>
+                    <li><a href="#">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

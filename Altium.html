@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Guía para usar Altium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FFD700;
+            --secondary-color: #c69b30;
+            --accent-color: #4cf3ff;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #1F2229;
+            --white: #FFF9FA;
+            --card-bg: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            
+            /* Variables originales de Altium */
+            --bg: #ffffff;
+            --text: #0b0b0b;
+            --muted: #55606a;
+            --gold: #b58e2e;
+            --gold-weak: #f4e3b3;
+            --card: #ffffff;
+            --border: #e8e6e2;
+            --radius: 12px;
+            --max-width: 1100px;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* HEADER FIJO - Estilo del ejemplo */
+        .header-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 25px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .menu .navbar ul {
+            display: flex;
+        }
+
+        .menu .navbar ul li {
+            position: relative;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 20px;
+            color: var(--white);
+            display: block;
+            font-weight: 600;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+            filter: invert(1);
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Cabecera estilo del ejemplo */
+        .header {
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            min-height: 40vh;
+            padding: 80px 0 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23000" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: var(--white);
+            font-size: 55px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #D5D5D5;
+            margin-bottom: 35px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-img::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .header-img img {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .header-img img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Botones estilo del ejemplo */
+        .btn-1 {
+            display: inline-block;
+            padding: 13px 35px;
+            color: var(--white);
+            border: 1px solid var(--white);
+            border-radius: 35px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-1:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor principal */
+        .wrap {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* TOC mejorado */
+        nav.toc {
+            margin: 22px 0 30px 0;
+            background: linear-gradient(180deg, rgba(181,142,46,0.06), transparent);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(11,11,11,0.06);
+        }
+        
+        nav.toc a {
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 13px;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        nav.toc a:hover {
+            background: var(--gold-weak);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Secciones de contenido mejoradas */
+        main.content > section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        main.content > section:hover {
+            transform: translateY(-5px);
+        }
+        
+        section h2 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        section h2 i {
+            margin-right: 15px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: var(--muted);
+            margin-bottom: 14px;
+            font-size: 14px;
+        }
+
+        /* Secciones de submenús */
+        .menu-section {
+            margin-top: 25px;
+            border-left: 4px solid var(--gold);
+            padding-left: 20px;
+        }
+
+        .menu-section h3 {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .menu-section h3 i {
+            margin-right: 10px;
+            color: var(--gold);
+            font-size: 16px;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .menu-item {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .menu-item h4 {
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-item h4 i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+            font-size: 14px;
+        }
+
+        .menu-item p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .menu-item .shortcut {
+            display: inline-block;
+            background: var(--gold-weak);
+            color: var(--gold);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Iconos de herramientas */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tool-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tool-icon {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .tool-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        /* Imágenes mejoradas */
+        .image-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            margin: 14px 0;
+        }
+        
+        .imgbox {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            padding: 8px;
+            background: #faf8f4;
+            transition: transform 0.3s ease;
+        }
+        
+        .imgbox:hover {
+            transform: scale(1.02);
+        }
+        
+        .imgbox img {
+            display: block;
+            width: 220px;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+        
+        .imglabel {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 13px;
+        }
+        
+        .imglabel .num {
+            background: var(--gold);
+            color: #111;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            display: inline-block;
+        }
+        
+        .imglabel .cap {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* Procesos mejorados */
+        .process {
+            background: #fff;
+            border-radius: 10px;
+            padding: 14px;
+            border: 1px dashed var(--border);
+            margin: 12px 0;
+            position: relative;
+        }
+        
+        .process::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .process .step {
+            margin-bottom: 10px;
+            font-size: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .process .step:before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .process {
+            counter-reset: step;
+        }
+
+        /* Notas y tips mejorados */
+        .note {
+            background: #fffaf0;
+            border-left: 6px solid var(--gold);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .note i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: var(--gold);
+        }
+        
+        .note strong {
+            color: var(--gold);
+        }
+        
+        .tip {
+            background: #f8fbff;
+            border-left: 6px solid #b8dfff;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .tip i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #0056b3;
+        }
+        
+        .tip strong {
+            color: #0056b3;
+        }
+
+        /* Grid y listas */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        
+        .list-compact li {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+        
+        pre.code {
+            background: #0b0b0b;
+            color: #f7f7f7;
+            padding: 12px;
+            border-radius: 8px;
+            overflow: auto;
+            font-size: 13px;
+        }
+
+        /* Botón de regresar */
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer estilo del ejemplo */
+        .footer {
+            padding: 50px 0;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: var(--white);
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .link h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 991px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .menu {
+                padding: 0 15px;
+            }
+
+            .menu label {
+                display: block;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                display: none;
+                width: 100%;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .menu .navbar ul {
+                flex-direction: column;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .menu .navbar ul li a {
+                padding: 15px 20px;
+            }
+            
+            #menu:checked ~ .navbar {
+                display: block;
+            }
+
+            .header {
+                min-height: auto;
+                padding: 40px 0 0 0;
+            }
+
+            .header-content {
+                padding: 30px 0;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .header-txt h1 {
+                font-size: 36px;
+            }
+
+            .header-img {
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .imgbox img {
+                width: 160px;
+            }
+
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-txt h1 {
+                font-size: 32px;
+            }
+            
+            .header-txt p {
+                font-size: 15px;
+            }
+            
+            .btn-1 {
+                padding: 10px 25px;
+            }
+            
+            section h2 {
+                font-size: 20px;
+            }
+            
+            .logo-img {
+                height: 35px;
+            }
+            
+            .imgbox {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .imgbox img {
+                width: 100%;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-txt h1 {
+                font-size: 28px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .link {
+                flex: 1 0 100%;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header fijo con logo y menú -->
+    <div class="header-fixed">
+        <div class="menu">
+            <!-- Logo como imagen en lugar de texto -->
+            <a href="index.html" class="logo">
+                <img src="imagenes/iberoblanco.png" alt="Logo IBERO" class="logo-img">
+            </a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="https://cdn-icons-png.flaticon.com/512/56/56763.png" class="menu-icono" alt="Menú">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="index.html#herramientas">Información</a></li>
+                    <li><a href="index.html#mapa">Ubicación</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-txt">
+                <h1>Altium</h1>
+                <p>
+                    Uso y manejo de Altium
+                </p>
+                <a href="index.html" class="btn-1">Volver al Inicio</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/ALTIUM ICON.png" alt="Logo Altium">
+            </div>
+        </div> 
+    </header>
+
+    <div class="wrap">
+        <nav class="toc" aria-label="Índice">
+            <a href="#instalacion"><i class="fas fa-download"></i> Instalación y activación</a>
+            <a href="#crear-esquematico"><i class="fas fa-file"></i> Crear esquemático</a>
+            <a href="#barra-menus"><i class="fas fa-bars"></i> Barra de menús</a>
+            <a href="#menus-file"><i class="fas fa-file"></i> File</a>
+            <a href="#menus-edit"><i class="fas fa-edit"></i> Edit</a>
+            <a href="#menus-view"><i class="fas fa-eye"></i> View</a>
+            <a href="#menus-project"><i class="fas fa-project-diagram"></i> Project</a>
+            <a href="#menus-place"><i class="fas fa-plus-circle"></i> Place</a>
+            <a href="#menus-design"><i class="fas fa-pencil-ruler"></i> Design</a>
+            <a href="#menus-tools"><i class="fas fa-tools"></i> Tools</a>
+            <a href="#menus-simulate"><i class="fas fa-play-circle"></i> Simulate</a>
+            <a href="#menus-reports"><i class="fas fa-chart-bar"></i> Reports</a>
+            <a href="#menus-window"><i class="fas fa-window-restore"></i> Window</a>
+            <a href="#menus-help"><i class="fas fa-question-circle"></i> Help</a>
+            <a href="#properties"><i class="fas fa-sliders-h"></i> Properties Panel</a>
+            <a href="#libraries"><i class="fas fa-book"></i> Libraries</a>
+            <a href="#schematic-sheet"><i class="fas fa-layer-group"></i> Hoja de esquemático</a>
+            <a href="#ruteado"><i class="fas fa-route"></i> Ruteado en Altium</a>
+        </nav>
+
+        <main class="content">
+
+           <section id="instalacion" aria-labelledby="instalacion-title">
+    <h2 id="instalacion-title"><i class="fas fa-download"></i> Instalación y activación</h2>
+    <p class="subtitle">Pasos para descargar, iniciar sesión y activar la licencia.</p>
+
+    <div class="process">
+        <div class="step"><strong>Paso 1:</strong> Ve a la página de Altium oficial <a href="https://www.altium.com/es/downloads" target="_blank">Descargas de Altium</a> en la selección de descargar y dar clic en donde dice "Online Installer (exe, 29.68 MB)" de ahí solo aceptar los términos y esperar a que se descargue a tu dispositivo. <span style="color:#666">(img 1)</span></div>
+        <div class="step"><strong>Paso 2:</strong> Una vez estando aquí iniciar sesión con la cuenta institucional que te proporcionen y activar la primera licencia. <span style="color:#666">(img 2)</span></div>
+    </div>
+
+    <div class="image-row" aria-hidden="true">
+        <div class="imgbox">
+            <img src="imagenes/img1.jpg" alt="Imagen 1" style="width: 600px; height: auto; max-width: 100%;">
+            <div class="imglabel">
+                <span class="num">img 1</span>
+                <span class="cap">Instalador online — descarga</span>
+            </div>
+        </div>
+
+        <div class="imgbox">
+            <img src="imagenes/img2.jpg" alt="Imagen 2" style="width: 600px; height: auto; max-width: 100%;">
+            <div class="imglabel">
+                <span class="num">img 2</span>
+                <span class="cap">Inicio de sesión y activación</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+            <section id="crear-esquematico" aria-labelledby="crear-esquematico-title">
+                <h2 id="crear-esquematico-title"><i class="fas fa-file"></i> Crear un nuevo esquemático y guardado</h2>
+                <p class="subtitle">Cómo iniciar un esquemático y garantizar que el documento quede guardado correctamente.</p>
+
+                <div class="process">
+                    <div class="step"><strong>Paso 3:</strong> En el lado superior izquierdo le darás a "File → New → Schematic" con el fin de crear tu esquemático, sin embargo trata de guardar todo cada cierto tiempo. <span style="color:var(--muted)">(img 3)</span></div>
+                    <div class="step"><strong>Paso 4:</strong> Al momento de crear tu esquemático no guardas nada y debes de tener eso en mente, solo se crea pero no dice que lo guardará, lo puedes notar al intentar poner un componente y el símbolo de una hoja se ve en rojo (img 4), por lo que tendrás que darle a guardar en la parte superior izquierda (img 5) nombrar tu carpeta y ahora sí, verás la hoja de color blanco normal, eso indica que tu trabajo ya se guardará (img 6).</div>
+                </div>
+
+                <div class="image-row">
+                    <div class="imgbox">
+                        <img src="imagenes/img3.jpg" alt="Imagen 3">
+                        <div class="imglabel"><span class="num">img 3</span><span class="cap">Crear nuevo esquemático</span></div>
+                    </div>
+                    <div class="imgbox">
+                        <img src="imagenes/img4.jpg" alt="Imagen 4">
+                        <div class="imglabel"><span class="num">img 4</span><span class="cap">Indicador de archivo no guardado</span></div>
+                    </div>
+                    <div class="imgbox">
+                        <img src="imagenes/img5.jpg" alt="Imagen 5">
+                        <div class="imglabel"><span class="num">img 5</span><span class="cap">Guardar proyecto — diálogo</span></div>
+                    </div>
+                    <div class="imgbox">
+                        <img src="imagenes/img6.jpg" alt="Imagen 6">
+                        <div class="imglabel"><span class="num">img 6</span><span class="cap">Hoja guardada correctamente</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="barra-menus" aria-labelledby="barra-menus-title">
+                <h2 id="barra-menus-title"><i class="fas fa-bars"></i> Barra de menús — visión general</h2>
+                <p class="subtitle">La barra de menús organiza y da acceso a la mayoría de funciones del programa.</p>
+
+                <p>La barra de menús es un elemento gráfico fundamental de la interfaz de usuario de un programa (GUI - Graphical User Interface). Se ubica típicamente en la parte superior de la ventana, justo debajo de la barra de título, y consiste en una fila horizontal de palabras o categorías.</p>
+                
+                <p>Su función principal es organizar y dar acceso a todas o la mayoría de las funciones y comandos del software, agrupándolos de forma lógica y jerárquica bajo títulos generales. <span style="color:var(--muted)">(img 7)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img7.jpg" alt="Imagen 7">
+                    <div class="imglabel"><span class="num">img 7</span><span class="cap">Barra de menús</span></div>
+                </div>
+            </section>
+
+            <section id="menus-file" aria-labelledby="menus-file-title">
+                <h2 id="menus-file-title"><i class="fas fa-file"></i> Menú <em>File</em></h2>
+                <p class="subtitle">Funciones principales relacionadas con creación, apertura, guardado e intercambio de documentos. <span style="color:var(--muted)">(img 8)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img8.jpg" alt="Imagen 8">
+                    <div class="imglabel"><span class="num">img 8</span><span class="cap">Opciones del menú File</span></div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-plus"></i> SECCIÓN: "New"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-file-circle-plus"></i> New</h4>
+                            <p>Abre un submenú para crear nuevos documentos individuales (esquemático, PCB, biblioteca, etc.), pero sin un proyecto que los contenga.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-folder-open"></i> Open... (Ctrl+O)</h4>
+                            <p>Abre un documento o proyecto existente desde tu computadora.</p>
+                            <span class="shortcut">Ctrl+O</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-times"></i> Close (Ctrl+F4)</h4>
+                            <p>Cierra el documento activo actualmente en la ventana de trabajo.</p>
+                            <span class="shortcut">Ctrl+F4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-folder-tree"></i> SECCIÓN: "Open Project..."</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-project-diagram"></i> Open Project...</h4>
+                            <p>Abre un archivo de proyecto de Altium (.PrjPcb, .PrjCor, etc.) con todos sus documentos asociados.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sitemap"></i> Open Project Group...</h4>
+                            <p>Abre un grupo de proyectos (.DsnWrk), que permite trabajar con varios proyectos interconectados a la vez (muy útil para sistemas complejos).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-save"></i> SECCIÓN: "Save" (Guardar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-floppy-disk"></i> Save (Ctrl+S)</h4>
+                            <p>Guarda el documento actualmente activo.</p>
+                            <span class="shortcut">Ctrl+S</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-cloud-upload-alt"></i> Save As Managed Sheet to Server...</h4>
+                            <p>Guarda una hoja de esquemático en un servidor administrado (Altium 365 o similar), para trabajo colaborativo en la nube.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-save"></i> Save As...</h4>
+                            <p>Guarda el documento activo con un nuevo nombre o formato.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-copy"></i> Save Copy As...</h4>
+                            <p>Crea una copia independiente del documento activo, sin cambiar la referencia al original.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-save"></i> Save All</h4>
+                            <p>Guarda todos los documentos abiertos en el proyecto actual.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-project-diagram"></i> Save Project As...</h4>
+                            <p>Guarda el proyecto completo con un nuevo nombre.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sitemap"></i> Save Project Group As...</h4>
+                            <p>Guarda el grupo de proyectos con un nuevo nombre.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-exchange-alt"></i> SECCIÓN: "Import" / "Export"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-file-import"></i> Import</h4>
+                            <p>Abre un submenú para importar archivos de otros formatos (Ej.: DXF, Eagle, OrCAD, etc.) a documentos de Altium.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-file-export"></i> Export</h4>
+                            <p>Submenú para exportar documentos de Altium a otros formatos (STEP, PDF, DXF, etc.).</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-magic"></i> Import Wizard...</h4>
+                            <p>Un asistente paso a paso para importar proyectos completos desde otros softwares de PCB (como Eagle, OrCAD, PADS) a Altium.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-code"></i> Run Script...</h4>
+                            <p>Ejecuta scripts (en Delphi, VB, etc.) para automatizar tareas dentro de Altium.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-book"></i> SECCIÓN: "Library Importer"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-database"></i> Library Importer</h4>
+                            <p>Herramienta específica para importar bibliotecas de componentes desde otros sistemas (como Eagle, OrCAD libraries) a las bibliotecas integradas de Altium.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-print"></i> SECCIÓN: "Print" / "Smart PDF"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-print"></i> Print... (Ctrl+P)</h4>
+                            <p>Abre el cuadro de diálogo para imprimir el documento activo (esquemático, plano de PCB, etc.).</p>
+                            <span class="shortcut">Ctrl+P</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-file-pdf"></i> Smart PDF...</h4>
+                            <p>Crea un PDF inteligente del proyecto. No solo es una imagen, sino que puede incluir enlaces clicables entre símbolos, huellas y pistas, muy útil para revisión y documentación.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-history"></i> SECCIÓN: "Recent Documents/Projects/Groups"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-clock-rotate-left"></i> Recent Documents</h4>
+                            <p>Lista de los documentos individuales abiertos recientemente.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-project-diagram"></i> Recent Projects</h4>
+                            <p>Lista de los proyectos abiertos recientemente.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sitemap"></i> Recent Project Groups</h4>
+                            <p>Lista de los grupos de proyectos usados recientemente.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-door-open"></i> SECCIÓN FINAL: "Exit"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-power-off"></i> Exit (Alt+F4)</h4>
+                            <p>Cierra Altium Designer por completo. Si hay trabajo sin guardar, te preguntará si deseas guardarlo antes de salir.</p>
+                            <span class="shortcut">Alt+F4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú File:</strong> Parte superior (New, Open, Close): Para iniciar trabajo con documentos sueltos. Parte central (Save, Import/Export): Para gestionar la persistencia (guardar, convertir formatos). Parte inferior (Print, PDF, Recent, Exit): Para salida, acceso rápido y cierre. Es el menú desde donde gestionas el ciclo de vida completo de tus archivos en Altium, desde que los creas hasta que los exportas o cierras el programa.</p>
+            </section>
+
+            <section id="menus-edit" aria-labelledby="menus-edit-title">
+                <h2 id="menus-edit-title"><i class="fas fa-edit"></i> Menú <em>Edit</em></h2>
+                <p class="subtitle">Operaciones para editar, buscar, seleccionar y organizar objetos en el documento. <span style="color:var(--muted)">(img 9)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img9.jpg" alt="Imagen 9">
+                    <div class="imglabel"><span class="num">img 9</span><span class="cap">Vista del menú Edit</span></div>
+                </div>
+
+                <p>Agrupa todas las operaciones para deshacer cambios, manipular objetos (cortar/copiar/pegar), buscar, seleccionar, modificar y organizar elementos en la hoja de trabajo.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-rotate-left"></i> SECCIÓN: "Undo / Redo / Clipboard" (Portapapeles)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-undo"></i> Undo (Ctrl+Z)</h4>
+                            <p>Deshace la última acción realizada. Es tu salvavidas ante errores.</p>
+                            <span class="shortcut">Ctrl+Z</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-redo"></i> Redo (Ctrl+Y)</h4>
+                            <p>Rehace la última acción que fue deshecha. El texto "Nothing to Redo" cambia a "Redo" cuando hay algo para rehacer.</p>
+                            <span class="shortcut">Ctrl+Y</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-scissors"></i> Cut (Ctrl+X)</h4>
+                            <p>Corta los objetos seleccionados y los coloca en el portapapeles.</p>
+                            <span class="shortcut">Ctrl+X</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-copy"></i> Copy (Ctrl+C)</h4>
+                            <p>Copia los objetos seleccionados al portapapeles.</p>
+                            <span class="shortcut">Ctrl+C</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-paste"></i> Paste (Ctrl+V)</h4>
+                            <p>Pega el contenido del portapapeles en la ubicación del cursor.</p>
+                            <span class="shortcut">Ctrl+V</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-paste"></i> Smart Paste... (Shift+Ctrl+V)</h4>
+                            <p>Pega inteligente. Te permite pegar elementos del portapapés y elegir cómo se integran (creando nuevas etiquetas de red automáticamente, por ejemplo). Muy potente.</p>
+                            <span class="shortcut">Shift+Ctrl+V</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-search"></i> SECCIÓN: "Find & Replace" (Buscar y Reemplazar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-search"></i> Find Text... (Ctrl+F)</h4>
+                            <p>Busca texto específico (nombres de componentes, etiquetas de red, valores) en el documento activo.</p>
+                            <span class="shortcut">Ctrl+F</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-exchange"></i> Replace Text... (Ctrl+H)</h4>
+                            <p>Busca un texto y lo reemplaza por otro en el documento. Útil para renombrar masivamente nets o componentes.</p>
+                            <span class="shortcut">Ctrl+H</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-arrow-right"></i> Find Next (F3)</h4>
+                            <p>Repite la última búsqueda para saltar a la siguiente coincidencia.</p>
+                            <span class="shortcut">F3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-mouse-pointer"></i> SECCIÓN: "Select" / "DeSelect" (Selección)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-object-group"></i> Select</h4>
+                            <p>Abre un submenú para seleccionar objetos de formas específicas: Inside Area, Outside Area, All, Connection, Similar Objects, etc.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-object-ungroup"></i> DeSelect</h4>
+                            <p>Abre un submenú para deseleccionar objetos de formas específicas: Inside Area, Outside Area, All, etc.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-trash"></i> SECCIÓN: "Delete" / "Break Wire" (Eliminar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-trash"></i> Delete</h4>
+                            <p>Elimina permanentemente los objetos seleccionados (tecla Supr o Del también funciona).</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-cut"></i> Break Wire</h4>
+                            <p>Rompe un segmento de cable (wire) o trazado (track) en el punto donde hagas clic, dividiéndolo en dos segmentos. Herramienta esencial en esquemáticos y PCB.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-clone"></i> SECCIÓN: "Duplicate" / "Move" / "Align" (Duplicar y Organizar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-copy"></i> Duplicate (Ctrl+R)</h4>
+                            <p>Crea una copia instantánea de la selección y la deja lista para colocar, sin usar el portapapeles. Muy eficiente.</p>
+                            <span class="shortcut">Ctrl+R</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-arrows"></i> Move</h4>
+                            <p>Submenú para mover objetos de formas especiales: Move, Drag, Move Selection, Move by X, Y... (mover una distancia exacta).</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-align-left"></i> Align</h4>
+                            <p>Submenú con herramientas para alinear objetos seleccionados entre sí: Align Left, Align Right, Align Top, Distribute Horizontally, etc. Es clave para un diseño ordenado.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-arrow-right"></i> SECCIÓN: "Jump" (Saltar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-crosshairs"></i> Jump</h4>
+                            <p>Submenú para mover rápidamente la vista a ubicaciones específicas: Absolute Origin (origen absoluto), Current Origin, Location... (coordenada X,Y exacta), Component... (saltar a un componente por su designador).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-memory"></i> SECCIÓN: "Selection Memory" (Memoria de Selección)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-save"></i> Selection Memory</h4>
+                            <p>Permite guardar hasta 8 selecciones de objetos en "memoria" (con las teclas Ctrl+1 a Ctrl+8) y recuperarlas después (con las teclas 1 a 8). Imprescindible para trabajar eficientemente en PCB complejos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-sort-numeric-up"></i> SECCIÓN: "Increment Part Number"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-plus-one"></i> Increment Part Number</h4>
+                            <p>Incrementa automáticamente el número de parte (designador, como R1, R2, C1, U1) al colocar múltiples copias del mismo componente. Acelera la colocación.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-search-plus"></i> SECCIÓN: "Find Similar Objects"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-search-plus"></i> Find Similar Objects (Shift+F)</h4>
+                            <p>La herramienta de poder de Altium. Al hacer clic sobre un objeto, abre un cuadro de diálogo que te permite seleccionar todos los objetos en el documento con propiedades similares y luego editarlos todos a la vez desde el panel Properties. Es la forma más rápida de hacer cambios globales.</p>
+                            <span class="shortcut">Shift+F</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú Edit:</strong> Parte superior (Undo, Clipboard): Control básico y manipulación esencial de objetos. Parte central (Find, Select, Delete): Herramientas de edición y localización para gestionar lo que hay en tu diseño. Parte inferior (Duplicate, Align, Jump, Memory, Find Similar): Herramientas avanzadas de productividad para organizar, navegar y modificar masivamente con precisión y velocidad. En esencia, el menú Edit es tu caja de herramientas para dar forma y modificar tu diseño una vez has colocado los elementos iniciales.</p>
+            </section>
+
+            <section id="menus-view" aria-labelledby="menus-view-title">
+                <h2 id="menus-view-title"><i class="fas fa-eye"></i> Menú <em>View</em></h2>
+                <p class="subtitle">Controla la visualización: zoom, paneles, grids y presentación de nets. <span style="color:var(--muted)">(img 10)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img10.jpg" alt="Imagen 10">
+                    <div class="imglabel"><span class="num">img 10</span><span class="cap">Paneles y vista (View)</span></div>
+                </div>
+
+                <p>Controla el zoom, el área visible, la visualización de elementos auxiliares (como barras de herramientas y paneles), la cuadrícula (grid) y efectos visuales especiales (como colores para nets).</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-search"></i> SECCIÓN: "Zoom y Enfoque" (Control del Área Visible)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-expand"></i> Fit Document</h4>
+                            <p>Ajusta la vista para que se vea toda la hoja de documento (incluyendo sus bordes). Útil para ver los límites.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-object-group"></i> Fit All Objects (Ctrl+PgDn)</h4>
+                            <p>Ajusta el zoom para que se vean todos los objetos colocados en el documento activo. Es el más usado, ya que ignora el área vacía.</p>
+                            <span class="shortcut">Ctrl+PgDn</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-crop"></i> Area</h4>
+                            <p>Permite dibujar un rectángulo con el ratón para hacer zoom a esa área específica.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-crosshairs"></i> Around Point</h4>
+                            <p>Similar a "Area", pero define el área haciendo clic para el centro y luego arrastrando.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-mouse-pointer"></i> Selected Objects</h4>
+                            <p>Ajusta el zoom para encuadrar perfectamente los objetos que tienes seleccionados.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-search-plus"></i> Zoom In (PgUp)</h4>
+                            <p>Acerca la vista (aumenta el zoom) centrado en el cursor.</p>
+                            <span class="shortcut">PgUp</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-search-minus"></i> Zoom Out (PgDn)</h4>
+                            <p>Aleja la vista (disminuye el zoom) centrado en el cursor.</p>
+                            <span class="shortcut">PgDn</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-history"></i> Zoom Last</h4>
+                            <p>Vuelve al nivel de zoom anterior. Es un "deshacer" para el zoom.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-desktop"></i> Full Screen (Alt+F5)</h4>
+                            <p>Activa/desactiva el modo de pantalla completa, ocultando barras de título y menús para maximizar el área de trabajo.</p>
+                            <span class="shortcut">Alt+F5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-palette"></i> SECCIÓN: "Visualización de Nets (Redes)"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-eye"></i> Show Net Color Override (F5)</h4>
+                            <p>Activa/desactiva la visualización de los colores personalizados asignados a las redes (nets). Cuando está activo, las pistas y pads de una net se muestran con el color que le hayas asignado (muy útil para rastrear señales críticas como relojes, alimentaciones, etc.).</p>
+                            <span class="shortcut">F5</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-fill-drip"></i> Set Net Colors</h4>
+                            <p>Te lleva a la función para asignar manualmente un color a una red específica (normalmente se hace desde el panel PCB o SCH).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-th-large"></i> SECCIÓN: "Interfaz de Usuario" (Barras y Paneles)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-bars"></i> Toolbars</h4>
+                            <p>Submenú para mostrar u ocultar las distintas barras de herramientas (como PCB Standard, Wiring, Utilities, etc.). Te permite personalizar tu espacio de trabajo.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-columns"></i> Panels</h4>
+                            <p>El comando más importante para acceder a las funcionalidades de Altium. Abre una lista de todos los paneles disponibles (como Properties, PCB, SCH, Libraries, Projects, etc.). Como los paneles se cierran a menudo, desde aquí los puedes reabrir.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-border-all"></i> SECCIÓN: "Grids y Unidades" (Cuadrícula y Medidas)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-th"></i> Grids</h4>
+                            <p>Submenú para configurar la visibilidad y el ajuste (snap) de la cuadrícula. Incluye: Toggle Visible Grid (ver/ocultar los puntos/líneas), Toggle Snap Grid (activar/desactivar el "imán" que hace que los objetos se alineen a la grid), Set Snap Grid... (definir el paso de la grid, ej. 1mm, 10mil, 0.1mm).</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-ruler"></i> Toggle Units</h4>
+                            <p>Cambia entre las unidades métricas (mm) e imperiales (mils) para todo el documento activo. Es un interruptor rápido muy útil (Altium usa mils por defecto, 1 mil = 0.001 pulgada).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú View:</strong> Parte superior (Zoom): Navegación espacial. Te mueves por el documento para acercarte a donde necesitas trabajar. Parte central (Net Colors): Énfasis visual. Destacas elementos críticos para el diseño y la depuración. Parte inferior (Toolbars, Panels, Grids): Personalización del entorno. Configuras qué herramientas ves y cómo interactúas con el espacio de trabajo (grid y unidades). En esencia, el menú View es tu control remoto para la pantalla.</p>
+            </section>
+
+            <section id="menus-project" aria-labelledby="menus-project-title">
+                <h2 id="menus-project-title"><i class="fas fa-project-diagram"></i> Menú <em>Project</em></h2>
+                <p class="subtitle">Gestión, validación, versión y empaquetado del proyecto. <span style="color:var(--muted)">(img 11)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img11.jpg" alt="Imagen 11">
+                    <div class="imglabel"><span class="num">img 11</span><span class="cap">Gestión de proyecto</span></div>
+                </div>
+
+                <p>Se enfoca en la gestión de archivos dentro del proyecto, validación del diseño, control de versiones, empaquetado y configuración global de las reglas y opciones del proyecto.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-check-circle"></i> SECCIÓN: "Validate" (Validar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-check-double"></i> Validate</h4>
+                            <p>Ejecuta las verificaciones de reglas eléctricas (ERC - Electrical Rule Check) para el esquemático y las reglas de diseño (DRC - Design Rule Check) para el PCB (dependiendo del documento activo). Es el comando para corregir errores antes de fabricar. Identifica problemas como pines sin conectar, conflictos de alimentación, etc.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-folder"></i> SECCIÓN: "Add/Remove Documents" (Añadir/Eliminar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-plus"></i> Add New to Project</h4>
+                            <p>Abre un submenú para crear y añadir un nuevo documento en blanco (Esquemático, PCB, Biblioteca, etc.) directamente dentro del proyecto actual.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-folder-plus"></i> Add Existing to Project...</h4>
+                            <p>Te permite buscar y agregar un documento existente (un esquemático, un PCB, un archivo de simulación, etc.) desde tu disco duro al proyecto actual.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-trash"></i> Remove from Project...</h4>
+                            <p>Elimina el documento activo (o los seleccionados en el panel Projects) del proyecto, pero NO los borra del disco. Simplemente los desvincula.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-folder-open"></i> Project Documents... (Ctrl+Alt+O)</h4>
+                            <p>Abre un cuadro de diálogo con la lista de todos los documentos del proyecto, permitiendo gestionarlos (abrir, cerrar, cambiar orden, etc.) de una vez.</p>
+                            <span class="shortcut">Ctrl+Alt+O</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-times-circle"></i> SECCIÓN: "Close Project Documents"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-window-close"></i> Close Project Documents</h4>
+                            <p>Cierra todos los documentos abiertos que pertenecen al proyecto actual. Es una forma rápida de limpiar el espacio de trabajo sin cerrar el proyecto en sí.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-code-compare"></i> SECCIÓN: "Differences" (Comparación)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-balance-scale"></i> Show Differences...</h4>
+                            <p>Compara dos documentos o proyectos y muestra las diferencias en un panel especial. Muy útil para comparar una revisión de un PCB con otra o ver qué cambió entre el esquemático y el PCB.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-eye"></i> Show Physical Differences...</h4>
+                            <p>Una comparación más visual y gráfica, que resalta las diferencias físicas (como formas de cobre o trazados) superponiendo colores.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-code-branch"></i> SECCIÓN: "History & Version Control" (Control de Versiones)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-history"></i> History & Version Control</h4>
+                            <p>Submenú para integrar con sistemas de control de versiones (como Git, SVN, o el propio Altium 365). Permite Commit, Update, View History. Permite trabajar en equipo, mantener un historial de cambios y revertir a versiones anteriores.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-box"></i> SECCIÓN: "Project Packager" (Empaquetado)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-box-open"></i> Project Packager...</h4>
+                            <p>La herramienta para enviar tu proyecto a fabricación o a un compañero. Crea una carpeta comprimida (ZIP) que contiene todos los archivos necesarios (documentos de proyecto, bibliotecas, outputs, etc.), asegurando que nada falte. Es el paso final antes de compartir.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-cog"></i> SECCIÓN: "Project Options" (Configuración)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sliders-h"></i> Project Options...</h4>
+                            <p>Abre el corazón de la configuración del proyecto. Aquí defines las reglas y parámetros globales que afectan a todo el diseño: Error Reporting, Connection Matrix, Default Print/Netlist/Simulation Settings, Parameters, Search Paths, etc.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú Project:</strong> Parte superior (Validate): Aseguramiento de calidad. Verifica que tu diseño no tiene errores críticos. Parte central (Add/Remove, Close, Differences): Gestión de la estructura. Construyes y organizas la lista de archivos que componen el proyecto y los comparas. Parte inferior (Version Control, Packager, Options): Gestión de ciclo de vida y configuración. Trabajas en equipo, preparas la salida final y defines las reglas del juego para todo el proyecto. Los comandos más críticos aquí son Validate (para corregir errores) y Project Options (para configurar las reglas).</p>
+            </section>
+
+            <section id="menus-place" aria-labelledby="menus-place-title">
+                <h2 id="menus-place-title"><i class="fas fa-plus-circle"></i> Menú <em>Place</em></h2>
+                <p class="subtitle">Inserción de partes, wires, símbolos jerárquicos, texto y herramientas de dibujo. <span style="color:var(--muted)">(img 12)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img12.jpg" alt="Imagen 12">
+                    <div class="imglabel"><span class="num">img 12</span><span class="cap">Comandos del menú Place</span></div>
+                </div>
+
+                <p>Contiene todos los comandos para insertar los elementos fundamentales de un diseño electrónico: componentes, conexiones eléctricas, símbolos de organización, anotaciones y formas de dibujo.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-microchip"></i> SECCIÓN: "Componentes y Conexiones Eléctricas Principales"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-cube"></i> Part...</h4>
+                            <p>El comando más importante. Abre el panel Libraries para buscar y colocar un componente (resistencias, microcontroladores, conectores) desde tus bibliotecas en el esquemático. Su atajo es esencial (generalmente P, P).</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-plug"></i> Power Port</h4>
+                            <p>Coloca un símbolo de conexión de potencia global (GND, VCC, +5V, -12V). Define nets de alimentación que estarán disponibles en toda la hoja/proyecto.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-bolt"></i> Wire (Ctrl+W)</h4>
+                            <p>Activa la herramienta para dibujar cables (wires). Los wires son las conexiones eléctricas reales en el esquemático. Sin un wire, dos pines no están conectados, aunque estén pegados.</p>
+                            <span class="shortcut">Ctrl+W</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-network-wired"></i> SECCIÓN: "Agrupación y Jerarquía de Conexiones (Buses)"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-road"></i> Bus</h4>
+                            <p>Dibuja una línea de bus. Un bus es una representación gráfica de un grupo de señales relacionadas (ej., D[0..7], ADDR[0..15]). Es una línea gruesa.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sign-in-alt"></i> Bus Entry</h4>
+                            <p>Coloca las líneas diagonales pequeñas que conectan los wires individuales a la línea de bus.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-tag"></i> Net Label</h4>
+                            <p>Coloca una etiqueta de red (net label). Es crucial: asigna un nombre a una red (un wire). Cualquier wire o pin con la misma etiqueta de red estará conectado eléctricamente, sin necesidad de dibujar un wire físico entre ellos. Organiza esquemáticos complejos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-sitemap"></i> SECCIÓN: "Organización de Proyectos Multihojas"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-layer-group"></i> Sheet Symbol</h4>
+                            <p>Coloca un símbolo de hoja que representa a otro documento esquemático (.SchDoc) dentro del mismo proyecto. Crea diseños jerárquicos.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-door-open"></i> Sheet Entry</h4>
+                            <p>Coloca una entrada/salida en un Sheet Symbol. Define las señales que entran o salen de esa sub-hoja.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-anchor"></i> Port</h4>
+                            <p>Similar a Net Label, pero específico para conexiones entre hojas en diseños flat (planos). Un Port en una hoja se conecta con un Port del mismo nombre en otra.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-exchange-alt"></i> Off Sheet Connector</h4>
+                            <p>Similar a Port, pero con un símbolo diferente. Usado para conectar esquemáticos de una manera más gráfica, a menudo en diseños multihojas de estilo "flat".</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-redo"></i> SECCIÓN: "Reutilización y Harnesses"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-copy"></i> Device Sheet Symbol</h4>
+                            <p>Coloca un símbolo que hace referencia a una "Device Sheet" (hoja de dispositivo), que es un esquemático reutilizable almacenado en una biblioteca central, ideal para circuitos estándar (fuentes de alimentación, entradas USB).</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-recycle"></i> Reuse Block...</h4>
+                            <p>Herramienta avanzada para crear un bloque de circuito reutilizable parametrizado, que puede instanciarse múltiples veces. Muy potente para diseños modulares.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-project-diagram"></i> Harness</h4>
+                            <p>Conector de arnés. Permite agrupar diferentes tipos de señales (señales, buses, otros harnesses) en un solo objeto lógico para una mejor organización en esquemáticos muy complejos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-tools"></i> SECCIÓN: "Directivas e Instrucciones Especiales"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-directions"></i> Directives</h4>
+                            <p>Submenú para colocar símbolos de directiva que agregan información extra al diseño, que no es parte del circuito eléctrico en sí, pero que instruye a otras herramientas. Ejemplos: No ERC, PCB Layout, Test Point, Differential Pair.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-font"></i> SECCIÓN: "Texto y Anotaciones"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-font"></i> Text String</h4>
+                            <p>Coloca una cadena de texto libre (como comentarios, títulos, notas) en el documento. Atajo común: P, T.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-square"></i> Text Frame</h4>
+                            <p>Coloca un marco de texto rectangular que puede contener múltiples líneas de texto, útil para bloques de descripción.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sticky-note"></i> Note</h4>
+                            <p>Coloca una nota adhesiva (sticky note) visual en el documento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-paint-brush"></i> SECCIÓN: "Herramientas de Dibujo"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-pen"></i> Drawing Tools</h4>
+                            <p>Submenú con herramientas para dibujar formas no eléctricas (líneas, arcos, polígonos, rectángulos, elipses). Se usan para agregar información gráfica, marcas, áreas de keepout (en PCB) o diagramas de bloques en la documentación.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú Place:</strong> Parte superior (Part, Wire, Power): Los cimientos. Pones los componentes y los conectas eléctricamente. Parte central (Bus, Net Label, Sheet Symbols): Organización y abstracción. Agrupas señales, usas conectores lógicos y estructuras jerárquicas para manejar la complejidad. Parte inferior (Directives, Text, Drawing): Información y anotación. Añades metadatos, reglas, comentarios y gráficos para completar el diseño y la documentación. Los comandos más usados son Part..., Wire (Ctrl+W), y Net Label.</p>
+            </section>
+
+            <section id="menus-design" aria-labelledby="menus-design-title">
+                <h2 id="menus-design-title"><i class="fas fa-pencil-ruler"></i> Menú <em>Design</em></h2>
+                <p class="subtitle">Generación de netlists, plantillas, sincronización y utilidades de síntesis. <span style="color:var(--muted)">(img 13)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img13.jpg" alt="Imagen 13">
+                    <div class="imglabel"><span class="num">img 13</span><span class="cap">Menú Design</span></div>
+                </div>
+
+                <p>Contiene comandos para generar elementos a partir del diseño, sincronizar información entre el esquemático y el PCB, crear netlists, gestionar plantillas y realizar operaciones de síntesis de bibliotecas o documentos.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-file-import"></i> SECCIÓN: "Import" (Importar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-download"></i> Import Schematic...</h4>
+                            <p>Suele referirse a importar un esquemático de otro software (como OrCAD, Eagle) al formato nativo de Altium. O puede ser para importar cambios desde un PCB.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-book"></i> SECCIÓN: "Make Library" (Crear Bibliotecas)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-book-open"></i> Make Schematic Library</h4>
+                            <p>Crea automáticamente una biblioteca de esquemáticos (.SchLib) que contiene todos los componentes usados en el proyecto actual. Es vital para portabilidad y respaldo de los símbolos que realmente usaste.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-book-medical"></i> Make Integrated Library</h4>
+                            <p>Compila y genera una biblioteca integrada (.IntLib) a partir de las bibliotecas de esquemático (.SchLib) y PCB (.PcbLib) referenciadas en tu proyecto. Es el formato final y empaquetado para distribuir tus componentes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-file-alt"></i> SECCIÓN: "Sheet Templates" (Plantillas de Hoja)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-stamp"></i> Sheet Templates</h4>
+                            <p>Submenú para gestionar plantillas de documento. Permite cargar, guardar o actualizar plantillas (.SchDot, .PcbDot) que definen el formato de título, bordes, logos y parámetros estándar para todas tus hojas de esquemático o PCB, asegurando uniformidad corporativa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-network-wired"></i> SECCIÓN: "Netlist" (Lista de Conexiones)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sitemap"></i> Netlist For Project</h4>
+                            <p>Genera un archivo de netlist (lista de conexiones) para todo el proyecto. La netlist es el "contrato" o "mapa de conexiones" que se pasa del esquemático al PCB. Es un paso fundamental en el flujo de diseño.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-file"></i> Netlist For Document</h4>
+                            <p>Genera una netlist solo para el documento esquemático activo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-play"></i> SECCIÓN: "Simulate" (Simular)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-play-circle"></i> Simulate</h4>
+                            <p>Ejecuta una simulación del circuito (análisis de DC, transitorio, AC, etc.) basada en el esquemático activo. Requiere que los componentes tengan modelos de simulación asociados. Abre el panel Mixed Sim para configurar y ver resultados.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-sitemap"></i> SECCIÓN: "Synchronization & Hierarchy" (Sincronización y Jerarquía)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-file"></i> Create Sheet From Sheet Symbol</h4>
+                            <p>Genera automáticamente una nueva hoja esquemática (.SchDoc) en blanco vinculada a un Sheet Symbol que hayas colocado. Es la forma de implementar un diseño jerárquico.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-cube"></i> Create Component From Sheet</h4>
+                            <p>Crea un símbolo de componente en una biblioteca (.SchLib) a partir de una hoja esquemática seleccionada. Es una forma de convertir un subcircuito en un componente reutilizable.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-sync"></i> SECCIÓN: "Rename & Synchronize" (Renombrar y Sincronizar)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sync-alt"></i> Synchronize Sheet Entries and Ports</h4>
+                            <p>Sincroniza las Sheet Entries de un Sheet Symbol con los Ports de la hoja esquemática a la que hace referencia. Si añades un nuevo Port en la hoja hija, este comando lo añadirá como Sheet Entry en el símbolo padre (y viceversa). Esencial para mantener la interfaz jerárquica actualizada.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú Design:</strong> Parte superior (Import, Make Library): Síntesis y conversión. Generas nuevos elementos (bibliotecas) a partir de tu trabajo o importas diseños externos. Parte central (Templates, Netlist, Simulate): Configuración, exportación y verificación. Estableces estándares, generas el mapa de conexiones (netlist) y verificas el comportamiento con simulación. Parte inferior (Create Sheet..., Synchronize): Gestión de jerarquía y sincronización. El núcleo del trabajo con diseños complejos multihoja. Comandos clave: Make Schematic Library (para respaldar), Synchronize Sheet Entries and Ports (para jerarquías).</p>
+            </section>
+
+            <section id="menus-tools" aria-labelledby="menus-tools-title">
+                <h2 id="menus-tools-title"><i class="fas fa-tools"></i> Menú <em>Tools</em></h2>
+                <p class="subtitle">Herramientas para gestionar parámetros, huellas, anotación, actualización de bibliotecas, navegación y configuración. <span style="color:var(--muted)">(img 14)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img14.jpg" alt="Imagen 14">
+                    <div class="imglabel"><span class="num">img 14</span><span class="cap">Herramientas (Tools)</span></div>
+                </div>
+
+                <p>Agrupa herramientas para gestionar parámetros, huellas (footprints), anotación, actualización de bibliotecas, navegación entre documentos, configuración de preferencias y funciones avanzadas de ingeniería.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-sitemap"></i> SECCIÓN: "Navegación Jerárquica"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-level-up-alt"></i> Up/Down Hierarchy</h4>
+                            <p>Te permite navegar rápidamente en un diseño esquemático jerárquico. Down te lleva al interior de un Sheet Symbol seleccionado. Up te devuelve al nivel superior. Esencial para moverse en proyectos complejos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-table"></i> SECCIÓN: "Gestores Masivos" (Los "Managers")</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-list-alt"></i> Parameter Manager...</h4>
+                            <p>Herramienta de poder absoluto. Abre un cuadro de diálogo que te permite ver y editar todos los parámetros de todos los componentes en tu proyecto (Valor, Part Number, Vendor, etc.) en una sola tabla tipo hoja de cálculo. Puedes hacer cambios masivos con filtros y reglas.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-shoe-prints"></i> Footprint Manager...</h4>
+                            <p>Similar al anterior, pero enfocado en gestionar las huellas (footprints) asignadas a cada componente. Puedes revisar, cambiar o asignar footprints a múltiples componentes a la vez, verificar si existen en las bibliotecas, y detectar conflictos.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sync"></i> Update From Libraries...</h4>
+                            <p>Busca en tus bibliotecas conectadas y actualiza automáticamente los símbolos esquemáticos y/o footprints de los componentes en tu proyecto a la última versión disponible en la biblioteca. Mantiene tu diseño sincronizado con las librerías centrales.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-clipboard-list"></i> SECCIÓN: "Item Manager"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-tasks"></i> Item Manager...</h4>
+                            <p>Un panel central que lista todos los "ítems" (componentes, nets, etc.) de tu proyecto y su estado de implementación (¿Tiene footprint? ¿Está colocado en el PCB?). Te ayuda a identificar rápidamente qué falta por hacer.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-sort-numeric-up"></i> SECCIÓN: "Anotación"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-tag"></i> Annotation</h4>
+                            <p>Submenú con herramientas para asignar y gestionar los designadores de componentes (R1, C2, U3). Incluye Annotate Schematics..., Force Annotate All Schematics, Reset All, Reset Duplicates. Es crítico para mantener un proyecto organizado.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-exchange-alt"></i> SECCIÓN: "Navegación Cruzada y Selección" (Cross-Probe)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-crosshairs"></i> Cross Probe</h4>
+                            <p>La herramienta más útil para depurar. Al activarla, haces clic en un objeto (un componente, una net) en el esquemático y la vista en el PCB salta automáticamente a ese mismo objeto (y viceversa). Es la forma de encontrar cosas rápidamente entre los dos mundos.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-mouse-pointer"></i> Cross Select Mode (Shift+Ctrl+X)</h4>
+                            <p>Cuando está activado, la selección se sincroniza entre el esquemático y el PCB. Si seleccionas un componente en el esquemático, se selecciona automáticamente en el PCB. Ideal para ubicar grupos de componentes.</p>
+                            <span class="shortcut">Shift+Ctrl+X</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-cogs"></i> SECCIÓN: "Configuración Global"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sliders-h"></i> Preferences...</h4>
+                            <p>Abre las Preferencias Globales de Altium Designer. Aquí configuras TODO el comportamiento del programa: colores, tamaños de grids, rutas de bibliotecas, tipos de archivos por defecto, atajos de teclado (Key Mapping), opciones de panel, configuración de respaldo (autoguardado), etc. Es el "panel de control" maestro del software.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú Tools:</strong> Parte superior (Hierarchy, Managers): Gestión y sincronización de datos. Parte central (Annotation, Convert): Organización y utilidades. Parte inferior (Cross Probe, Pin Swap, Preferences): Flujo de trabajo, optimización y configuración. Los comandos más importantes son Cross Probe (indispensable), Footprint/Parameter Manager (para proyectos grandes) y Preferences (para adaptar Altium a ti).</p>
+            </section>
+
+            <section id="menus-simulate" aria-labelledby="menus-simulate-title">
+                <h2 id="menus-simulate-title"><i class="fas fa-play-circle"></i> Menú <em>Simulate</em></h2>
+                <p class="subtitle">Herramientas para configurar y ejecutar simulaciones SPICE desde el esquemático. <span style="color:var(--muted)">(img 15)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img15.jpg" alt="Imagen 15">
+                    <div class="imglabel"><span class="num">img 15</span><span class="cap">Menú Simulate</span></div>
+                </div>
+
+                <p>Proporciona las herramientas para configurar, ejecutar y analizar simulaciones de tu circuito esquemático. Necesitas que los componentes tengan modelos de simulación (SPICE) asociados para que funcione.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-play"></i> SECCIÓN: "Ejecución y Panel de Control"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-play"></i> Run Simulation (F9)</h4>
+                            <p>Inicia o reinicia la ejecución de la simulación configurada actualmente. Es el botón de "play". Después de presionarlo, los resultados aparecerán en el panel Mixed Sim (osciloscopio virtual) o en el Simulation Dashboard.</p>
+                            <span class="shortcut">F9</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-tachometer-alt"></i> Simulation Dashboard</h4>
+                            <p>Abre o cierra el panel Simulation Dashboard. Este panel es el centro de mando moderno para la simulación en Altium. Desde aquí configuras los análisis, colocas fuentes y sondas de forma visual, y ves los resultados en gráficos integrados.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-bolt"></i> SECCIÓN: "Colocar Elementos de Simulación" (Sources & Probes)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-bolt"></i> Place Sources</h4>
+                            <p>Submenú para colocar fuentes de excitación de señales en tu esquemático, necesarias para estimular el circuito durante la simulación. Ejemplos: Voltage Pulse (Pulso), Voltage Sine (Seno), Voltage DC (DC), Current Source, etc.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-microchip"></i> Place Models</h4>
+                            <p>Submenú para colocar modelos SPICE genéricos o especializados directamente en el esquemático, si no están incorporados en el símbolo del componente.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-vial"></i> Place Probes</h4>
+                            <p>Submenú para colocar puntos de medición (sondas) en tu esquemático. Estas sondas definen qué voltajes o corrientes quieres graficar en los resultados. Son como las puntas de un osciloscopio.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-network-wired"></i> SECCIÓN: "Generación de Netlist"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-code"></i> Generate Netlist</h4>
+                            <p>Genera el archivo de netlist SPICE (normalmente .nsx) de tu esquemático. Este archivo es la descripción textual del circuito que el motor de simulación (SPICE) entiende y procesa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Flujo de trabajo típico:</strong> 1. Asegurarte de que los componentes tengan modelos SPICE. 2. Usar Place Sources para añadir señales de entrada. 3. Usar Place Probes para marcar puntos de observación. 4. Abrir Simulation Dashboard para configurar el tipo de análisis. 5. Presionar Run Simulation (F9). 6. Analizar los gráficos. En esencia, el menú Simulate transforma tu esquemático de Altium en un "laboratorio virtual".</p>
+            </section>
+
+            <section id="menus-reports" aria-labelledby="menus-reports-title">
+                <h2 id="menus-reports-title"><i class="fas fa-chart-bar"></i> Menú <em>Reports</em></h2>
+                <p class="subtitle">Generación de informes críticos para producción, documentación y verificación. <span style="color:var(--muted)">(img 16)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img16.jpg" alt="Imagen 16">
+                    <div class="imglabel"><span class="num">img 16</span><span class="cap">Reportes y BOM</span></div>
+                </div>
+
+                <p>Contiene herramientas para generar listados, informes estructurados y documentos basados en los datos de tu proyecto, así como una herramienta de medición. Estos reportes son esenciales para la cadena de suministro, la producción y la revisión del diseño.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-clipboard-list"></i> SECCIÓN: "Informes Principales de Fabricación y Ensamblaje"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-list-check"></i> Bill of Materials (BOM)</h4>
+                            <p>El reporte más importante. Genera la Lista de Materiales (BOM) de tu proyecto. Es una tabla que enumera todos los componentes únicos usados, con información crítica como Designador, Cantidad, Valor, Footprint, Part Number, Proveedor, Descripción. Puedes exportarla a Excel (.xlsx), CSV, PDF o HTML.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-balance-scale"></i> BOM Compare (ActiveBOM required)</h4>
+                            <p>Compara dos listas de materiales (BOMs). Requiere el uso del panel ActiveBOM. Es útil para comparar revisiones de un diseño o para validar tu BOM contra una lista aprobada.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-industry"></i> SECCIÓN: "Reportes de Fabricación"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-industry"></i> Manufacturing Data</h4>
+                            <p>Submenú que agrupa reportes específicos para la fabricación del PCB físico (no del ensamblaje). Incluye PCB Reports... (genera un reporte de estadísticas de la PCB), Measure Primitives... (herramienta avanzada de medición), Board Information... (da información general de la placa).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-search"></i> SECCIÓN: "Herramienta de Medición"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-ruler"></i> Measure Distance (Ctrl+M)</h4>
+                            <p>Activa la herramienta de regla o medición de distancia. Al hacer clic en dos puntos en el documento activo (ya sea esquemático o PCB), muestra la distancia directa entre ellos (Delta) y los componentes individuales en X e Y. Es fundamental para verificar dimensiones físicas, espaciamientos y cumplir con reglas de diseño en el PCB.</p>
+                            <span class="shortcut">Ctrl+M</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú Reports:</strong> Parte superior (BOM, Manufacturing Data): Salida para producción. Generas los datos que necesitan el ensamblador (BOM) y el fabricante de PCBs. Parte inferior (Measure Distance): Herramienta de verificación en tiempo real. El Bill of Materials (BOM) es, sin duda, el reporte más crítico y usado de todo el menú.</p>
+            </section>
+
+            <section id="menus-window" aria-labelledby="menus-window-title">
+                <h2 id="menus-window-title"><i class="fas fa-window-restore"></i> Menú <em>Window</em></h2>
+                <p class="subtitle">Organización de ventanas, cierre de documentos y gestión de licencias. <span style="color:var(--muted)">(img 17)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img17.jpg" alt="Imagen 17">
+                    <div class="imglabel"><span class="num">img 17</span><span class="cap">Menú Window</span></div>
+                </div>
+
+                <p>Contiene comandos para organizar espacialmente las ventanas abiertas, cerrar documentos y acceder a funciones administrativas como la gestión de licencias. También muestra una lista de los documentos abiertos actualmente.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-th"></i> SECCIÓN: "Organización de Ventanas" (Tile & Arrange)</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-border-all"></i> Tile (Shift+F4)</h4>
+                            <p>Organiza automáticamente todas las ventanas de documento abiertas en un mosaico (tile) que llena toda el área de trabajo principal, sin superponerlas. Cada ventana obtiene un tamaño similar.</p>
+                            <span class="shortcut">Shift+F4</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-grip-lines"></i> Tile Horizontally / Vertically</h4>
+                            <p>Organiza las ventanas en mosaicos apilados horizontalmente (una arriba de la otra) o verticalmente (una al lado de la otra).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-times-circle"></i> SECCIÓN: "Cierre de Documentos"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-window-close"></i> Close Documents</h4>
+                            <p>Cierra todas las ventanas de documentos abiertas que estén actualmente visibles y en el foco dentro del área de trabajo principal.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-times"></i> Close All</h4>
+                            <p>Cierra absolutamente todos los documentos abiertos en el proyecto/espacio de trabajo, independientemente de si están minimizados, en pestañas o en ventanas flotantes. Es una limpieza total.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-key"></i> SECCIÓN: "Acceso Rápido y Administración"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-home"></i> Home Page</h4>
+                            <p>Abre o lleva el foco a la Página de Inicio (Home Page) de Altium. Esta es la pantalla de bienvenida que muestra accesos rápidos a proyectos recientes, noticias, actualizaciones y recursos.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-key"></i> License Management</h4>
+                            <p>Abre el cuadro de diálogo de Gestión de Licencias. Desde aquí puedes ver el tipo de licencia activa, agregar o remover licencias, verificar el estado de la suscripción, solucionar problemas de activación.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-list"></i> SECCIÓN: "Lista de Documentos Abiertos"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-file"></i> Documentos abiertos</h4>
+                            <p>En la parte inferior del menú, se lista automáticamente todos los documentos abiertos actualmente en tu sesión de Altium, con una marca de verificación (✓) junto al documento activo. Hacer clic en cualquier nombre de esta lista trae esa ventana al frente y la convierte en la activa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú Window:</strong> Parte superior (Tile, Arrange): Control espacial del entorno de trabajo. Optimizas el uso de tus pantallas para multitarea y comparación. Parte central (Close, Home, License): Gestión de sesión y sistema. Parte inferior (Lista de documentos): Navegación rápida entre archivos. Comandos clave: Tile (Shift+F4) para comparar vistas rápidamente, y la lista de documentos en la parte inferior para cambiar de ventana al instante.</p>
+            </section>
+
+            <section id="menus-help" aria-labelledby="menus-help-title">
+                <h2 id="menus-help-title"><i class="fas fa-question-circle"></i> Menú <em>Help</em></h2>
+                <p class="subtitle">Acceso a documentación, atajos, soporte y comunidad. <span style="color:var(--muted)">(img 18)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img18.jpg" alt="Imagen 18">
+                    <div class="imglabel"><span class="num">img 18</span><span class="cap">Centro de ayuda</span></div>
+                </div>
+
+                <p>Proporciona acceso a documentación, novedades, guías de aprendizaje, referencia de atajos de teclado, gestión de licencias y la comunidad de usuarios. Es tu primer punto de contacto para el soporte y la mejora de tus habilidades.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-star"></i> SECCIÓN: "Novedades y Exploración"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-newspaper"></i> New in Altium Designer</h4>
+                            <p>Abre una ventana o página web que detalla las nuevas características y mejoras de la versión actual (o reciente) de Altium Designer. Es esencial para mantenerse actualizado.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-compass"></i> Exploring Altium Designer</h4>
+                            <p>Tu guía de inicio y aprendizaje integrada. Suele abrir un panel interactivo o una serie de recursos que te ayudan a explorar las capacidades del software. Ideal para usuarios nuevos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-keyboard"></i> SECCIÓN: "Referencia y Productividad"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-keyboard"></i> Shortcut Keys</h4>
+                            <p>Abre una referencia completa de los atajos de teclado (hotkeys) de Altium Designer. Es una lista extensa y a menudo buscable de todos los comandos y sus combinaciones de teclas asociadas. Es una de las herramientas más valiosas para aumentar drásticamente tu velocidad y eficiencia.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-question-circle"></i> Help Contents (F1)</h4>
+                            <p>Abre el sistema de ayuda oficial y documentación técnica de Altium. Es una enciclopedia completa de todas las funciones, con explicaciones detalladas, procedimientos paso a paso y ejemplos.</p>
+                            <span class="shortcut">F1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-users"></i> SECCIÓN: "Comunidad y Soporte"</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-users"></i> User Forums</h4>
+                            <p>Te lleva directamente a los foros oficiales de la comunidad de Altium. Es el lugar donde puedes hacer preguntas a otros usuarios y expertos, buscar soluciones a problemas específicos, compartir conocimientos y técnicas.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-graduation-cap"></i> Knowledge Center</h4>
+                            <p>Un portal integrado con artículos de base de conocimiento y soluciones técnicas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note"><i class="fas fa-info-circle"></i> <strong>Resumen de la lógica del menú Help:</strong> Parte superior (New, Exploring): Aprendizaje y actualización. Parte central (Licensing, Shortcuts): Configuración y eficiencia. Parte inferior (Forums): Soporte comunitario. Comandos clave: F1 (Help Contents): Tu mejor amigo para entender cualquier función. Shortcut Keys: La clave para volverte rápido. User Forums: Donde encontrarás soluciones a problemas reales y específicos que no están en el manual.</p>
+            </section>
+
+            <section id="properties" aria-labelledby="properties-title">
+                <h2 id="properties-title"><i class="fas fa-sliders-h"></i> Properties Panel (Panel de propiedades)</h2>
+                <p class="subtitle">Panel contextual que muestra propiedades según el objeto seleccionado. <span style="color:var(--muted)">(img 19, 20, 21)</span></p>
+
+                <div class="image-row">
+                    <div class="imgbox">
+                        <img src="imagenes/img19.jpg" alt="Imagen 19" style="width: 600px; height: auto; max-width: 100%;">
+                        
+                        <div class="imglabel"><span class="num">img 19</span><span class="cap">Panel de propiedades</span></div>
+                    </div>
+                    <div class="imgbox">
+                        <img src="imagenes/img20.jpg" alt="Imagen 20">
+                        <div class="imglabel"><span class="num">img 20</span><span class="cap">Pestaña Components</span></div>
+                    </div>
+                    <div class="imgbox">
+                        <img src="imagenes/img21.jpg" alt="Imagen 21">
+                        <div class="imglabel"><span class="num">img 21</span><span class="cap">Properties - Document Options</span></div>
+                    </div>
+                </div>
+
+                <p>En Altium, el Properties Panel es una herramienta central e interactiva que cambia dinámicamente según lo que tengas seleccionado en el espacio de trabajo, que se encuentra ubicado en una esquina del lado derecho (esquemático, PCB, librería, etc.).</p>
+
+                <div class="grid-2" style="margin-top:12px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">1. Components <span style="color:var(--muted);font-size:14px;">(img 20)</span></h3>
+                        <p>Esta pestaña muestra propiedades específicas del componente seleccionado en el esquemático. Aquí defines y editas:</p>
+                        <ul class="list-compact">
+                            <li><strong>Designator:</strong> Referencia única (ej. R1, U3, C10).</li>
+                            <li><strong>Comment:</strong> Descripción o valor (ej. 10k, ATMega328P).</li>
+                            <li><strong>Description:</strong> Texto descriptivo del componente.</li>
+                            <li><strong>Footprint:</strong> El modelo físico (paquete) que usará en el PCB.</li>
+                            <li><strong>Library Link:</strong> Información de la librería de origen.</li>
+                            <li><strong>Part Choice:</strong> Si hay múltiples partes dentro de un componente.</li>
+                            <li><strong>Parameters:</strong> Parámetros personalizados o técnicos (voltaje, corriente, tolerancia, etc.).</li>
+                            <li><strong>Type:</strong> (Standard, Mechanical, Graphical, etc.).</li>
+                        </ul>
+                        <p class="tip" style="margin-top:10px;font-size:14px;">Aquí defines qué es el componente y cómo se vinculará con el PCB.</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">2. Comments and Tasks</h3>
+                        <p>Esta pestaña está más relacionada con gestión de proyectos, anotaciones y acciones pendientes:</p>
+                        <ul class="list-compact">
+                            <li><strong>Comments:</strong> Permite añadir notas o comentarios al componente, útiles para colaboración o recordatorios.</li>
+                            <li><strong>Tasks:</strong> Lista de tareas o verificaciones asociadas al componente. Ejemplos: "Footprint no asignado", "Componente no aprobado", "Falta parámetro de temperatura".</li>
+                            <li><strong>State:</strong> Estado de la tarea (pendiente, completada).</li>
+                            <li><strong>Assignee:</strong> Persona responsable (en entornos colaborativos).</li>
+                        </ul>
+                        <p class="note" style="margin-top:10px;font-size:14px;">Es una sección más de gestión y revisión, no de propiedades eléctricas.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top:25px;">
+                    <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">3. Properties - Document Options <span style="color:var(--muted);font-size:14px;">(img 21)</span></h3>
+                    
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="font-size:15px;color:var(--text);margin-bottom:10px;">General Parameters</h4>
+                            <p>Define parámetros globales del documento, como:</p>
+                            <ul class="list-compact">
+                                <li>CompanyName, ProjectName, Revision, etc.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="font-size:15px;color:var(--text);margin-bottom:10px;">Selection Filter</h4>
+                            <p>Filtro de selección: decide qué tipos de objetos puedes seleccionar en la hoja.</p>
+                            <ul class="list-compact">
+                                <li><strong>All – On:</strong> Activa/desactiva todos.</li>
+                                <li>Components, Wires, Buses, Sheet Symbols, etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-top:15px;">
+                        <div>
+                            <h4 style="font-size:15px;color:var(--text);margin-bottom:10px;">General</h4>
+                            <p>Configuración general de la hoja:</p>
+                            <ul class="list-compact">
+                                <li><strong>Units:</strong> mm (milímetros) o mils (milésimas de pulgada).</li>
+                                <li><strong>Visible Grid:</strong> Tamaño de la cuadrícula visible.</li>
+                                <li><strong>Snap Grid:</strong> Tamaño de la cuadrícula magnética.</li>
+                                <li><strong>Electrical Grid:</strong> Cuadrícula eléctrica para conectar automáticamente.</li>
+                                <li><strong>Document Font:</strong> Fuente por defecto para textos nuevos.</li>
+                                <li><strong>Sheet Border:</strong> Mostrar borde de la hoja.</li>
+                                <li><strong>Sheet Color:</strong> Color de fondo de la hoja.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="font-size:15px;color:var(--text);margin-bottom:10px;">Page Options</h4>
+                            <p>Opciones de página/formato:</p>
+                            <ul class="list-compact">
+                                <li><strong>Template:</strong> Plantilla de documento (estándar o personalizada).</li>
+                                <li><strong>Choose Size:</strong> Tamaño del papel (A4, Letter, etc.).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="note" style="margin-top:15px;"><i class="fas fa-info-circle"></i> <strong>¿Para qué sirve todo esto?</strong> Estás configurando el entorno de trabajo de tu hoja esquemática: defines la cuadrícula para alinear componentes, configuras unidades, controlas qué objetos son seleccionables, personalizas apariencia y preparas plantillas y tamaño de hoja para impresión o PDF.</p>
+                </div>
+
+                <div class="grid-2" style="margin-top:25px;background:#f9f9f9;padding:15px;border-radius:8px;">
+                    <div>
+                        <h4 style="font-size:15px;color:var(--primary-color);margin-bottom:10px;">📌 Consejo rápido</h4>
+                        <p>Si haces clic en un componente en la hoja, este panel cambiará automáticamente a mostrar las pestañas Components / Comments and Tasks / Properties que vimos antes. Este panel es dinámico y contextual.</p>
+                    </div>
+                    <div>
+                        <h4 style="font-size:15px;color:var(--primary-color);margin-bottom:10px;">📋 Resumen visual conceptual</h4>
+                        <table style="width:100%;font-size:13px;">
+                            <tr style="background:var(--gold-weak);">
+                                <th style="padding:8px;text-align:left;">Pestaña</th>
+                                <th style="padding:8px;text-align:left;">¿Qué controla?</th>
+                                <th style="padding:8px;text-align:left;">Ejemplo de uso</th>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px;border-bottom:1px solid var(--border);"><strong>Components</strong></td>
+                                <td style="padding:8px;border-bottom:1px solid var(--border);">La identidad y datos técnicos del componente.</td>
+                                <td style="padding:8px;border-bottom:1px solid var(--border);">Cambiar R1 por "10k", asignarle el footprint "RESC1005X55".</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px;border-bottom:1px solid var(--border);"><strong>Comments and Tasks</strong></td>
+                                <td style="padding:8px;border-bottom:1px solid var(--border);">Notas y tareas de revisión/colaboración.</td>
+                                <td style="padding:8px;border-bottom:1px solid var(--border);">Añadir: "Verificar modelo 3D con mecánica".</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px;"><strong>Properties</strong></td>
+                                <td style="padding:8px;">Apariencia y posición en el esquemático.</td>
+                                <td style="padding:8px;">Mover a (X:150, Y:200), rotar 90°, bloquear.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="libraries" aria-labelledby="libraries-title">
+    <h2 id="libraries-title"><i class="fas fa-book"></i> Libraries (Bibliotecas)</h2>
+    <p class="subtitle">Panel para navegar y gestionar bibliotecas de símbolos, footprints y modelos 3D. <span style="color:var(--muted)">(img 22)</span></p>
+
+    <div class="imgbox" style="margin-top:12px;">
+        <img src="imagenes/img22.jpg" alt="Imagen 22" style="width: 95%; height: auto; display: block; margin: 0 auto; max-width: 1200px;">
+        <div class="imglabel"><span class="num">img 22</span><span class="cap">Panel Libraries</span></div>
+    </div>
+
+    <p>Es el panel donde puedes navegar y acceder a todas las bibliotecas de componentes (símbolos esquemáticos, footprints, modelos 3D, etc.) que tienes cargadas en tu proyecto o instaladas en el sistema.</p>
+
+    <div class="tools-grid">
+        <div class="tool-item">
+            <div class="tool-icon">1</div>
+            <div><strong>Selection Filter</strong></div>
+            <div class="tool-label">Filtra qué tipos de objetos puedes seleccionar en el esquema (cables, componentes, textos, etc.)</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">2</div>
+            <div><strong>Drag Object</strong></div>
+            <div class="tool-label">Arrastra componentes manteniendo sus conexiones (cables) intactas</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">3</div>
+            <div><strong>Select Objects by Lasso</strong></div>
+            <div class="tool-label">Selecciona varios objetos dibujando un área libre alrededor de ellos</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">4</div>
+            <div><strong>Align Objects</strong></div>
+            <div class="tool-label">Alinea componentes seleccionados (izquierda, derecha, centro, etc.)</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">5</div>
+            <div><strong>Place Part</strong></div>
+            <div class="tool-label">Abre el panel de bibliotecas para colocar un componente nuevo en el esquema</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">6</div>
+            <div><strong>Place Wire</strong></div>
+            <div class="tool-label">Dibuja cables para conectar componentes eléctricamente</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">7</div>
+            <div><strong>Place GND Power Port</strong></div>
+            <div class="tool-label">Coloca un símbolo de tierra (GND) u otro puerto de potencia</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">8</div>
+            <div><strong>Place Signal Harness</strong></div>
+            <div class="tool-label">Para agrupar varias señales en un "harness" (conjunto de cables)</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">9</div>
+            <div><strong>Place Sheet Symbol</strong></div>
+            <div class="tool-label">Inserta un símbolo de hoja (para diseño jerárquico)</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">10</div>
+            <div><strong>Place Port</strong></div>
+            <div class="tool-label">Coloca un puerto de entrada/salida para conectar entre hojas</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">11</div>
+            <div><strong>Place Parameter Set</strong></div>
+            <div class="tool-label">Añade parámetros o reglas a un net (como clases de diferencial)</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">12</div>
+            <div><strong>Place Text String</strong></div>
+            <div class="tool-label">Inserta texto libre en el esquema (comentarios, notas)</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">13</div>
+            <div><strong>Place Arcs</strong></div>
+            <div class="tool-label">Herramienta para dibujar arcos (líneas curvas, círculos, etc.)</div>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">14</div>
+            <div><strong>Place Simulation Voltage Source</strong></div>
+            <div class="tool-label">Inserta una fuente de voltaje para simulaciones SPICE</div>
+        </div>
+    </div>
+
+    <p class="note" style="margin-top:20px;"><i class="fas fa-info-circle"></i> Es básicamente el kit de herramientas principales que usas para dibujar y organizar tu esquema electrónico.</p>
+</section>
+
+            <section id="schematic-sheet" aria-labelledby="schematic-sheet-title">
+                <h2 id="schematic-sheet-title"><i class="fas fa-layer-group"></i> Hoja de Esquemático (Schematic Sheet)</h2>
+                <p class="subtitle">El lienzo principal para construir su diagrama esquemático. <span style="color:var(--muted)">(img 23)</span></p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/img23.jpg" alt="Imagen 23">
+                    <div class="imglabel"><span class="num">img 23</span><span class="cap">Hoja esquemática</span></div>
+                </div>
+
+                <p>En la hoja de esquemático se colocan componentes, se conectan con wires, se añaden net labels, puertos, conectores y anotaciones. Es el documento que representa la lógica eléctrica antes de la transferencia al PCB.</p>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🖋️ ¿Qué puedes hacer ahí?</h3>
+                        <ul class="list-compact">
+                            <li><strong>Colocar componentes</strong> (Place Part)</li>
+                            <li><strong>Conectar con cables</strong> (Place Wire)</li>
+                            <li><strong>Añadir etiquetas de red</strong> (Net Labels)</li>
+                            <li><strong>Insertar puertos, conectores, fuentes de alimentación, etc.</strong></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">💡 Recomendaciones</h3>
+                        <ul class="list-compact">
+                            <li>Use herramientas de alineación para mantener claridad</li>
+                            <li>Utilice net labels para organizar señales complejas</li>
+                            <li>Documente y versionice conforme avance el proyecto</li>
+                            <li>Mantenga un diseño limpio y ordenado</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="note" style="margin-top:20px;"><i class="fas fa-info-circle"></i> <strong>En resumen:</strong> Es tu lienzo de dibujo electrónico, donde construyes el diagrama esquemático de tu circuito antes de pasar al PCB.</p>
+            </section>
+
+
+            <!-- Insertar esta sección después de la sección "conclusion" y antes del footer -->
+
+            <section id="ruteado" aria-labelledby="ruteado-title">
+                <h2 id="ruteado-title"><i class="fas fa-route"></i> Ruteado en Altium Designer</h2>
+                <p class="subtitle">Proceso de trazar las rutas o pistas (tracks) que conectan eléctricamente los componentes en una PCB.</p>
+
+                <div class="imgbox" style="margin-top:12px;">
+                    <img src="imagenes/ruteado.jpg" alt="Imagen de ruteado en Altium" style="width: 100%; max-width: 1000px; height: auto;">
+                    <div class="imglabel"><span class="num">img 24</span><span class="cap">Ejemplo de ruteado interactivo en PCB</span></div>
+                </div>
+
+                <p>El <strong>ruteado</strong> es una de las etapas más críticas del diseño de PCBs en Altium Designer. Consiste en trazar las pistas conductoras de cobre que conectan los pads de los componentes según las reglas definidas en el esquemático.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-mouse-pointer"></i> Tipos de Ruteado</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-hand-paper"></i> Ruteado Manual</h4>
+                            <p>El diseñador traza cada pista manualmente usando herramientas interactivas. Ofrece máximo control para diseños complejos, críticos o de alta frecuencia.</p>
+                            <span class="shortcut">Ctrl+W</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-robot"></i> Ruteado Automático (Autorouter)</h4>
+                            <p>Altium incluye un autorouter que intenta conectar todas las redes automáticamente según reglas predefinidas. Útil para conexiones simples o como punto de partida.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sync-alt"></i> Ruteado Interactivo</h4>
+                            <p>Combina lo mejor de ambos. El diseñador guía las rutas críticas y deja que el router complete el resto. Herramientas como <em>Route Guide</em> o <em>ActiveRoute</em> entran en esta categoría.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-tools"></i> Herramientas Esenciales de Ruteado</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-draw-polygon"></i> Interactive Routing (Ctrl+W)</h4>
+                            <p>Herramienta principal para trazar pistas. Se adapta a reglas de diseño (ancho, separación) y modos de ruteo (ángulos, curvaturas).</p>
+                            <span class="shortcut">Ctrl+W</span>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-random"></i> Differential Pair Routing</h4>
+                            <p>Para trazar pares diferenciales (USB, HDMI) con acoplamiento y espaciamiento controlado automáticamente.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-layer-group"></i> Multi-Routing</h4>
+                            <p>Permite rutear múltiples redes simultáneamente (ej. buses de datos de 8 o 16 bits).</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-fan"></i> Fanout</h4>
+                            <p>Conecta pads de componentes SMD a vías para distribuir rutas a otras capas. Esencial para BGA y componentes densos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-ruler-combined"></i> Reglas de Diseño (Design Rules - DRC)</h3>
+                    <p class="note" style="margin-bottom:15px;"><i class="fas fa-exclamation-triangle"></i> <strong>¡Importante!</strong> Sin reglas bien definidas, el ruteado será inviable o defectuoso.</p>
+                    
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="font-size:16px;color:var(--primary-color);">Reglas Principales</h4>
+                            <ul class="list-compact">
+                                <li><strong>Width:</strong> Ancho de pistas según corriente o impedancia</li>
+                                <li><strong>Clearance:</strong> Separación eléctrica entre objetos</li>
+                                <li><strong>Routing Via Style:</strong> Tamaño de vías</li>
+                                <li><strong>Differential Pairs:</strong> Reglas para pares diferenciales</li>
+                                <li><strong>SMD Neckdown:</strong> Conexión de pads SMD</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="font-size:16px;color:var(--primary-color);">Acceso Rápido</h4>
+                            <ul class="list-compact">
+                                <li><strong>Atajo:</strong> D + R (Design → Rules)</li>
+                                <li><strong>Verificación:</strong> DRC (Design Rule Check)</li>
+                                <li><strong>Panel:</strong> PCB Rules and Constraints</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-layer-group"></i> Estrategias de Capas</h3>
+                    <div class="process">
+                        <div class="step"><strong>Estrategia Común:</strong> Ruteo horizontal en una capa, vertical en la capa adyacente para minimizar cruces.</div>
+                        <div class="step"><strong>Multi-capa:</strong> Uso inteligente de vías para cambiar entre capas cuando sea necesario.</div>
+                        <div class="step"><strong>Señales Críticas:</strong> Rutear en capas internas para proteger de interferencias.</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Desafíos Comunes y Soluciones</h3>
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="font-size:16px;color:var(--primary-color);">Problemas</h4>
+                            <ul class="list-compact">
+                                <li><strong>Congestión:</strong> Muchas rutas en poco espacio</li>
+                                <li><strong>Señales Críticas:</strong> Alta frecuencia, relojes, diferenciales</li>
+                                <li><strong>Integridad de Señal:</strong> Reflexiones, acoplamientos</li>
+                                <li><strong>Disipación Térmica:</strong> Pistas para alta corriente</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="font-size:16px;color:var(--primary-color);">Soluciones</h4>
+                            <ul class="list-compact">
+                                <li>Reordenar componentes, usar más vías</li>
+                                <li>Rutear primero, control de longitud/impedancia</li>
+                                <li>Evitar ángulos agudos, usar terminaciones</li>
+                                <li>Pistas anchas, planos de cobre</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-project-diagram"></i> Flujo de Trabajo Recomendado</h3>
+                    <div class="process" style="counter-reset: step-counter;">
+                        <div class="step"><strong>1. Preparación:</strong> Definir reglas, clases de net, stackup de capas</div>
+                        <div class="step"><strong>2. Colocación (Placement):</strong> Ubicar componentes óptimamente (80% del éxito del ruteo)</div>
+                        <div class="step"><strong>3. Fanout y Rutas Críticas:</strong> Conectar componentes densos y rutear señales sensibles</div>
+                        <div class="step"><strong>4. Ruteado General:</strong> Conectar el resto de las redes, priorizando alimentaciones</div>
+                        <div class="step"><strong>5. Revisión:</strong> Usar DRC y análisis de integridad de señal</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-lightbulb"></i> Consejos Prácticos</h3>
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="font-size:16px;color:var(--primary-color);">Atajos y Modos</h4>
+                            <ul class="list-compact">
+                                <li><strong>Shift+R:</strong> Ciclar modos de obstáculo (Ignore, Push, Walkaround)</li>
+                                <li><strong>Ctrl+Click:</strong> Finalizar ruta y empezar nueva</li>
+                                <li><strong>Space:</strong> Cambiar dirección al rutear</li>
+                                <li><strong>* (numérico):</strong> Cambiar capa y agregar vía</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="font-size:16px;color:var(--primary-color);">Mejores Prácticas</h4>
+                            <ul class="list-compact">
+                                <li>Rutear alimentaciones primero (más anchas)</li>
+                                <li>Usar plano de tierra sólido (GND plane)</li>
+                                <li>Mantener simetría en pares diferenciales</li>
+                                <li>Evitar antenas (stubs) en señales rápidas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note" style="margin-top:25px; background-color:#f0f7ff; border-left:4px solid #2c7be5;">
+                    <i class="fas fa-info-circle" style="color:#2c7be5;"></i>
+                    <p><strong>Nota:</strong> El ruteado en Altium es tanto un arte como una ciencia. Un buen ruteo asegura la funcionalidad, confiabilidad y fabricabilidad de la placa. La práctica constante y el entendimiento de las reglas eléctricas son clave para dominar esta habilidad.</p>
+                </div>
+
+                <div class="tip" style="margin-top:20px;">
+                    <i class="fas fa-graduation-cap"></i>
+                    <p><strong>Recuerda:</strong> El autorouter no es mágico; un ruteo manual/mediado suele ser necesario para resultados profesionales. La paciencia y atención al detalle marcan la diferencia entre un diseño funcional y uno excelente.</p>
+                </div>
+            </section>
+
+            <section aria-labelledby="conclusion-title">
+                <h2 id="conclusion-title"><i class="fas fa-check-circle"></i> Conclusión y recomendaciones</h2>
+                <p class="subtitle">Consejos prácticos para trabajar con Altium Designer de forma eficiente y profesional.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">📋 Mejores Prácticas</h3>
+                        <ul class="list-compact">
+                            <li><strong>Guarde con frecuencia:</strong> Configure autoguardado y realice commits al control de versiones con regularidad.</li>
+                            <li><strong>Use plantillas:</strong> Defina plantillas de hoja y bordes corporativos para mantener consistencia entre documentos.</li>
+                            <li><strong>Valide continuamente:</strong> Ejecute ERC/DRC antes de transferir a PCB o generar outputs para fabricación.</li>
+                            <li><strong>Mantenga bibliotecas sincronizadas:</strong> Utilice el Footprint/Parameter Manager y actualice desde bibliotecas centrales.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🚀 Flujo de Trabajo Eficiente</h3>
+                        <ul class="list-compact">
+                            <li>Aprenda los atajos de teclado principales (Ctrl+S, Ctrl+W, Ctrl+PgDn, etc.)</li>
+                            <li>Utilice Cross Probe para navegar entre esquemático y PCB</li>
+                            <li>Organice su espacio de trabajo con paneles flotantes</li>
+                            <li>Documente cada paso importante del diseño</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="tip" style="margin-top:20px;"><i class="fas fa-lightbulb"></i> <strong>Trabajo en equipo:</strong> Si trabaja en equipo, aproveche Altium 365 o sistemas de control de versiones para colaboración y trazabilidad. Establezca convenciones de nomenclatura y flujos de revisión claros.</p>
+
+                <div class="note" style="margin-top:20px;">
+                    <i class="fas fa-graduation-cap"></i>
+                    <p><strong>Recuerde:</strong> Altium Designer es una herramienta poderosa pero compleja. Domine los fundamentos primero (Place, Wire, Net Labels) antes de avanzar a funciones avanzadas (simulación, jerarquías, reglas complejas). La práctica constante y la exploración de las herramientas le permitirán aprovechar al máximo este software profesional de diseño electrónico.</p>
+                </div>
+            </section>
+
+        </main>
+
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Volver a la Página Principal</a>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="link">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="index.html#herramientas">Información</a></li>
+                    <li><a href="index.html#mapa">Ubicación</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><a href="kicad.html">KiCad</a></li>
+                    <li><a href="mods.html">Mods</a></li>
+                    <li><a href="monofab.html">MonoFab</a></li>
+                    <li><a href="multisim.html">NI Multisim</a></li>
+                    <li><a href="pistas.html">Pistas</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Proyectos</a></li>
+                    <li><a href="#">Foro</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="mailto:contacto@iberopuebla.mx">Email</a></li>
+                    <li><a href="tel:+522222293000">Teléfono</a></li>
+                    <li><a href="index.html#mapa">Dirección</a></li>
+                    <li><a href="index.html#mapa">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

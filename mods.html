@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mods - Producción Electrónica</title>
+    <style>
+        :root {
+            --primary-color: #2a8c5f;
+            --secondary-color: #3bb983;
+            --accent-color: #4cf3ff;
+            --dark-color: #1F2229;
+            --light-color: #f8f9fa;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-color);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            min-height: 40vh;
+            padding: 80px 0 0 0;
+        }
+
+        .menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .logo {
+            color: #EEEFF3;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .menu .navbar ul li {
+            position: relative;
+            float: left;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 20px;
+            color: #FFF9FA;
+            display: block;
+            font-weight: 600;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: #FFF9FA;
+            font-size: 55px;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #D5D5D5;
+            margin-bottom: 45px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+        }
+
+        .btn-1 {
+            display: inline-block;
+            padding: 13px 35px;
+            color: #FFF9FA;
+            border: 1px solid #FFF9FA;
+            border-radius: 35px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-1:hover {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul li, .content-section ol li {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        ul li {
+            list-style-type: disc;
+        }
+
+        ol li {
+            list-style-type: decimal;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            flex: 1 1 calc(33.333% - 20px);
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .windows-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .window {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .window h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .window p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .parameter-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .parameter-table th, .parameter-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .parameter-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .parameter-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .tip-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .step-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 25px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #1f6a48;
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            padding: 50px 0;
+            background-color: var(--dark-color);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: #FFF9FA;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .link a:hover {
+            color: #FFBD4C;
+        }
+
+        @media (max-width: 991px) {
+            .menu {
+                padding: 30px;
+            }
+
+            .menu label {
+                display: initial;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #FFBD4C;
+                display: none;
+            }
+
+            .menu .navbar ul li a:hover {
+                color: #2B2B2B;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+            }
+            
+            #menu:checked ~ .navbar{
+                display: initial;
+            }
+
+            .header {
+                min-height: 0vh;
+            }
+
+            .header-content {
+                padding: 30px;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 35px;
+            }
+
+            .header-img {
+                width: 100%;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                flex: 1 1 100%;
+            }
+
+            .windows-container {
+                grid-template-columns: 1fr;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <div class="menu container">
+            <a href="index.html" class="logo">IBERO</a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="imagenes/menu.png" class="menu-icono" alt="">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Integrantes</a></li>
+                    <li><a href="#">Información</a></li>
+                    <li><a href="#">Diseños</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-content container">
+            <div class="header-txt">
+                <h1>Mods</h1>
+                <p>
+                    Programa web para preparar archivos y fabricar placas PCB con fresadoras CNC como la Roland.
+                </p>
+                <a href="index.html" class="btn-1">Volver al Inicio</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/mods.png" alt="Logo de Mods">
+            </div>
+        </div> 
+    </header>
+
+    <section class="content container">
+        <div class="content-section">
+            <h2>¿Qué es Mods?</h2>
+            <p>
+                Mods es una aplicación web desarrollada por el Center for Bits and Atoms del MIT que permite 
+                preparar archivos para fabricación digital, especialmente para fresadoras CNC como la Roland. 
+                Es una herramienta modular que convierte diseños digitales en instrucciones que las máquinas 
+                pueden entender y ejecutar.
+            </p>
+            <p>
+                Es especialmente útil para la fabricación de PCB (Placas de Circuito Impreso), ya que permite 
+                generar las trayectorias necesarias para fresar las pistas de cobre, perforar los agujeros y 
+                cortar el contorno de la placa.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2>Características Principales</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Interfaz Web</h3>
+                    <p>Accesible desde cualquier navegador sin necesidad de instalación.</p>
+                </div>
+                <div class="feature">
+                    <h3>Preparación de Archivos</h3>
+                    <p>Convierte diseños en formatos como PNG o SVG en trayectorias de herramienta.</p>
+                </div>
+                <div class="feature">
+                    <h3>Compatibilidad con Múltiples Máquinas</h3>
+                    <p>Soporte para diversas fresadoras CNC, incluyendo modelos Roland.</p>
+                </div>
+                <div class="feature">
+                    <h3>Flujos de Trabajo Modulares</h3>
+                    <p>Interfaz basada en módulos que se conectan para definir el proceso de fabricación.</p>
+                </div>
+                <div class="feature">
+                    <h3>Configuración Flexible</h3>
+                    <p>Permite ajustar parámetros como velocidad, profundidad de corte y tipo de herramienta.</p>
+                </div>
+                <div class="feature">
+                    <h3>Visualización en Tiempo Real</h3>
+                    <p>Muestra una vista previa de las trayectorias de la herramienta antes de enviar a la máquina.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Proceso de Trabajo con Mods para PCB</h2>
+            <p>Basado en la documentación del PDF, el proceso para fabricar PCB con Mods sigue estos pasos:</p>
+            
+            <div class="step-container">
+                <h3><span class="step-number">1</span>Acceder a Mods y seleccionar el programa</h3>
+                <p>Para comenzar, accede a Mods (normalmente a través de un servidor local en http://localhost:1234). Haz clic derecho en la pantalla y selecciona:</p>
+                <ul>
+                    <li><strong>Programs</strong> → <strong>Open program</strong></li>
+                    <li>Selecciona <strong>Roland</strong> → <strong>SRM-20</strong> → <strong>mill</strong> → <strong>PCB</strong></li>
+                </ul>
+                <div class="image-gallery">
+                    <img src="imagenes/1.01.png" alt="Menú de Mods con click derecho">
+                    <img src="imagenes/1.02.png" alt="Selección de programas en Mods">
+                    <img src="imagenes/1.03.png" alt="Selección de programas en Mods">
+                </div>
+            </div>
+            
+            <div class="step-container">
+                <h3><span class="step-number">2</span>Seleccionar el archivo SVG</h3>
+                <p>En el módulo "Roland SRM-20 PCB", en la sección de inputs:</p>
+                <ul>
+                    <li>Haz clic en <strong>"select SVG file"</strong></li>
+                    <li>Selecciona tu archivo SVG con el diseño de la PCB</li>
+                    <li>Verifica las dimensiones y unidades (deben ser en milímetros)</li>
+                </ul>
+                <div class="image-gallery">
+                    <img src="imagenes/2.01.png" alt="Selección de archivo SVG">
+                </div>
+            </div>
+            
+            <div class="step-container">
+                <h3><span class="step-number">3</span>Invertir la selección si es necesario</h3>
+                <p>En el módulo "convert SVG image":</p>
+                <ul>
+                    <li>Si estás fresando pistas, normalmente necesitarás invertir la imagen</li>
+                    <li>Marca la opción <strong>"invert"</strong> para que las áreas negras se conviertan en áreas a fresar</li>
+                    <li>Configura los DPI a 1000 y las unidades a 25.4 (milímetros)</li>
+                </ul>
+                <div class="image-gallery">
+                    <img src="imagenes/3.01.png" alt="Opciones de inversión de imagen">
+                </div>
+            </div>
+            
+            <div class="step-container">
+                <h3><span class="step-number">4</span>Configurar los parámetros de fresado</h3>
+                <p>En el módulo "set PCB defaults", configura los parámetros según el tipo de operación:</p>
+                
+                <h4>Para fresar trazas (pistas):</h4>
+                <ul>
+                    <li>Tool diameter: 0.0156" (1/64" - 0.396mm)</li>
+                    <li>Cut depth: 0.004" (0.1016mm)</li>
+                    <li>Max depth: 0.004" (0.1016mm)</li>
+                    <li>Offset number: 4</li>
+                    <li>Speed: 4 mm/s</li>
+                </ul>
+                
+                <h4>Para cortar el contorno:</h4>
+                <ul>
+                    <li>Tool diameter: 0.0312" (1/32" - 0.792mm)</li>
+                    <li>Cut depth: 0.024" (0.6096mm)</li>
+                    <li>Max depth: 0.072" (1.828mm)</li>
+                    <li>Offset number: 1</li>
+                    <li>Speed: 4 mm/s</li>
+                </ul>
+                
+                <div class="image-gallery">
+                    <img src="imagenes/4.01.png" alt="Configuración de parámetros PCB">
+                </div>
+            </div>
+            
+            <div class="step-container">
+                <h3><span class="step-number">5</span>Configurar el origen de la máquina</h3>
+                <p>En el módulo "Roland SRM-20 milling machine":</p>
+                <ul>
+                    <li>Establece las coordenadas de origen (x, y, z)</li>
+                    <li>Configura la altura de desplazamiento (jog height)</li>
+                    <li>Define la posición de home</li>
+                    <li>Revisa el tiempo estimado de fresado</li>
+                </ul>
+                <div class="image-gallery">
+                    <img src="imagenes/5.01.png" alt="Configuración del origen de la máquina">
+                </div>
+                <div class="tip-box">
+                    <p><strong>Consejo:</strong> Siempre establece el origen Z con la fresa justo tocando la superficie del material para evitar daños.</p>
+                </div>
+            </div>
+            
+            <div class="step-container">
+                <h3><span class="step-number">6</span>Guardar y enviar a la máquina</h3>
+                <p>Finalmente, en el módulo "save file":</p>
+                <ul>
+                    <li>Haz clic en "calculate" para generar las trayectorias</li>
+                    <li>Revisa la vista previa para verificar que todo esté correcto</li>
+                    <li>Guarda el archivo .rml o envíalo directamente a la máquina</li>
+                </ul>
+                <div class="image-gallery">
+                    <img src="imagenes/6.01.png" alt="Guardar archivo en Mods">
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Parámetros Importantes para PCB</h2>
+            <table class="parameter-table">
+                <thead>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Valor para Trazas</th>
+                        <th>Valor para Cortado</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tool diameter</td>
+                        <td>0.0156" (0.396mm)</td>
+                        <td>0.0312" (0.792mm)</td>
+                        <td>Diámetro de la fresa</td>
+                    </tr>
+                    <tr>
+                        <td>Cut depth</td>
+                        <td>0.004" (0.1016mm)</td>
+                        <td>0.024" (0.6096mm)</td>
+                        <td>Profundidad de corte por pasada</td>
+                    </tr>
+                    <tr>
+                        <td>Max depth</td>
+                        <td>0.004" (0.1016mm)</td>
+                        <td>0.072" (1.828mm)</td>
+                        <td>Profundidad total de corte</td>
+                    </tr>
+                    <tr>
+                        <td>Offset number</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>Número de pasadas</td>
+                    </tr>
+                    <tr>
+                        <td>Speed</td>
+                        <td>4 mm/s</td>
+                        <td>4 mm/s</td>
+                        <td>Velocidad de avance</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h2>Recomendaciones y Consejos</h2>
+            <div class="tip-box">
+                <p><strong>Preparación del archivo:</strong> Asegúrate de que tu diseño esté exportado correctamente en SVG con las dimensiones adecuadas. Las áreas negras serán fresadas y las blancas se mantendrán.</p>
+            </div>
+            
+            <div class="tip-box">
+                <p><strong>Prueba de altura:</strong> Siempre realiza una prueba de altura (Z) con la fresa apagada para asegurarte de que la profundidad es correcta antes de iniciar el fresado real.</p>
+            </div>
+            
+            <div class="warning-box">
+                <p><strong>Advertencia:</strong> La configuración incorrecta de la herramienta o del origen puede dañar la placa o la máquina. Verifica siempre los parámetros antes de iniciar el proceso.</p>
+            </div>
+            
+            <div class="tip-box">
+                <p><strong>Mantenimiento:</strong> Limpia regularmente la mesa de trabajo y verifica que la fresa esté en buen estado para obtener resultados óptimos.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Recursos Adicionales</h2>
+            <p>Para aprender más sobre el uso de Mods para fabricación de PCB, puedes consultar:</p>
+            <ul>
+                <li><a href="http://mods.cba.mit.edu/" target="_blank">Sitio oficial de Mods</a></li>
+                <li><a href="https://fabacademy.org/2024/labs/puebla/students/carlos-cruz/assignments/Week4.html" target="_blank">Ejemplo de uso en Fab Academy Puebla</a></li>
+                <li><a href="http://127.0.0.1:5500/pdfs/Mods.pdf" target="_blank">Documentación PDF de Mods (proporcionada)</a>
+            </ul>
+        </div>
+
+        <a href="index.html" class="back-btn">Volver a la Página Principal</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Integrantes</a></li>
+                    <li><a href="#">Información</a></li>
+                    <li><a href="#">Diseños</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><a href="kicad.html">KiCad</a></li>
+                    <li><a href="mods.html">Mods</a></li>
+                    <li><a href="monofab.html">MonoFab</a></li>
+                    <li><a href="pistas.html">Pistas</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Ejemplos</a></li>
+                    <li><a href="#">Foro</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Teléfono</a></li>
+                    <li><a href="#">Dirección</a></li>
+                    <li><a href="#">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Guía para usar xTool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #25b154;
+            --secondary-color: #e0e32d;
+            --accent-color: #FF9E00;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #1F2229;
+            --white: #FFF9FA;
+            --card-bg: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            
+            /* Variables originales */
+            --bg: #ffffff;
+            --text: #0b0b0b;
+            --muted: #55606a;
+            --gold: #ff3a3a;
+            --gold-weak: #e3f0ff;
+            --card: #ffffff;
+            --border: #e8e6e2;
+            --radius: 12px;
+            --max-width: 1100px;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* HEADER FIJO - Estilo del ejemplo */
+        .header-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 25px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .menu .navbar ul {
+            display: flex;
+        }
+
+        .menu .navbar ul li {
+            position: relative;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 20px;
+            color: var(--white);
+            display: block;
+            font-weight: 600;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+            filter: invert(1);
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Cabecera estilo del ejemplo */
+        .header {
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            min-height: 40vh;
+            padding: 80px 0 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23000" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: var(--white);
+            font-size: 55px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #D5D5D5;
+            margin-bottom: 35px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-img::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .header-img img {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .header-img img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Botones estilo del ejemplo */
+        .btn-1 {
+            display: inline-block;
+            padding: 13px 35px;
+            color: var(--white);
+            border: 1px solid var(--white);
+            border-radius: 35px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-1:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor principal */
+        .wrap {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* TOC mejorado */
+        nav.toc {
+            margin: 22px 0 30px 0;
+            background: linear-gradient(180deg, rgba(58,134,255,0.06), transparent);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(11,11,11,0.06);
+        }
+        
+        nav.toc a {
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 13px;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        nav.toc a:hover {
+            background: var(--gold-weak);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Secciones de contenido mejoradas */
+        main.content > section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        main.content > section:hover {
+            transform: translateY(-5px);
+        }
+        
+        section h2 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        section h2 i {
+            margin-right: 15px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: var(--muted);
+            margin-bottom: 14px;
+            font-size: 14px;
+        }
+
+        /* Secciones de submenús */
+        .menu-section {
+            margin-top: 25px;
+            border-left: 4px solid var(--gold);
+            padding-left: 20px;
+        }
+
+        .menu-section h3 {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .menu-section h3 i {
+            margin-right: 10px;
+            color: var(--gold);
+            font-size: 16px;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .menu-item {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .menu-item h4 {
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-item h4 i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+            font-size: 14px;
+        }
+
+        .menu-item p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .menu-item .shortcut {
+            display: inline-block;
+            background: var(--gold-weak);
+            color: var(--gold);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Iconos de herramientas */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tool-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tool-icon {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .tool-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        /* Imágenes mejoradas */
+        .image-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            margin: 14px 0;
+        }
+        
+        .imgbox {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            padding: 8px;
+            background: #faf8f4;
+            transition: transform 0.3s ease;
+        }
+        
+        .imgbox:hover {
+            transform: scale(1.02);
+        }
+        
+        .imgbox img {
+            display: block;
+            width: 220px;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+        
+        .imglabel {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 13px;
+        }
+        
+        .imglabel .num {
+            background: var(--gold);
+            color: #111;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            display: inline-block;
+        }
+        
+        .imglabel .cap {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* Procesos mejorados */
+        .process {
+            background: #fff;
+            border-radius: 10px;
+            padding: 14px;
+            border: 1px dashed var(--border);
+            margin: 12px 0;
+            position: relative;
+        }
+        
+        .process::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .process .step {
+            margin-bottom: 10px;
+            font-size: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .process .step:before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .process {
+            counter-reset: step;
+        }
+
+        /* Notas y tips mejorados */
+        .note {
+            background: #fffaf0;
+            border-left: 6px solid var(--gold);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .note i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: var(--gold);
+        }
+        
+        .note strong {
+            color: var(--gold);
+        }
+        
+        .tip {
+            background: #f8fbff;
+            border-left: 6px solid #b8dfff;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .tip i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #0056b3;
+        }
+        
+        .tip strong {
+            color: #0056b3;
+        }
+
+        /* Grid y listas */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        
+        .list-compact li {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+        
+        pre.code {
+            background: #0b0b0b;
+            color: #f7f7f7;
+            padding: 12px;
+            border-radius: 8px;
+            overflow: auto;
+            font-size: 13px;
+        }
+
+        /* Botón de regresar */
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer estilo del ejemplo */
+        .footer {
+            padding: 50px 0;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: var(--white);
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .link h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 991px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .menu {
+                padding: 0 15px;
+            }
+
+            .menu label {
+                display: block;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                display: none;
+                width: 100%;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .menu .navbar ul {
+                flex-direction: column;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .menu .navbar ul li a {
+                padding: 15px 20px;
+            }
+            
+            #menu:checked ~ .navbar {
+                display: block;
+            }
+
+            .header {
+                min-height: auto;
+                padding: 40px 0 0 0;
+            }
+
+            .header-content {
+                padding: 30px 0;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .header-txt h1 {
+                font-size: 36px;
+            }
+
+            .header-img {
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .imgbox img {
+                width: 160px;
+            }
+
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-txt h1 {
+                font-size: 32px;
+            }
+            
+            .header-txt p {
+                font-size: 15px;
+            }
+            
+            .btn-1 {
+                padding: 10px 25px;
+            }
+            
+            section h2 {
+                font-size: 20px;
+            }
+            
+            .logo-img {
+                height: 35px;
+            }
+            
+            .imgbox {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .imgbox img {
+                width: 100%;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-txt h1 {
+                font-size: 28px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .link {
+                flex: 1 0 100%;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header fijo con logo y menú -->
+    <div class="header-fixed">
+        <div class="menu">
+            <!-- Logo como imagen en lugar de texto -->
+            <a href="index.html" class="logo">
+                <img src="imagenes/iberoblanco.png" alt="Logo IBERO" class="logo-img">
+            </a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="https://cdn-icons-png.flaticon.com/512/56/56763.png" class="menu-icono" alt="Menú">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="index.html#herramientas">Información</a></li>
+                    <li><a href="index.html#mapa">Ubicación</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-txt">
+                <h1>xTool</h1>
+                <p>
+                    Guía completa para el uso y manejo de máquinas láser xTool
+                </p>
+                <a href="index.html" class="btn-1">Volver al Inicio</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/xtool-logo.jpg" alt="Logo xTool">
+            </div>
+        </div> 
+    </header>
+
+    <div class="wrap">
+        <nav class="toc" aria-label="Índice">
+            <a href="#introduccion"><i class="fas fa-play-circle"></i> Introducción</a>
+            <a href="#seguridad"><i class="fas fa-shield-alt"></i> Medidas de seguridad</a>
+            <a href="#configuracion"><i class="fas fa-cog"></i> Configuración inicial</a>
+            <a href="#software"><i class="fas fa-desktop"></i> Software xTool Creative Space</a>
+            <a href="#materiales"><i class="fas fa-layer-group"></i> Materiales compatibles</a>
+            <a href="#preparacion"><i class="fas fa-clipboard-check"></i> Preparación de archivos</a>
+            <a href="#corte"><i class="fas fa-cut"></i> Proceso de corte</a>
+            <a href="#grabado"><i class="fas fa-edit"></i> Proceso de grabado</a>
+            <a href="#mantenimiento"><i class="fas fa-tools"></i> Mantenimiento</a>
+            <a href="#solucion"><i class="fas fa-wrench"></i> Solución de problemas</a>
+            <a href="#proyectos"><i class="fas fa-lightbulb"></i> Proyectos sugeridos</a>
+        </nav>
+
+        <main class="content">
+
+           <section id="introduccion" aria-labelledby="introduccion-title">
+                <h2 id="introduccion-title"><i class="fas fa-play-circle"></i> Introducción a xTool</h2>
+                <p class="subtitle">Conoce las máquinas láser xTool y sus capacidades.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">¿Qué es xTool?</h3>
+                        <p>xTool es una marca de máquinas láser de escritorio diseñadas para creadores, makers, artistas y pequeñas empresas. Ofrecen precisión, facilidad de uso y versatilidad para trabajar con diversos materiales.</p>
+                        
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;margin-top:20px;">Modelos principales</h3>
+                        <ul class="list-compact">
+                            <li><strong>xTool M1:</strong> Máquina láser y cuchilla híbrida</li>
+                            <li><strong>xTool D1 Pro:</strong> Láser de diodo de alta potencia</li>
+                            <li><strong>xTool P2:</strong> Láser de CO₂ profesional</li>
+                            <li><strong>xTool F1:</strong> Láser de fibra portátil</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">Aplicaciones comunes</h3>
+                        <ul class="list-compact">
+                            <li>Corte de madera, acrílico, cuero</li>
+                            <li>Grabado en vidrio, metal, piedra</li>
+                            <li>Marcado de productos</li>
+                            <li>Fabricación de joyería</li>
+                            <li>Creación de maquetas</li>
+                            <li>Personalización de regalos</li>
+                            <li>Prototipado rápido</li>
+                        </ul>
+                        
+                        <div class="note" style="margin-top:20px;">
+                            <i class="fas fa-info-circle"></i>
+                            <p><strong>Nota:</strong> Cada modelo tiene especificaciones diferentes de potencia, área de trabajo y materiales compatibles. Consulta el manual de tu modelo específico.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="seguridad" aria-labelledby="seguridad-title">
+                <h2 id="seguridad-title"><i class="fas fa-shield-alt"></i> Medidas de seguridad</h2>
+                <p class="subtitle">Normas esenciales para operar las máquinas láser de forma segura.</p>
+
+                <div class="process">
+                    <div class="step"><strong>1. Protección ocular:</strong> Nunca mires directamente al rayo láser. Usa gafas de protección específicas para la longitud de onda de tu máquina.</div>
+                    <div class="step"><strong>2. Ventilación:</strong> Siempre usa el sistema de extracción de humos. Los vapores de algunos materiales pueden ser tóxicos.</div>
+                    <div class="step"><strong>3. Supervisión:</strong> No dejes la máquina funcionando sin supervisión, especialmente con materiales inflamables.</div>
+                    <div class="step"><strong>4. Materiales prohibidos:</strong> Nunca uses PVC, vinilo, policarbonato delgado o materiales que contengan cloro.</div>
+                    <div class="step"><strong>5. Preparación del área:</strong> Mantén el área de trabajo limpia, organizada y libre de materiales inflamables.</div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">⚠️ Materiales peligrosos</h3>
+                        <ul class="list-compact">
+                            <li>PVC y vinilo (liberan gas cloro)</li>
+                            <li>Policarbonato delgado</li>
+                            <li>Poliestireno expandido</li>
+                            <li>Fibras de vidrio</li>
+                            <li>Materiales reflectantes</li>
+                            <li>Productos tratados químicamente</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">✅ Equipo de seguridad</h3>
+                        <ul class="list-compact">
+                            <li>Gafas de protección láser</li>
+                            <li>Extractor de humos o filtro de aire</li>
+                            <li>Guantes resistentes al calor</li>
+                            <li>Extintor de clase ABC cerca</li>
+                            <li>Botiquín de primeros auxilios</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tip" style="margin-top:20px;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p><strong>Advertencia crítica:</strong> El láser puede causar incendios, lesiones oculares permanentes y problemas respiratorios si no se siguen las normas de seguridad. Siempre consulta las fichas de seguridad de los materiales.</p>
+                </div>
+            </section>
+
+            <section id="configuracion" aria-labelledby="configuracion-title">
+                <h2 id="configuracion-title"><i class="fas fa-cog"></i> Configuración inicial</h2>
+                <p class="subtitle">Pasos para configurar tu máquina xTool por primera vez.</p>
+
+                <div class="process">
+                    <div class="step"><strong>Paso 1:</strong> Desembalar y verificar que todos los componentes estén presentes según la lista de empaque.</div>
+                    <div class="step"><strong>Paso 2:</strong> Montar la estructura según las instrucciones del manual. Asegurar todas las conexiones.</div>
+                    <div class="step"><strong>Paso 3:</strong> Conectar la fuente de alimentación y encender la máquina. Verificar que los LEDs indicadores se enciendan.</div>
+                    <div class="step"><strong>Paso 4:</strong> Conectar la máquina a tu computadora mediante USB o WiFi, según el modelo.</div>
+                    <div class="step"><strong>Paso 5:</strong> Instalar el software xTool Creative Space desde el sitio web oficial.</div>
+                    <div class="step"><strong>Paso 6:</strong> Realizar la calibración inicial según las instrucciones del software.</div>
+                </div>
+
+                <div class="image-row">
+                    <div class="imgbox">
+                        <img src="imagenes/configuracion xtool.png" alt="Configuración xTool">
+                        <div class="imglabel"><span class="num">img 1</span><span class="cap">Montaje inicial</span></div>
+                    </div>
+                    <div class="imgbox">
+                        <img src="imagenes/conexion xtool.png" alt="Conexión xTool">
+                        <div class="imglabel"><span class="num">img 2</span><span class="cap">Conexión y calibración</span></div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🔧 Calibración inicial</h3>
+                        <ul class="list-compact">
+                            <li>Alinear el láser con la boquilla</li>
+                            <li>Calibrar sensores de altura</li>
+                            <li>Configurar límites de área de trabajo</li>
+                            <li>Verificar movimiento de ejes X e Y</li>
+                            <li>Probar potencia del láser</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">💡 Consejos de instalación</h3>
+                        <ul class="list-compact">
+                            <li>Coloca la máquina en superficie nivelada</li>
+                            <li>Deja espacio para la ventilación</li>
+                            <li>Conecta el extractor antes de operar</li>
+                            <li>Actualiza firmware a la última versión</li>
+                            <li>Guarda los números de serie</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="software" aria-labelledby="software-title">
+                <h2 id="software-title"><i class="fas fa-desktop"></i> Software xTool Creative Space</h2>
+                <p class="subtitle">Guía completa del software de control de las máquinas xTool.</p>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-download"></i> Instalación y configuración</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-cloud-download-alt"></i> Descarga</h4>
+                            <p>Descarga la última versión desde el sitio oficial de xTool. Disponible para Windows y macOS.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-plug"></i> Conexión</h4>
+                            <p>Conecta tu máquina mediante USB o configura la conexión WiFi para modelos compatibles.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-sync-alt"></i> Actualización</h4>
+                            <p>Verifica actualizaciones de firmware y software regularmente para nuevas funciones y mejoras.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-sliders-h"></i> Interfaz principal</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-plus"></i> Nuevo proyecto</h4>
+                            <p>Crea un nuevo documento con las dimensiones de tu material o diseña desde cero.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-file-import"></i> Importar archivos</h4>
+                            <p>Soporta SVG, DXF, PNG, JPG, BMP y otros formatos comunes para corte y grabado.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-vector-square"></i> Herramientas de dibujo</h4>
+                            <p>Crea formas básicas, texto, curvas Bézier y edita nodos para personalizar diseños.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-layer-group"></i> Capas</h4>
+                            <p>Organiza diferentes elementos en capas para asignar parámetros de corte/grabado separados.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-cogs"></i> Configuración de procesado</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-fire"></i> Parámetros de potencia</h4>
+                            <p>Ajusta potencia (%) y velocidad (mm/s) según el material y proceso (corte o grabado).</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-bullseye"></i> Modos de procesado</h4>
+                            <p>Selecciona entre corte vectorial, grabado raster, modo combinado o marcado.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-redo"></i> Pasadas múltiples</h4>
+                            <p>Configura múltiples pasadas para cortes profundos o grabados intensos.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-border-style"></i> Compensación de corte</h4>
+                            <p>Ajusta para compensar el ancho del rayo láser y obtener dimensiones precisas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note" style="margin-top:20px;">
+                    <i class="fas fa-lightbulb"></i>
+                    <p><strong>Sugerencia:</strong> xTool Creative Space incluye una biblioteca de materiales preconfigurada. Comienza con estos parámetros y ajusta según los resultados de tus pruebas.</p>
+                </div>
+            </section>
+
+            <section id="materiales" aria-labelledby="materiales-title">
+                <h2 id="materiales-title"><i class="fas fa-layer-group"></i> Materiales compatibles</h2>
+                <p class="subtitle">Guía de materiales que puedes procesar con máquinas xTool.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">✅ Materiales recomendados</h3>
+                        <div class="menu-section" style="border-left-color:#4CAF50;margin-top:10px;">
+                            <h4 style="color:#4CAF50;"><i class="fas fa-tree"></i> Maderas</h4>
+                            <ul class="list-compact">
+                                <li>Madera de balsa (2-6mm)</li>
+                                <li>Contrachapado (3-12mm)</li>
+                                <li>MDF (hasta 10mm)</li>
+                                <li>Madera de cerezo</li>
+                                <li>Bambú</li>
+                                <li>Corcho</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="menu-section" style="border-left-color:#2196F3;margin-top:15px;">
+                            <h4 style="color:#2196F3;"><i class="fas fa-gem"></i> Plásticos y acrílicos</h4>
+                            <ul class="list-compact">
+                                <li>Acrílico transparente/colores (hasta 10mm)</li>
+                                <li>PETG</li>
+                                <li>Poliéster</li>
+                                <li>Delrin (POM)</li>
+                                <li>Espuma EVA</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🎨 Otros materiales</h3>
+                        <div class="menu-section" style="border-left-color:#FF9800;margin-top:10px;">
+                            <h4 style="color:#FF9800;"><i class="fas fa-leather"></i> Telas y cuero</h4>
+                            <ul class="list-compact">
+                                <li>Cuero genuino</li>
+                                <li>Cuero sintético</li>
+                                <li>Fieltro</li>
+                                <li>Denim</li>
+                                <li>Lona</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="menu-section" style="border-left-color:#9C27B0;margin-top:15px;">
+                            <h4 style="color:#9C27B0;"><i class="fas fa-mountain"></i> Para grabado</h4>
+                            <ul class="list-compact">
+                                <li>Vidrio anodizado</li>
+                                <li>Piedra (mármol, pizarra)</li>
+                                <li>Cerámica esmaltada</li>
+                                <li>Aluminio anodizado</li>
+                                <li>Acrílico pintado</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">📊 Parámetros sugeridos (D1 Pro)</h3>
+                        <table style="width:100%;font-size:13px;border-collapse:collapse;">
+                            <tr style="background:var(--gold-weak);">
+                                <th style="padding:8px;text-align:left;border:1px solid var(--border);">Material</th>
+                                <th style="padding:8px;text-align:left;border:1px solid var(--border);">Potencia</th>
+                                <th style="padding:8px;text-align:left;border:1px solid var(--border);">Velocidad</th>
+                                <th style="padding:8px;text-align:left;border:1px solid var(--border);">Pasadas</th>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px;border:1px solid var(--border);">MDF 3mm</td>
+                                <td style="padding:8px;border:1px solid var(--border);">85%</td>
+                                <td style="padding:8px;border:1px solid var(--border);">10mm/s</td>
+                                <td style="padding:8px;border:1px solid var(--border);">2-3</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px;border:1px solid var(--border);">Acrílico 3mm</td>
+                                <td style="padding:8px;border:1px solid var(--border);">80%</td>
+                                <td style="padding:8px;border:1px solid var(--border);">8mm/s</td>
+                                <td style="padding:8px;border:1px solid var(--border);">2</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px;border:1px solid var(--border);">Cuero 2mm</td>
+                                <td style="padding:8px;border:1px solid var(--border);">70%</td>
+                                <td style="padding:8px;border:1px solid var(--border);">15mm/s</td>
+                                <td style="padding:8px;border:1px solid var(--border);">1</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px;border:1px solid var(--border);">Grabado madera</td>
+                                <td style="padding:8px;border:1px solid var(--border);">30%</td>
+                                <td style="padding:8px;border:1px solid var(--border);">150mm/s</td>
+                                <td style="padding:8px;border:1px solid var(--border);">1</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="tip" style="height:100%;">
+                            <i class="fas fa-flask"></i>
+                            <p><strong>Importante:</strong> Siempre realiza pruebas en un área pequeña del material antes de procesar todo el diseño. Los parámetros pueden variar según el color, densidad y grosor del material.</p>
+                            <p style="margin-top:10px;">Para materiales nuevos, comienza con parámetros conservadores y ajusta gradualmente.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="preparacion" aria-labelledby="preparacion-title">
+                <h2 id="preparacion-title"><i class="fas fa-clipboard-check"></i> Preparación de archivos</h2>
+                <p class="subtitle">Cómo preparar diseños digitales para corte y grabado láser.</p>
+
+                <div class="process">
+                    <div class="step"><strong>Paso 1:</strong> Crea o importa tu diseño en xTool Creative Space o software de diseño vectorial (Illustrator, Inkscape, CorelDRAW).</div>
+                    <div class="step"><strong>Paso 2:</strong> Convierte todos los elementos a curvas vectoriales (outlines) si usas texto.</div>
+                    <div class="step"><strong>Paso 3:</strong> Asegúrate de que las líneas de corte sean de 0.001mm (hairline) y en color rojo (#FF0000).</div>
+                    <div class="step"><strong>Paso 4:</strong> Para grabado raster, convierte la imagen a escala de grises y ajusta contraste.</div>
+                    <div class="step"><strong>Paso 5:</strong> Organiza elementos en capas separadas para diferentes procesos (corte, grabado, marcado).</div>
+                    <div class="step"><strong>Paso 6:</strong> Verifica dimensiones y escala según el tamaño de tu material.</div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🔤 Configuración de texto</h3>
+                        <ul class="list-compact">
+                            <li>Evitar fuentes con serif muy delgadas</li>
+                            <li>Tamaño mínimo recomendado: 8pt</li>
+                            <li>Convertir siempre a curvas/trazados</li>
+                            <li>Para grabado: fuentes sans-serif funcionan mejor</li>
+                            <li>Para corte: letras con "islas" (A, O, D) necesitan puentes</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">📐 Consideraciones de diseño</h3>
+                        <ul class="list-compact">
+                            <li>Espacio mínimo entre cortes: 1-2mm</li>
+                            <li>Radio mínimo en esquinas: 0.5mm</li>
+                            <li>Compensación para uniones machihembrado</li>
+                            <li>Considerar ancho del rayo láser (kerf)</li>
+                            <li>Agregar marcas de registro para proyectos multicapa</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <h3><i class="fas fa-file-export"></i> Formatos de archivo compatibles</h3>
+                    <div class="tools-grid">
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-vector-square"></i></div>
+                            <div><strong>SVG</strong></div>
+                            <div class="tool-label">Formato vectorial ideal, soporta capas</div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-drafting-compass"></i></div>
+                            <div><strong>DXF</strong></div>
+                            <div class="tool-label">Intercambio CAD, perfecto para corte</div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-file-image"></i></div>
+                            <div><strong>PNG</strong></div>
+                            <div class="tool-label">Para grabado raster, fondo transparente</div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
+                            <div><strong>PDF</strong></div>
+                            <div class="tool-label">Incrusta vectores e imágenes</div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-font"></i></div>
+                            <div><strong>TTF/OTF</strong></div>
+                            <div class="tool-label">Fuentes instaladas en el sistema</div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-file-code"></i></div>
+                            <div><strong>AI/EPS</strong></div>
+                            <div class="tool-label">Adobe Illustrator, exportar como SVG</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="corte" aria-labelledby="corte-title">
+                <h2 id="corte-title"><i class="fas fa-cut"></i> Proceso de corte</h2>
+                <p class="subtitle">Guía paso a paso para realizar cortes láser precisos.</p>
+
+                <div class="process">
+                    <div class="step"><strong>Paso 1:</strong> Selecciona y prepara el material. Asegúrate de que esté limpio, plano y bien sujeto a la cama.</div>
+                    <div class="step"><strong>Paso 2:</strong> Enfoca el láser usando la herramienta de enfoque automático o manual siguiendo las instrucciones del modelo.</div>
+                    <div class="step"><strong>Paso 3:</strong> Configura los parámetros de corte según el material (potencia, velocidad, pasadas).</div>
+                    <div class="step"><strong>Paso 4:</strong> Realiza una prueba de borde para verificar que los parámetros son correctos.</div>
+                    <div class="step"><strong>Paso 5:</strong> Posiciona el diseño usando la vista de cámara (si está disponible) o el puntero láser.</div>
+                    <div class="step"><strong>Paso 6:</strong> Inicia el corte y monitorea los primeros segundos para asegurarte de que todo funciona correctamente.</div>
+                    <div class="step"><strong>Paso 7:</strong> Una vez completado, retira las piezas cuidadosamente y limpia la cama.</div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🎯 Técnicas de corte</h3>
+                        <div class="menu-section" style="border-left-color:#4CAF50;margin-top:10px;">
+                            <h4 style="color:#4CAF50;"><i class="fas fa-burn"></i> Corte completo</h4>
+                            <p>Corta completamente el material. Asegúrate de que la potencia sea suficiente para el grosor.</p>
+                        </div>
+                        
+                        <div class="menu-section" style="border-left-color:#2196F3;margin-top:15px;">
+                            <h4 style="color:#2196F3;"><i class="fas fa-scroll"></i> Corte por kiss</h4>
+                            <p>Corte superficial para marcar líneas de doblez o crear hendiduras sin cortar completamente.</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">⚙️ Optimización</h3>
+                        <div class="menu-section" style="border-left-color:#FF9800;margin-top:10px;">
+                            <h4 style="color:#FF9800;"><i class="fas fa-route"></i> Orden de corte</h4>
+                            <p>Corta primero los elementos internos, luego los externos para mantener la estabilidad del material.</p>
+                        </div>
+                        
+                        <div class="menu-section" style="border-left-color:#9C27B0;margin-top:15px;">
+                            <h4 style="color:#9C27B0;"><i class="fas fa-puzzle-piece"></i> Puentes y anclajes</h4>
+                            <p>Agrega pequeños puentes para evitar que piezas pequeñas se muevan durante el corte.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip" style="margin-top:20px;">
+                    <i class="fas fa-lightbulb"></i>
+                    <p><strong>Consejo profesional:</strong> Para materiales reflectantes como acrílico espejo o metales pulidos, cubre la superficie con cinta de pintor para evitar reflejos dañinos y mejorar la absorción del láser.</p>
+                </div>
+
+                <div class="note" style="margin-top:20px;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p><strong>Problema común:</strong> Si los bordes del corte están carbonizados o quemados, reduce la potencia o aumenta la velocidad. Para bordes derretidos en plásticos, prueba con aire comprimido asistido.</p>
+                </div>
+            </section>
+
+            <section id="grabado" aria-labelledby="grabado-title">
+                <h2 id="grabado-title"><i class="fas fa-edit"></i> Proceso de grabado</h2>
+                <p class="subtitle">Técnicas para grabado láser de alta calidad en diversos materiales.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🎨 Tipos de grabado</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:10px;">
+                            <h4><i class="fas fa-vector-square"></i> Grabado vectorial</h4>
+                            <p>El láser sigue líneas y contornos. Ideal para texto, logos y diseños lineales.</p>
+                            <span class="shortcut">Alta velocidad</span>
+                        </div>
+                        
+                        <div class="menu-item" style="margin-bottom:10px;">
+                            <h4><i class="fas fa-th"></i> Grabado raster</h4>
+                            <p>El láser escanea el área línea por línea. Perfecto para fotografías y gradientes.</p>
+                            <span class="shortcut">Alto detalle</span>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <h4><i class="fas fa-layer-group"></i> Grabado 3D</h4>
+                            <p>Varía la potencia para crear diferentes profundidades y efectos de relieve.</p>
+                            <span class="shortcut">Requiere LPI alto</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">📊 Parámetros clave</h3>
+                        
+                        <div class="process" style="margin-top:10px;">
+                            <div class="step"><strong>LPI (Líneas por pulgada):</strong> Controla la resolución. Mayor LPI = más detalle pero mayor tiempo.</div>
+                            <div class="step"><strong>DPI (Puntos por pulgada):</strong> Para grabado raster, corresponde a la resolución de la imagen.</div>
+                            <div class="step"><strong>Potencia:</strong> Controla la intensidad del grabado. Menor potencia = grabado más superficial.</div>
+                            <div class="step"><strong>Velocidad:</strong> Velocidad del cabezal. Menor velocidad = grabado más profundo/intenso.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section" style="margin-top:20px;">
+                    <h3><i class="fas fa-magic"></i> Técnicas especiales de grabado</h3>
+                    <div class="tools-grid">
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-image"></i></div>
+                            <div><strong>Fotograbado</strong></div>
+                            <div class="tool-label">Convierte fotos a escala de grises con alto contraste</div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-fill-drip"></i></div>
+                            <div><strong>Grabado por relleno</strong></div>
+                            <div class="tool-label">Rellena áreas sólidas con patrón de escaneo</div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-mountain"></i></div>
+                            <div><strong>Relieve</strong></div>
+                            <div class="tool-label">Crea efectos 3D variando profundidad</div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-icon"><i class="fas fa-stamp"></i></div>
+                            <div><strong>Marcado</strong></div>
+                            <div class="tool-label">Grabado superficial para marcar sin cortar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🖼️ Preparación de imágenes</h3>
+                        <ul class="list-compact">
+                            <li>Convertir a escala de grises</li>
+                            <li>Ajustar brillo y contraste</li>
+                            <li>Aplicar difuminado para suavizar</li>
+                            <li>Reducir ruido y artefactos</li>
+                            <li>Invertir si se graba sobre superficie oscura</li>
+                            <li>Para madera: aumentar contraste 20-30%</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="tip">
+                            <i class="fas fa-flask"></i>
+                            <p><strong>Experimento:</strong> Prueba la técnica de "dithering" (difuminado ordenado) para simular tonos grises en materiales que solo permiten grabado binario (grabado/no grabado).</p>
+                            <p style="margin-top:10px;">El dithering de Floyd-Steinberg generalmente da mejores resultados para imágenes fotográficas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="mantenimiento" aria-labelledby="mantenimiento-title">
+                <h2 id="mantenimiento-title"><i class="fas fa-tools"></i> Mantenimiento de la máquina</h2>
+                <p class="subtitle">Rutinas de mantenimiento para prolongar la vida útil de tu xTool.</p>
+
+                <div class="process">
+                    <div class="step"><strong>Diariamente:</strong> Limpiar la cama de trabajo, verificar que no haya residuos, limpiar lentes y espejos con solución especial y paño de microfibra.</div>
+                    <div class="step"><strong>Semanalmente:</strong> Verificar tensión de correas, lubricar guías lineales, limpiar ventiladores y comprobar conexiones eléctricas.</div>
+                    <div class="step"><strong>Mensualmente:</strong> Limpieza profunda de todo el sistema, verificación de alineación óptica, calibración de sensores.</div>
+                    <div class="step"><strong>Anualmente:</strong> Revisión completa, posible cambio de partes de desgaste (correas, rodamientos), verificación del sistema de refrigeración.</div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🧹 Limpieza de componentes ópticos</h3>
+                        
+                        <div class="menu-section" style="border-left-color:#FF9800;margin-top:10px;">
+                            <h4 style="color:#FF9800;"><i class="fas fa-eye"></i> Lente de enfoque</h4>
+                            <p>Limpia con solución isopropílica y paño de microfibra. Nunca toques la superficie con los dedos.</p>
+                        </div>
+                        
+                        <div class="menu-section" style="border-left-color:#2196F3;margin-top:15px;">
+                            <h4 style="color:#2196F3;"><i class="fas fa-mirror"></i> Espejos</h4>
+                            <p>Verifica alineación periódicamente. Limpia con cuidado usando hisopos ópticos.</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">⚙️ Partes mecánicas</h3>
+                        
+                        <div class="menu-section" style="border-left-color:#4CAF50;margin-top:10px;">
+                            <h4 style="color:#4CAF50;"><i class="fas fa-cogs"></i> Guías lineales</h4>
+                            <p>Limpia y lubrica con grasa de silicona o lubricante específico para guías lineales.</p>
+                        </div>
+                        
+                        <div class="menu-section" style="border-left-color:#9C27B0;margin-top:15px;">
+                            <h4 style="color:#9C27B0;"><i class="fas fa-belt"></i> Correas dentadas</h4>
+                            <p>Verifica tensión y desgaste. Reemplaza si muestran signos de deterioro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section" style="margin-top:20px;">
+                    <h3><i class="fas fa-clipboard-list"></i> Lista de verificación de mantenimiento</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <h4><i class="fas fa-fan"></i> Sistema de ventilación</h4>
+                            <p>Limpia filtros y verifica que el flujo de aire sea adecuado. Reemplaza filtros según recomendaciones.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-bolt"></i> Fuente de alimentación</h4>
+                            <p>Verifica conexiones, limpiar ventiladores, asegurar estabilidad de voltaje.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-desktop"></i> Software y firmware</h4>
+                            <p>Actualiza a la última versión, respalda configuraciones personalizadas.</p>
+                        </div>
+                        <div class="menu-item">
+                            <h4><i class="fas fa-temperature-high"></i> Sistema de refrigeración</h4>
+                            <p>Verifica niveles de líquido refrigerante (si aplica), limpia radiadores.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note" style="margin-top:20px;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p><strong>Advertencia:</strong> Desconecta siempre la máquina de la energía eléctrica antes de realizar cualquier mantenimiento. Usa equipo de protección personal cuando manipules componentes ópticos o eléctricos.</p>
+                </div>
+            </section>
+
+            <section id="solucion" aria-labelledby="solucion-title">
+                <h2 id="solucion-title"><i class="fas fa-wrench"></i> Solución de problemas comunes</h2>
+                <p class="subtitle">Guía rápida para diagnosticar y resolver problemas frecuentes.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🔧 Problemas mecánicos</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;background:#fff5f5;border-left:4px solid #f44336;">
+                            <h4><i class="fas fa-times-circle" style="color:#f44336;"></i> El cabezal no se mueve</h4>
+                            <p><strong>Solución:</strong> Verifica conexiones de motor, verifica que no haya obstrucciones, reinicia la máquina.</p>
+                        </div>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;background:#fff5f5;border-left:4px solid #f44336;">
+                            <h4><i class="fas fa-exclamation-triangle" style="color:#f44336;"></i> Movimiento irregular o ruidos</h4>
+                            <p><strong>Solución:</strong> Limpia y lubrica guías lineales, verifica tensión de correas, aprieta tornillos sueltos.</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">💡 Problemas de láser</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;background:#fff5f5;border-left:4px solid #f44336;">
+                            <h4><i class="fas fa-fire" style="color:#f44336;"></i> Potencia inconsistente</h4>
+                            <p><strong>Solución:</strong> Limpia lentes y espejos, verifica conexiones de energía, recalibra potencia.</p>
+                        </div>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;background:#fff5f5;border-left:4px solid #f44336;">
+                            <h4><i class="fas fa-burn" style="color:#f44336;"></i> No corta completamente</h4>
+                            <p><strong>Solución:</strong> Reenfoca el láser, aumenta potencia/reduce velocidad, verifica múltiples pasadas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🖥️ Problemas de software</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;background:#fff5f5;border-left:4px solid #f44336;">
+                            <h4><i class="fas fa-unlink" style="color:#f44336;"></i> No se conecta a la computadora</h4>
+                            <p><strong>Solución:</strong> Reinstala drivers USB, prueba otro puerto, verifica cable, reinicia ambos dispositivos.</p>
+                        </div>
+                        
+                        <div class="menu-item" style="background:#fff5f5;border-left:4px solid #f44336;">
+                            <h4><i class="fas fa-file-exclamation" style="color:#f44336;"></i> Archivos no se procesan correctamente</h4>
+                            <p><strong>Solución:</strong> Convierte texto a curvas, simplifica rutas complejas, exporta como SVG plano.</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🎯 Problemas de calidad</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;background:#fff5f5;border-left:4px solid #f44336;">
+                            <h4><i class="fas fa-border-none" style="color:#f44336;"></i> Bordes carbonizados</h4>
+                            <p><strong>Solución:</strong> Reduce potencia, aumenta velocidad, usa cinta de pintor en la superficie, ajusta enfoque.</p>
+                        </div>
+                        
+                        <div class="menu-item" style="background:#fff5f5;border-left:4px solid #f44336;">
+                            <h4><i class="fas fa-ruler-combined" style="color:#f44336;"></i> Dimensiones incorrectas</h4>
+                            <p><strong>Solución:</strong> Calibra pasos por mm, verifica compensación de kerf, asegura que el material no se mueva.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip" style="margin-top:20px;background:#e8f5e9;border-left-color:#4CAF50;">
+                    <i class="fas fa-life-ring" style="color:#4CAF50;"></i>
+                    <p><strong>Método sistemático:</strong> Cuando encuentres un problema, sigue este flujo: 1) Verifica conexiones físicas, 2) Reinicia software/hardware, 3) Realiza prueba simple, 4) Aísla el componente problemático, 5) Consulta manual o soporte técnico.</p>
+                </div>
+
+                <div class="note" style="margin-top:20px;">
+                    <i class="fas fa-headset"></i>
+                    <p><strong>Soporte técnico:</strong> Antes de contactar al soporte técnico de xTool, ten a mano: número de serie, versión de software/firmware, descripción detallada del problema, fotos o videos del issue, y resultados de pruebas de diagnóstico.</p>
+                </div>
+            </section>
+
+            <section id="proyectos" aria-labelledby="proyectos-title">
+                <h2 id="proyectos-title"><i class="fas fa-lightbulb"></i> Proyectos sugeridos para practicar</h2>
+                <p class="subtitle">Ideas para desarrollar habilidades con tu máquina xTool.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🌟 Proyectos para principiantes</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;">
+                            <h4><i class="fas fa-signature"></i> Placa de identificación</h4>
+                            <p>Corta y graba tu nombre en madera o acrílico. Practica con texto y formas básicas.</p>
+                            <span class="shortcut">Nivel: Fácil</span>
+                        </div>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;">
+                            <h4><i class="fas fa-puzzle-piece"></i> Rompecabezas simple</h4>
+                            <p>Crea un rompecabezas de 4-6 piezas en MDF. Practica cortes interconectados.</p>
+                            <span class="shortcut">Nivel: Fácil</span>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <h4><i class="fas fa-box-open"></i> Caja básica</h4>
+                            <p>Diseña y corta una caja con uniones por presión (sin adhesivos).</p>
+                            <span class="shortcut">Nivel: Intermedio</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🚀 Proyectos intermedios</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;">
+                            <h4><i class="fas fa-layer-group"></i> Lámpara de capas</h4>
+                            <p>Crea una lámpara con capas de acrílico traslúcido grabado con patrones.</p>
+                            <span class="shortcut">Nivel: Intermedio</span>
+                        </div>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;">
+                            <h4><i class="fas fa-calendar-alt"></i> Calendario perpetuo</h4>
+                            <p>Diseña un calendario con piezas intercambiables para días, meses y años.</p>
+                            <span class="shortcut">Nivel: Intermedio</span>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <h4><i class="fas fa-chess-board"></i> Ajedrez de bolsillo</h4>
+                            <p>Crea un juego de ajedrez plegable con todas las piezas y tablero.</p>
+                            <span class="shortcut">Nivel: Avanzado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🏆 Proyectos avanzados</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;">
+                            <h4><i class="fas fa-city"></i> Maqueta arquitectónica</h4>
+                            <p>Recrea un edificio famoso con múltiples capas y detalles interconectados.</p>
+                            <span class="shortcut">Nivel: Avanzado</span>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <h4><i class="fas fa-cogs"></i> Mecanismo funcional</h4>
+                            <p>Diseña un mecanismo como un engranaje planetario o una caja de música.</p>
+                            <span class="shortcut">Nivel: Experto</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">💡 Proyectos artísticos</h3>
+                        
+                        <div class="menu-item" style="margin-bottom:15px;">
+                            <h4><i class="fas fa-portrait"></i> Retrato fotograbado</h4>
+                            <p>Convierte una fotografía en un grabado de alto contraste en madera o acrílico.</p>
+                            <span class="shortcut">Nivel: Intermedio-Avanzado</span>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <h4><i class="fas fa-tree"></i> Sombras chinas</h4>
+                            <p>Crea un teatro de sombras con figuras articuladas y escenario detallado.</p>
+                            <span class="shortcut">Nivel: Avanzado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip" style="margin-top:20px;">
+                    <i class="fas fa-graduation-cap"></i>
+                    <p><strong>Aprendizaje progresivo:</strong> Comienza con proyectos simples para dominar los fundamentos antes de avanzar a proyectos complejos. Documenta cada proyecto, incluyendo parámetros usados y lecciones aprendidas.</p>
+                </div>
+
+                <div class="note" style="margin-top:20px;">
+                    <i class="fas fa-users"></i>
+                    <p><strong>Comunidad:</strong> Únete a foros y grupos de xTool en redes sociales para compartir tus proyectos, obtener inspiración y aprender de otros usuarios. Muchos usuarios comparten archivos gratuitos para practicar.</p>
+                </div>
+            </section>
+
+            <section aria-labelledby="conclusion-title">
+                <h2 id="conclusion-title"><i class="fas fa-check-circle"></i> Conclusión y recomendaciones finales</h2>
+                <p class="subtitle">Resumen y consejos para el éxito con tu máquina xTool.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">📋 Resumen de mejores prácticas</h3>
+                        <ul class="list-compact">
+                            <li><strong>Seguridad primero:</strong> Nunca comprometas las medidas de seguridad por ahorrar tiempo.</li>
+                            <li><strong>Pruebas constantes:</strong> Siempre prueba en un área pequeña antes de procesar todo el material.</li>
+                            <li><strong>Mantenimiento regular:</strong> Un mantenimiento preventivo evita problemas costosos.</li>
+                            <li><strong>Documentación:</strong> Lleva un registro de parámetros que funcionan para diferentes materiales.</li>
+                            <li><strong>Aprendizaje continuo:</strong> La comunidad xTool es un recurso invaluable para mejorar.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size:17px;color:var(--primary-color);margin-bottom:15px;">🚀 Flujo de trabajo eficiente</h3>
+                        <ul class="list-compact">
+                            <li>Prepara todos los archivos antes de encender la máquina</li>
+                            <li>Agrupa proyectos por material para optimizar el tiempo</li>
+                            <li>Mantén organizada tu área de trabajo y materiales</li>
+                            <li>Invierte en un buen sistema de extracción de humos</li>
+                            <li>Ten materiales de prueba para ajustes rápidos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <div>
+                        <div class="tip">
+                            <i class="fas fa-rocket"></i>
+                            <p><strong>Para crecimiento:</strong> Considera especializarte en un tipo de aplicación (joyería, señalética, maquetas) para desarrollar experiencia específica que puedes monetizar.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="note">
+                            <i class="fas fa-handshake"></i>
+                            <p><strong>Comunidad:</strong> Las máquinas xTool tienen una comunidad global activa. Participar en desafíos, compartir tus proyectos y colaborar con otros usuarios acelerará tu aprendizaje.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process" style="margin-top:20px;background:#f0f7ff;">
+                    <div class="step"><strong>Recuerda:</strong> La creatividad es tu único límite. Las máquinas xTool son herramientas poderosas que pueden materializar casi cualquier idea que puedas diseñar digitalmente.</div>
+                    <div class="step"><strong>Siguientes pasos:</strong> Domina los fundamentos, explora técnicas avanzadas, contribuye a la comunidad y disfruta el proceso de creación.</div>
+                </div>
+            </section>
+
+        </main>
+
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Volver a la Página Principal</a>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="link">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="index.html#herramientas">Información</a></li>
+                    <li><a href="index.html#mapa">Ubicación</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><a href="kicad.html">KiCad</a></li>
+                    <li><a href="mods.html">Mods</a></li>
+                    <li><a href="monofab.html">MonoFab</a></li>
+                    <li><a href="multisim.html">NI Multisim</a></li>
+                    <li><a href="altium.html">Altium</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Proyectos</a></li>
+                    <li><a href="#">Foro</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="mailto:contacto@iberopuebla.mx">Email</a></li>
+                    <li><a href="tel:+522222293000">Teléfono</a></li>
+                    <li><a href="index.html#mapa">Dirección</a></li>
+                    <li><a href="index.html#mapa">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

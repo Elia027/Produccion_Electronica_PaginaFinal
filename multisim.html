@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NI Multisim - Producción Electrónica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #15409b;
+            --secondary-color: #4c9aff;
+            --accent-color: #4cf3ff;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #1F2229;
+            --white: #FFF9FA;
+            --card-bg: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER FIJO */
+        .header-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 25px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .menu .navbar ul {
+            display: flex;
+        }
+
+        .menu .navbar ul li {
+            position: relative;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 20px;
+            color: var(--white);
+            display: block;
+            font-weight: 600;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+            filter: invert(1);
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        .header {
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            min-height: 40vh;
+            padding: 80px 0 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23000" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: var(--white);
+            font-size: 55px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #D5D5D5;
+            margin-bottom: 35px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-img::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .header-img img {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .header-img img:hover {
+            transform: scale(1.03);
+        }
+
+        .btn-1 {
+            display: inline-block;
+            padding: 13px 35px;
+            color: var(--white);
+            border: 1px solid var(--white);
+            border-radius: 35px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-1:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .content-section h2 i {
+            margin-right: 15px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-section h3 i {
+            margin-right: 10px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .content-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section li {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .content-section ul li {
+            list-style-type: none;
+            padding-left: 25px;
+        }
+
+        .content-section ul li:before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .content-section ol li {
+            list-style-type: decimal;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin: 30px 0;
+        }
+
+        .flex-item {
+            flex: 1;
+        }
+
+        .image-frame {
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin: 15px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .image-frame:hover {
+            transform: scale(1.02);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .warning {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            flex: 1 1 calc(33.333% - 20px);
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .specs-table th, .specs-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .specs-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .specs-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .process-steps {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 5px 0 0 5px;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 18px;
+        }
+
+        .step:before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .process-steps {
+            counter-reset: step;
+        }
+
+        .note-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffcc00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .note-box i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #d35400;
+        }
+
+        .note-box strong {
+            color: #d35400;
+        }
+
+        .tip-box {
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .tip-box i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #0056b3;
+        }
+
+        .tip-box strong {
+            color: #0056b3;
+        }
+
+        .warning-box {
+            background-color: #ffe6e6;
+            border-left: 4px solid #ff4d4f;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .warning-box i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #a8071a;
+        }
+
+        .warning-box strong {
+            color: #a8071a;
+        }
+
+        .external-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .external-link {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .external-link:hover {
+            transform: translateY(-5px);
+        }
+
+        .external-link i {
+            font-size: 30px;
+            margin-right: 15px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .external-link-content h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .external-link-content p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer {
+            padding: 50px 0;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: var(--white);
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .link h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 991px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .menu {
+                padding: 0 15px;
+            }
+
+            .menu label {
+                display: block;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                display: none;
+                width: 100%;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .menu .navbar ul {
+                flex-direction: column;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .menu .navbar ul li a {
+                padding: 15px 20px;
+            }
+            
+            #menu:checked ~ .navbar {
+                display: block;
+            }
+
+            .header {
+                min-height: auto;
+                padding: 40px 0 0 0;
+            }
+
+            .header-content {
+                padding: 30px 0;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .header-txt h1 {
+                font-size: 36px;
+            }
+
+            .header-img {
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .flex-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                flex: 1 1 100%;
+            }
+            
+            .specs-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-txt h1 {
+                font-size: 32px;
+            }
+            
+            .header-txt p {
+                font-size: 15px;
+            }
+            
+            .btn-1 {
+                padding: 10px 25px;
+            }
+            
+            .content-section h2 {
+                font-size: 28px;
+            }
+            
+            .content-section h3 {
+                font-size: 22px;
+            }
+            
+            .content-section p, .content-section li {
+                font-size: 16px;
+            }
+            
+            .logo-img {
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-txt h1 {
+                font-size: 28px;
+            }
+            
+            .content-section h2 {
+                font-size: 24px;
+            }
+            
+            .content-section h3 {
+                font-size: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .link {
+                flex: 1 0 100%;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header fijo con logo y menú -->
+    <div class="header-fixed">
+        <div class="menu container">
+            <!-- Logo como imagen en lugar de texto -->
+            <a href="index.html" class="logo">
+                <img src="imagenes/iberoblanco.png" alt="Logo IBERO" class="logo-img">
+            </a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="https://cdn-icons-png.flaticon.com/512/56/56763.png" class="menu-icono" alt="Menú">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="index.html#herramientas">Información</a></li>
+                    <li><a href="index.html#mapa">Ubicación</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-content container">
+            <div class="header-txt">
+                <h1>NI Multisim</h1>
+                <p>
+                    Entorno de captura y simulación de esquemas para simular circuitos electrónicos 
+                    y prototipos de placas de circuito impreso (PCB).
+                </p>
+                <a href="index.html" class="btn-1">Volver al Inicio</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/icon multisim.png" alt="Logo NI Multisim">
+            </div>
+        </div> 
+    </header>
+
+    <section class="content container">
+        <div class="content-section">
+            <h2><i class="fas fa-microchip"></i> ¿Qué es NI Multisim?</h2>
+            <p>
+                NI Multisim es un poderoso entorno de captura y simulación de esquemas que los ingenieros, 
+                estudiantes y profesores pueden usar para simular circuitos electrónicos y prototipos de 
+                placas de circuito impreso (PCB). Este artículo le muestra cómo capturar, simular y diseñar 
+                su primer diseño en Multisim.
+            </p>
+            <p>
+                El circuito de ejemplo en el artículo es un circuito amplificador. Esta configuración de 
+                amplificador operacional no inversor consta de un componente activo (el amplificador operacional) 
+                y dos componentes de resistencia pasiva que se utilizarán para completar la red de retroalimentación 
+                para proporcionar ganancia en este circuito.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-play-circle"></i> Introducción</h2>
+            <p>
+                Para este ejemplo introductorio, simulará un circuito amplificador operacional estándar no inversor 
+                (que se muestra en la Figura 1). La ganancia de este amplificador no inversor se calcula mediante 
+                la expresión <strong>Gain = 1 + R1 / R2</strong>. Por lo tanto, si <strong>R1 = R2</strong>, entonces la ganancia es igual a <strong>2</strong>, 
+                lo cual verificará cuando ejecute la simulación interactiva en Multisim.
+            </p>
+            <div class="image-frame">
+                <img src="imagenes/figura 1 multisim.jpg" alt="Figura 1. Circuito amplificador no inversor">
+                <p style="text-align: center; margin-top: 10px;">Figura 1. Circuito amplificador no inversor.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-cogs"></i> Parte A: Selección de componentes</h2>
+            <p>Comience dibujando su esquema en el entorno Multisim.</p>
+            
+            <div class="process-steps">
+                <div class="step">Abra Multisim seleccionando <strong>Todos los programas » National Instruments » Circuit Design Suite 13.0 » Multisim 13.0</strong>.</div>
+                <div class="step">Seleccione <strong>Place » Component</strong>. Aparece la ventana Select a component (también conocida como Explorador de componentes), como se muestra en la Figura 2.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 2 multisim.jpg" alt="Figura 2. Seleccione una ventana de componente">
+                <p style="text-align: center; margin-top: 10px;">Figura 2. Seleccione una ventana de componente.</p>
+            </div>
+            
+            <p>
+                El Explorador de componentes organiza los componentes de la base de datos en tres niveles lógicos. 
+                La <strong>Master Database</strong> contiene todos los componentes de envío en formato de solo lectura. 
+                La <strong>Corporate Database</strong> es donde puede guardar componentes personalizados para compartirlos con colegas. 
+                Finalmente, la <strong>User Database</strong> es donde se guardan los componentes personalizados que solo puede usar el diseñador específico.
+            </p>
+            
+            <div class="note-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>Puntos adicionales:</strong>
+                <ul>
+                    <li>Los componentes (o partes) están organizados en Grupos y Familias para agrupar intuitiva y lógicamente partes comunes y hacer la búsqueda más fácil y efectiva.</li>
+                    <li>El Explorador de componentes muestra el nombre del componente, el símbolo, la descripción funcional, el modelo y la huella, todo en una sola ventana emergente.</li>
+                </ul>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Seleccione el grupo de <strong>sources</strong> y resalte la familia <strong>POWER_SOURCES</strong>.</div>
+                <div class="step">Seleccione el componente <strong>ground</strong> (como se muestra en la Figura 2).</div>
+                <div class="step">Haga clic en <strong>Ok</strong>. La ventana Seleccionar un componente se cierra temporalmente y el símbolo del suelo aparece como "imagen fantasma" en el puntero del mouse.</div>
+                <div class="step">Mueva el mouse al lugar apropiado en el área de trabajo y haga clic izquierdo una vez para colocar el componente. Después de colocar el componente, la ventana Select a component se abrirá de nuevo automáticamente.</div>
+                <div class="step">Vaya al grupo de <strong>sources</strong> nuevamente y resalte la familia <strong>POWER_SOURCES</strong> (si no está ya resaltada en la selección anterior).</div>
+                <div class="step">Seleccione el componente <strong>DC_POWER</strong>.</div>
+                <div class="step">Coloque el componente <strong>DC_POWER</strong> en el esquema.</div>
+                <div class="step">Repita los pasos 7, 8 y 9 para colocar un segundo componente <strong>DC_POWER</strong>.</div>
+            </div>
+            
+            <div class="tip-box">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Puntos adicionales:</strong>
+                <ul>
+                    <li>Sin energía y tierra, su simulación no se puede ejecutar.</li>
+                    <li>Si necesita varios componentes, puede repetir los pasos de colocación como se muestra, o colocar un componente y usar copiar (Ctrl + C) y pegar (Ctrl + V) para colocar componentes adicionales según sea necesario.</li>
+                    <li>De forma predeterminada, la ventana Select a component sigue apareciendo como una ventana emergente hasta que haya terminado de colocar sus componentes. Cierre la ventana para volver a la ventana de entrada del esquema.</li>
+                </ul>
+            </div>
+            
+            <p>Ahora coloque los componentes restantes del circuito usando las técnicas discutidas en los pasos anteriores.</p>
+            
+            <div class="process-steps">
+                <div class="step">Seleccione el grupo <strong>analog</strong> y la familia <strong>OPAMP</strong>.</div>
+                <div class="step">Escriba <strong>AD712</strong> en el campo <strong>Component</strong>.</div>
+                <div class="step">Seleccione el componente <strong>AD712SQ / 883B</strong>, como se muestra en la siguiente figura:</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 3 multisim.jpg" alt="Figura 3. Selección del amplificador operacional">
+                <p style="text-align: center; margin-top: 10px;">Figura 3. Selección del amplificador operacional.</p>
+            </div>
+            
+            <p>Tenga en cuenta que este componente es un componente de varias secciones, como se muestra en las pestañas A y B.</p>
+            
+            <div class="process-steps">
+                <div class="step">Coloque la sección A del componente <strong>AD712SQ / 883B</strong> en el área del espacio de trabajo.</div>
+                <div class="step">Regrese a la ventana Select a component.</div>
+                <div class="step">Seleccione el grupo <strong>basic</strong>, familia de <strong>resistor</strong>.</div>
+                <div class="step">Seleccione una resistencia de <strong>1 kΩ</strong>. En el campo <strong>Model manufacturer/type</strong>, seleccione <strong>IPC-2221A / 2222 / RES1300-700X250</strong>.</div>
+                <div class="step">Coloque la resistencia.</div>
+            </div>
+            
+            <div class="note-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>Nota:</strong> puede rotar un componente antes de colocarlo usando el método abreviado <strong>&lt;Ctrl + R&gt;</strong> en su teclado cuando el componente está reflejado en el puntero del mouse.
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Repita los pasos 16, 17 y 18 para colocar otra resistencia de <strong>1 kΩ</strong>.</div>
+                <div class="step">Seleccione el grupo de <strong>sources</strong>, familia <strong>SIGNAL_VOLTAGE_SOURCES</strong> y coloque el componente <strong>AC_VOLTAGE</strong>.</div>
+            </div>
+            
+            <p>En este punto, su esquema debería parecerse a la siguiente figura:</p>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 4 multisim.jpg" alt="Figura 4. Componentes colocados en el área de trabajo">
+                <p style="text-align: center; margin-top: 10px;">Figura 4. Componentes colocados en el área de trabajo.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-plug"></i> Parte B: Cableado del esquema</h2>
+            <p>
+                Multisim es un entorno de cableado no modal. Esto significa que Multisim determina la funcionalidad 
+                del puntero del mouse por la posición del mouse. No es necesario volver al menú para seleccionar 
+                entre las herramientas de colocación, cableado y edición.
+            </p>
+            
+            <div class="process-steps">
+                <div class="step">Comience a cablear moviendo el puntero del mouse cerca de un pin de un componente. El mouse aparece como una cruz en lugar del puntero predeterminado del mouse.</div>
+                <div class="step">Coloque una unión de cables inicial haciendo clic en el pin / terminal de la pieza (en este caso, el pin de salida del opamp).</div>
+                <div class="step">Complete el cable moviendo el mouse a otro terminal o simplemente haga doble clic para anclar el punto de terminación del cable a una ubicación flotante en algún lugar de la ventana esquemática.</div>
+                <div class="step">Cree una copia del símbolo del suelo usando Copiar <strong>&lt;Ctrl + C&gt;</strong> y Pegar <strong>&lt;Ctrl + V&gt;</strong>.</div>
+                <div class="step">Complete el cableado como se muestra en la Figura 5. No se preocupe por los números etiquetados en los cables (también llamados redes).</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 5 multisim.jpg" alt="Figura 5. Cableado del esquema">
+                <p style="text-align: center; margin-top: 10px;">Figura 5. Cableado del esquema.</p>
+            </div>
+            
+            <p>El último paso clave es conectar los terminales de la fuente de alimentación a los rieles de alimentación positivo y negativo del opamp a través de una conexión virtual utilizando conectores On-page.</p>
+            
+            <div class="process-steps">
+                <div class="step">Seleccione <strong>Place » Connectors » On-Page connector</strong> y conéctelo al terminal positivo de la fuente de alimentación V1. Se abrirá la ventana del On-Page Connector.</div>
+                <div class="step">Introduzca <strong>+V</strong> en el campo <strong>Name</strong> del conector y haga clic en <strong>Ok</strong>.</div>
+                <div class="step">Seleccione otro conector On-page y conéctelo al terminal 8 del opamp. La ventana del On-Page Connector se abrirá de nuevo.</div>
+                <div class="step">Seleccione el conector <strong>+V</strong> en la lista <strong>Available connectors</strong> y haga clic en <strong>Aceptar</strong>. El terminal positivo de la fuente de alimentación V1 DC ahora está conectado al pin 8 del opamp a través de una conexión virtual.</div>
+                <div class="step">Repita los pasos 6 a 9 para conectar el terminal negativo de V2 al pin 4 del opamp. Denomine el conector On-page <strong>–V</strong>.</div>
+            </div>
+            
+            <p>El esquema ahora debería verse como la siguiente figura:</p>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 6 multisim.jpg" alt="Figura 6. Esquema con conectores en la página">
+                <p style="text-align: center; margin-top: 10px;">Figura 6. Esquema con conectores en la página.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-desktop"></i> Parte C: Simulación del circuito</h2>
+            <p>
+                Ahora está listo para ejecutar una simulación Multisim interactiva; sin embargo, necesita una forma de visualizar los datos. 
+                Multisim proporciona instrumentos para visualizar las medidas simuladas. Los instrumentos se pueden encontrar en la barra de menú 
+                de la derecha y se indican mediante los siguientes iconos.
+            </p>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 7 multisim.jpg" alt="Figura 7. Barra de herramientas de instrumentos">
+                <p style="text-align: center; margin-top: 10px;">Figura 7. Barra de herramientas de instrumentos.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Seleccione el <strong>oscilloscope</strong> del menú y colóquelo en el esquema.</div>
+                <div class="step">Conecte los terminales del canal A y del canal B del osciloscopio tanto a la entrada como a la salida del circuito amplificador.</div>
+                <div class="step">Coloque un componente de tierra y conéctelo a los terminales negativos del osciloscopio.</div>
+                <div class="step">Haga clic con el botón derecho en el cable conectado al canal B y seleccione <strong>Net color</strong>.</div>
+                <div class="step">Seleccione un tono de azul y haga clic en el botón <strong>Ok</strong>. El esquema debería parecerse a la Figura 8.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 8 multisim.jpg" alt="Figura 8. Conexión del osciloscopio al esquema">
+                <p style="text-align: center; margin-top: 10px;">Figura 8. Conexión del osciloscopio al esquema.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Seleccione <strong>Simulate » Run</strong> para iniciar la simulación.</div>
+                <div class="step">Haga doble clic en el osciloscopio para abrir su panel frontal y observe los resultados de la simulación (consulte la Figura 9). Como era de esperar, la señal de entrada se amplifica en un factor de 2.</div>
+                <div class="step">Detenga la simulación presionando el botón rojo de parada en la barra de herramientas de simulación.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 9 multisim.jpg" alt="Figura 9. Resultados de la simulación">
+                <p style="text-align: center; margin-top: 10px;">Figura 9. Resultados de la simulación.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-exchange-alt"></i> Parte D: Transferencia al diseño de PCB</h2>
+            <p>
+                Ahora estamos listos para transferir el diseño de Multisim a Ultiboard para el diseño de PCB. 
+                En preparación para esto, debemos tener en cuenta que las fuentes (energía, señal) y tierra son 
+                componentes virtuales y, por lo tanto, no se pueden transferir a Ultiboard. Además, todos los 
+                componentes deben incluir información sobre la huella. Es una buena práctica reemplazar las fuentes 
+                de energía y la tierra con conectores.
+            </p>
+            
+            <div class="process-steps">
+                <div class="step">Retire <strong>V1</strong>, <strong>V2</strong>, <strong>V3</strong> y el osciloscopio del esquema. No quite los conectores On-page.</div>
+                <div class="step">Abra el Explorador de componentes y coloque el bloque de terminales <strong>282834-4</strong> del Grupo de <strong>connectors</strong>, Familia <strong>TERMINAL_BLOCKS</strong>. Este conector se utilizará para conectar las fuentes de alimentación ( +V , -V ).</div>
+                <div class="step">Conecte la clavija 1 del conector al conector <strong>+V</strong> On-page, la clavija 4 al conector <strong>–V</strong> On-page y las clavijas 2 y 3 a tierra, como se muestra en la siguiente figura:</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 10 multisim.jpg" alt="Figura 10. Conexión del bloque de terminales">
+                <p style="text-align: center; margin-top: 10px;">Figura 10. Conexión del bloque de terminales.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Coloque otro bloque de terminales <strong>282834-4</strong> en el espacio de trabajo. Este conector se utilizará para conectar las señales de entrada y salida.</div>
+                <div class="step">Conecte el pin 1 del conector al pin 3 (entrada) del opamp.</div>
+                <div class="step">Conecte el pin 2 del conector al pin 1 (salida) del opamp.</div>
+                <div class="step">Conecte el pin 3 del conector a tierra. El esquema se verá como la siguiente figura:</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 11 multisim.jpg" alt="Figura 11. Esquema con bloques de terminales">
+                <p style="text-align: center; margin-top: 10px;">Figura 11. Esquema con bloques de terminales.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Seleccione <strong>Transfer » Transfer to Ultiboard » Transfer to Ultiboard 13.0</strong> y guarde el archivo netlist. Ultiboard se abrirá automáticamente.</div>
+                <div class="step">Haga clic en <strong>Aceptar</strong> para aceptar todas las acciones enumeradas en la ventana Import Netlist. Ultiboard creará un esquema de tablero predeterminado. Tenga en cuenta que todas las piezas se colocan fuera del contorno de la placa y las líneas amarillas (ratsnests) que identifican las conexiones entre los pines, como se muestra en la Figura 12.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 12 multisim.jpg" alt="Figura 12. Esquema predeterminado de la placa y piezas transferidas desde Multisim">
+                <p style="text-align: center; margin-top: 10px;">Figura 12. Esquema predeterminado de la placa y piezas transferidas desde Multisim.</p>
+            </div>
+            
+            <p>Para este ejercicio usaremos una tabla de 2x2 pulgadas. Siga estos pasos para cambiar el tamaño del contorno de la placa.</p>
+            
+            <div class="process-steps">
+                <div class="step">Busque la <strong>Design Toolbox</strong> en el lado izquierdo de la pantalla.</div>
+                <div class="step">Seleccione la pestaña <strong>Layers</strong> y haga doble clic en <strong>Board Outline</strong> para habilitar esta capa, como se muestra a continuación.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 13 multisim.jpg" alt="Figura 13. Caja de herramientas de diseño">
+                <p style="text-align: center; margin-top: 10px;">Figura 13. Caja de herramientas de diseño.</p>
+            </div>
+            
+            <p>La pestaña <strong>Layers</strong> de la Design Toolbox le permite moverse entre las capas de su diseño y controlar la apariencia de las capas.</p>
+            
+            <div class="process-steps">
+                <div class="step">Vaya al área de la barra de herramientas y localice la barra de herramientas <strong>Select</strong>, consultando la siguiente figura.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 14 multisim.jpg" alt="Figura 14. Seleccione la barra de herramientas">
+                <p style="text-align: center; margin-top: 10px;">Figura 14. Seleccione la barra de herramientas.</p>
+            </div>
+            
+            <p>
+                La barra de herramientas <strong>Select</strong> contiene las funciones que se utilizan para controlar los filtros de selección. 
+                En otras palabras, estos filtros controlan lo que se puede seleccionar con el puntero del mouse.
+            </p>
+            
+            <div class="process-steps">
+                <div class="step">Desactive todos los filtros excepto <strong>Enable selecting other objects</strong>.</div>
+                <div class="step">Haga doble clic en el contorno de la placa en el área del espacio de trabajo para abrir la ventana <strong>Rectangle Properties</strong>.</div>
+                <div class="step">Seleccione la pestaña <strong>Rectangle</strong>, cambie <strong>Units</strong> a <strong>inch</strong> e ingrese <strong>2</strong> para <strong>Ancho</strong> y <strong>2</strong> para <strong>Alto</strong>.</div>
+                <div class="step">Haga clic en <strong>Ok</strong>.</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-route"></i> Parte E: Encaminamiento del tablero</h2>
+            <p>Coloque los componentes dentro de la placa.</p>
+            
+            <div class="process-steps">
+                <div class="step">Vaya a la barra de herramientas <strong>Select</strong> y desactive todos los filtros excepto <strong>Enable selecting parts</strong>.</div>
+                <div class="step">Arrastre la pieza <strong>J2</strong> y suéltela dentro del contorno de la placa. Puede rotar partes usando el atajo <strong>&lt;Ctrl + R&gt;</strong>.</div>
+                <div class="step">Coloque el resto de las piezas dentro del contorno de la placa, utilice la Figura 15 como guía.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 15 multisim.jpg" alt="Figura 15. Colocación de piezas">
+                <p style="text-align: center; margin-top: 10px;">Figura 15. Colocación de piezas.</p>
+            </div>
+            
+            <p>Para este ejercicio, colocará trazos en las capas Cobre Superior y Cobre Inferior.</p>
+            
+            <div class="process-steps">
+                <div class="step">Haga doble clic en la capa <strong>Copper Top</strong> en Design Toolbox.</div>
+                <div class="step">Seleccione <strong>Place » Line</strong>.</div>
+                <div class="step">Localice la pieza <strong>U1</strong> (el opamp). Tenga en cuenta que el pin 1 debe estar conectado a R1, como lo indica el ratsnest.</div>
+                <div class="step">Haga clic en el pin 1 de la parte <strong>U1</strong>, dibuje una línea hacia <strong>R1</strong> y haga clic en su pin para finalizar el trazado. Presione <strong>Esc</strong> para salir del modo de enrutamiento. La traza se verá como la siguiente figura:</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 16 multisim.jpg" alt="Figura 16. Colocación de una traza">
+                <p style="text-align: center; margin-top: 10px;">Figura 16. Colocación de una traza.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Haga doble clic en la capa <strong>Copper Bottom</strong> en Design Toolbox.</div>
+                <div class="step">Seleccione <strong>Place » Line</strong>.</div>
+                <div class="step">Haga clic en el pin 2 de la parte <strong>U1</strong>, dibuje una línea hacia <strong>R1</strong> y haga clic en su pin para finalizar el trazado. Presione <strong>Esc</strong> para salir del modo de enrutamiento. Tenga en cuenta que el color de la traza es rojo, que es el color configurado para la capa Copper Bottom.</div>
+                <div class="step">Termine de colocar trazos para el resto de conexiones. Su tablero debe verse como en la Figura 17.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 17 multisim.jpg" alt="Figura 17. Placa enrutada">
+                <p style="text-align: center; margin-top: 10px;">Figura 17. Placa enrutada.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Seleccione <strong>View » 3D preview</strong> para abrir una vista 3D de su diseño, como se muestra a continuación.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/figura 18 multisim.jpg" alt="Figura 18. Vista previa 3D">
+                <p style="text-align: center; margin-top: 10px;">Figura 18. Vista previa 3D.</p>
+            </div>
+        </div>
+        
+
+        <div class="content-section">
+            <h2><i class="fas fa-star"></i> Características Principales de NI Multisim</h2>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-play-circle"></i>
+                    <h3>Simulación Interactiva</h3>
+                    <p>Permite simular circuitos electrónicos en tiempo real con instrumentos virtuales integrados.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-book"></i>
+                    <h3>Biblioteca Completa</h3>
+                    <p>Amplia biblioteca de componentes electrónicos con modelos precisos.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Integración con Ultiboard</h3>
+                    <p>Transferencia directa de diseños esquemáticos a diseño de PCB.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Análisis Avanzado</h3>
+                    <p>Incluye análisis de Fourier, Monte Carlo, barrido de parámetros y más.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <h3>Interfaz Intuitiva</h3>
+                    <p>Entorno de trabajo fácil de usar para estudiantes y profesionales.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-link"></i>
+                    <h3>Compatibilidad</h3>
+                    <p>Integración con otros productos de National Instruments como LabVIEW.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-external-link-alt"></i> Recursos Adicionales</h2>
+            <p>Sitio web donde conseguimos la información</p>
+            <div class="external-links">
+                <a href="https://digilent.com/blog/multisim-why-oh-why-would-i-need-that/" class="external-link" target="_blank">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="external-link-content">
+                        <h3>Multisim información adicional</h3>
+                        <p>Artículo completo sobre las características y beneficios de Multisim</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Volver a la Página Principal</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="index.html#herramientas">Información</a></li>
+                    <li><a href="index.html#mapa">Ubicación</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><a href="kicad.html">KiCad</a></li>
+                    <li><a href="mods.html">Mods</a></li>
+                    <li><a href="monofab.html">MonoFab</a></li>
+                    <li><a href="multisim.html">NI Multisim</a></li>
+                    <li><a href="pistas.html">Pistas</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Proyectos</a></li>
+                    <li><a href="#">Foro</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="mailto:contacto@iberopuebla.mx">Email</a></li>
+                    <li><a href="tel:+522222293000">Teléfono</a></li>
+                    <li><a href="index.html#mapa">Dirección</a></li>
+                    <li><a href="index.html#mapa">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

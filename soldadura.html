@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soldadura con Estaño - Guía Completa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #621b86;
+            --secondary-color: #984fdc;
+            --accent-color: #4cf3ff;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #1F2229;
+            --white: #FFF9FA;
+            --card-bg: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER FIJO */
+        .header-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 25px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .menu .navbar ul {
+            display: flex;
+        }
+
+        .menu .navbar ul li {
+            position: relative;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 20px;
+            color: var(--white);
+            display: block;
+            font-weight: 600;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+            filter: invert(1);
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        .header {
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            min-height: 40vh;
+            padding: 80px 0 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23000" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: var(--white);
+            font-size: 55px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #D5D5D5;
+            margin-bottom: 35px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-img::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .header-img img {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .header-img img:hover {
+            transform: scale(1.03);
+        }
+
+        .btn-1 {
+            display: inline-block;
+            padding: 13px 35px;
+            color: var(--white);
+            border: 1px solid var(--white);
+            border-radius: 35px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-1:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .content-section h2 i {
+            margin-right: 15px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-section h3 i {
+            margin-right: 10px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .content-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section li {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .content-section ul li {
+            list-style-type: none;
+            padding-left: 25px;
+        }
+
+        .content-section ul li:before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .content-section ol li {
+            list-style-type: decimal;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin: 30px 0;
+        }
+
+        .flex-item {
+            flex: 1;
+        }
+
+        .image-frame {
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin: 15px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .image-frame:hover {
+            transform: scale(1.02);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .warning {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            flex: 1 1 calc(33.333% - 20px);
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .specs-table th, .specs-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .specs-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .specs-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .process-steps {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 5px 0 0 5px;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 18px;
+        }
+
+        .step:before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .process-steps {
+            counter-reset: step;
+        }
+
+        .note-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffcc00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .note-box i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #d35400;
+        }
+
+        .note-box strong {
+            color: #d35400;
+        }
+
+        .tip-box {
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .tip-box i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #0056b3;
+        }
+
+        .tip-box strong {
+            color: #0056b3;
+        }
+
+        .warning-box {
+            background-color: #ffe6e6;
+            border-left: 4px solid #ff4d4f;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .warning-box i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #a8071a;
+        }
+
+        .warning-box strong {
+            color: #a8071a;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 15px;
+            background: white;
+        }
+
+        .external-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .external-link {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .external-link:hover {
+            transform: translateY(-5px);
+        }
+
+        .external-link i {
+            font-size: 30px;
+            margin-right: 15px;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .external-link-content h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .external-link-content p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer {
+            padding: 50px 0;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: var(--white);
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .link h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 991px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .menu {
+                padding: 0 15px;
+            }
+
+            .menu label {
+                display: block;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                display: none;
+                width: 100%;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .menu .navbar ul {
+                flex-direction: column;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .menu .navbar ul li a {
+                padding: 15px 20px;
+            }
+            
+            #menu:checked ~ .navbar {
+                display: block;
+            }
+
+            .header {
+                min-height: auto;
+                padding: 40px 0 0 0;
+            }
+
+            .header-content {
+                padding: 30px 0;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .header-txt h1 {
+                font-size: 36px;
+            }
+
+            .header-img {
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .flex-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                flex: 1 1 100%;
+            }
+            
+            .specs-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-txt h1 {
+                font-size: 32px;
+            }
+            
+            .header-txt p {
+                font-size: 15px;
+            }
+            
+            .btn-1 {
+                padding: 10px 25px;
+            }
+            
+            .content-section h2 {
+                font-size: 28px;
+            }
+            
+            .content-section h3 {
+                font-size: 22px;
+            }
+            
+            .content-section p, .content-section li {
+                font-size: 16px;
+            }
+            
+            .logo-img {
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-txt h1 {
+                font-size: 28px;
+            }
+            
+            .content-section h2 {
+                font-size: 24px;
+            }
+            
+            .content-section h3 {
+                font-size: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .link {
+                flex: 1 0 100%;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header fijo con logo y menú -->
+    <div class="header-fixed">
+        <div class="menu container">
+            <!-- Logo como imagen en lugar de texto -->
+            <a href="index.html" class="logo">
+                <img src="imagenes/iberoblanco.png" alt="Logo IBERO" class="logo-img">
+            </a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="https://cdn-icons-png.flaticon.com/512/56/56763.png" class="menu-icono" alt="Menú">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="index.html#herramientas">Información</a></li>
+                    <li><a href="index.html#mapa">Ubicación</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-content container">
+            <div class="header-txt">
+                <h1>Soldadura con Estaño</h1>
+                <p>
+                    Guía completa sobre soldadura con estaño: herramientas, técnicas y mejores prácticas 
+                    para crear conexiones permanentes y confiables en circuitos electrónicos.
+                </p>
+                <a href="index.html" class="btn-1">Volver al Inicio</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/icon soldadura.png" alt="Soldadura con Estaño">
+            </div>
+        </div> 
+    </header>
+
+    <section class="content container">
+        <div class="content-section">
+            <h2><i class="fas fa-fire"></i> ¿Qué es la Soldadura con Estaño?</h2>
+            <p>
+                La soldadura con estaño es la base de todas las aplicaciones electrónicas porque permite 
+                la realización de conexiones entre conductores y entre éstos y los diversos componentes, 
+                obteniendo de forma rápida la máxima seguridad de contacto.
+            </p>
+            <p>
+                La soldadura con estaño consiste en unir las partes a soldar de manera que se toquen y 
+                cubrirlas con una gota de estaño fundido que, una vez enfriada, constituirá una verdadera 
+                unión, sobre todo desde el punto de vista electrónico.
+            </p>
+            <p>
+                El operario soldador de estaño debe dominar la práctica ya que es una tarea manual delicada. 
+                En este tipo de soldadura es imprescindible la habilidad para soldar con efectividad ya que 
+                influye directamente en el buen funcionamiento del montaje y en el tiempo de vida útil. 
+                Una soldadura mal hecha puede causar que el producto falle en algún momento.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-tools"></i> ¿Qué Necesito para Soldar Componentes Electrónicos?</h2>
+            <p>
+                Al soldar un conector electrónico a un punto de contacto (a menudo llamado "almohadilla"), 
+                por lo general se necesita lo siguiente:
+            </p>
+            <ul>
+                <li>Un soldador capaz de alcanzar el punto de fusión del estaño</li>
+                <li>Estaño de alambre con núcleo de fundente</li>
+                <li>Fundente adicional si es necesario para trabajos complejos</li>
+            </ul>
+            
+            <h3><i class="fas fa-burn"></i> El Soldador</h3>
+            <p>
+                Un soldador es una herramienta manual que se usa para unir metales derritiendo estaño. 
+                En electrónica se suelen utilizar soldadores de potencia reducida (15W a 30W) ya que los 
+                trabajos a realizar son de una cierta magnitud de detalles y bastante delicados.
+            </p>
+            <p>
+                Está compuesto por:
+            </p>
+            <ul>
+                <li>Una punta metálica que transfiere el calor</li>
+                <li>Un elemento calefactor que calienta la punta</li>
+                <li>Un mango aislante para manipularlo con seguridad</li>
+                <li>Un cable que se conecta a una fuente de energía</li>
+            </ul>
+            <p>
+                La punta tiene núcleo de cobre para buen calor, recubrimiento de hierro para protección 
+                y capa de cromo-níquel para evitar que se pegue el estaño donde no debe.
+            </p>
+            
+            <div class="image-frame">
+                <img src="imagenes/componentes soldadura.jpg" alt="Componentes de un soldador">
+                <div class="image-caption">Componentes principales de un soldador</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-exchange-alt"></i> Tipos de Soldadores</h2>
+            
+            <h3><i class="fas fa-pencil-alt"></i> Tipo Lápiz</h3>
+            <p>
+                Tiene una potencia de 30W. Su calentamiento es permanente y posee una alta inercia térmica. 
+                Tanto en el momento de la soldadura como en las pausas de esta labor, el soldador deberá 
+                permanecer conectado a la corriente eléctrica. Resulta adecuado para trabajos repetitivos y numerosos.
+            </p>
+            
+            <h3><i class="fas fa-gun"></i> Tipo Pistola</h3>
+            <p>
+                La punta se calienta por el efecto de una gran corriente que pasa por ella, el abultado mango 
+                lleva dentro un transformador que la produce. Resulta útil para trabajos esporádicos ya que 
+                se calienta instantáneamente. No se usa mucho en electrónica porque la punta no suele ser lo 
+                bastante fina y precisa para este tipo de trabajos.
+            </p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="image-frame">
+                        <img src="imagenes/soldador de lapiz.jpg" alt="Soldador tipo lápiz">
+                        <div class="image-caption">Soldador tipo lápiz - Ideal para electrónica</div>
+                    </div>
+                </div>
+                <div class="flex-item">
+                    <div class="image-frame">
+                        <img src="imagenes/soldador de pistola.jpg" alt="Soldador tipo pistola">
+                        <div class="image-caption">Soldador tipo pistola - Para trabajos esporádicos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-th-large"></i> Soportes para el Soldador</h2>
+            <p>
+                El soldador mantiene la punta caliente durante todo el tiempo que esté conectado a corriente 
+                eléctrica, entre unos 250 a 300°C, por lo que se hace necesario el uso de un soporte donde 
+                apoyarlo en el tiempo que no se usa de forma manual por el operador para evitar quemar la mesa de trabajo.
+            </p>
+            
+            <ul>
+                <li><strong>Soporte con esponja:</strong> Es el soporte típico para los soldadores que tienen poca potencia.</li>
+                <li><strong>Soporte JBC:</strong> Permite colocar el soporte de dos formas distintas. Este tipo de soporte también cuenta con la esponja.</li>
+                <li><strong>Soporte sencillo:</strong> Puede construirse con un trozo de chapa y una tabla de madera.</li>
+            </ul>
+            
+            <div class="image-frame">
+                <img src="imagenes/soporte con esponja.jpg" alt="Soporte para soldador">
+                <div class="image-caption">Soporte con esponja para soldador</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-cogs"></i> ¿Qué Tipo de Estaño Debo Usar?</h2>
+            <p>
+                Para electrónica, elige estaño de alambre delgado con núcleo de fundente. 
+                El término "estaño" se emplea de forma incorrecta ya que se trata de una aleación de este metal.
+            </p>
+            
+            <h3><i class="fas fa-ruler"></i> Diámetro del alambre:</h3>
+            <ul>
+                <li>Usa alambre fino (entre 0.5 mm y 1.5 mm) para componentes pequeños en placas electrónicas.</li>
+            </ul>
+            
+            <h3><i class="fas fa-flask"></i> Tipo de fundente:</h3>
+            <ul>
+                <li><strong>Sin limpiar (No-clean):</strong> Ideal para la mayoría de proyectos. Los residuos no son dañinos y puedes dejarlos en la placa.</li>
+                <li><strong>Activo (RA):</strong> Muy efectivo, pero debes limpiar los residuos después para evitar corrosión.</li>
+                <li><strong>Soluble en agua (OA):</strong> Muy potente, pero es fundamental limpiarlo después porque es corrosivo.</li>
+            </ul>
+            
+            <div class="tip-box">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Composición del estaño:</strong> El estaño para soldar contiene resina (pasta de soldar) 
+                en una proporción del 2 al 2.5% dentro de las cavidades del hilo. La resina facilita la distribución 
+                uniforme del estaño, evita la oxidación y resulta una gran ayuda durante el proceso de soldadura.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-vial"></i> ¿Qué es el Fundente?</h2>
+            <p>
+                Es un preparador químico que limpia los metales de la oxidación y permite que el estaño 
+                se adhiera correctamente (lo que se llama "humectación").
+            </p>
+            
+            <div class="image-frame">
+                <img src="imagenes/fundente.jpg" alt="Tipos de fundente">
+                <div class="image-caption">Diferentes tipos de fundente para soldadura</div>
+            </div>
+            
+            <h3><i class="fas fa-question-circle"></i> ¿Qué tipo de fundente debo usar?</h3>
+            <ul>
+                <li><strong>Sin limpiar (No-clean):</strong> El más común y práctico. Puedes dejar los residuos en la placa sin problemas.</li>
+                <li><strong>Activo (RA):</strong> Muy efectivo, pero debes limpiar los residuos después para evitar corrosión.</li>
+                <li><strong>Soluble en agua (OA):</strong> Muy potente, pero es fundamental limpiarlo porque sus residuos son corrosivos.</li>
+            </ul>
+            
+            <div class="tip-box">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Consejo:</strong> Para la mayoría, el fundente "sin limpiar" es la mejor opción. Solo usa los otros si es necesario 
+                y estás dispuesto a limpiar la placa después.
+            </div>
+            
+            <h3><i class="fas fa-plus-circle"></i> ¿Necesito añadir fundente adicional?</h3>
+            <p>
+                Para uniones simples (como dos cables), el fundente del interior del alambre de estaño es suficiente. 
+                Solo necesitarás añadir más si realizas trabajos complejos, como soldar varios puntos muy juntos. 
+                Aplica una pequeña cantidad extra con un pincel o aplicador, ya que el exceso deberá limpiarse después.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-hammer"></i> ¿Cómo Soldar con Estaño?</h2>
+            
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Antes de empezar:</strong>
+                <ul>
+                    <li>La punta del soldador debe estar limpia. En ningún caso se raspará la punta con una lima, goma de borrar, tijeras o similar.</li>
+                    <li>Las piezas a soldar deben estar totalmente limpias y a ser posible preestañadas.</li>
+                    <li>Utiliza un soldador de la potencia adecuada (15W a 30W).</li>
+                </ul>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">Acercar los elementos a unir hasta que se toquen. Si es necesario utiliza alicates para sujetar ambas partes.</div>
+                <div class="step">Aplicar el soldador a las partes a soldar, de forma que se calienten ambas partes (menos de 3 segundos).</div>
+                <div class="step">Sin quitar el soldador, aplicar el estaño a la zona de la soldadura, evitando que la punta toque directamente el estaño.</div>
+                <div class="step">La resina del estaño, al tocar las superficies calientes, se distribuye por la superficie de la soldadura.</div>
+                <div class="step">El estaño fundido se distribuye por la superficie que se va a soldar.</div>
+                <div class="step">Retirar el soldador, tratando de no mover las partes de la soldadura. Dejar que se enfríe naturalmente.</div>
+                <div class="step">El metal fundido se solidifica, quedando la soldadura finalizada, con aspecto brillante y con buena resistencia mecánica.</div>
+            </div>
+            
+            <div class="image-frame">
+                <img src="imagenes/pasos para soldar.jpg" alt="Proceso de soldadura">
+                <div class="image-caption">Pasos para realizar una soldadura correcta con estaño</div>
+            </div>
+            
+            <h3><i class="fas fa-check-circle"></i> ¿Cómo diferenciar una buena soldadura de una mala?</h3>
+            <ul>
+                <li><strong>Buena soldadura:</strong> La unión es lisa y brillante, cubre toda el área de contacto y el componente queda firme.</li>
+                <li><strong>Mala soldadura (soldadura fría):</strong> El estaño forma bolas, no cubre bien la superficie, hay hilos o puentes entre conexiones, o el componente se mueve.</li>
+            </ul>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="image-frame">
+                        <img src="imagenes/buena soldadura.jpg" alt="Buena soldadura">
+                        <div class="image-caption">Ejemplo de soldadura correcta</div>
+                    </div>
+                </div>
+                <div class="flex-item">
+                    <div class="image-frame">
+                        <img src="imagenes/mala soldadura.jpg" alt="Mala soldadura">
+                        <div class="image-caption">Ejemplo de soldadura incorrecta (soldadura fría)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-toolbox"></i> Selección y Mantenimiento de la Punta de Soldadura</h2>
+            
+            <h3><i class="fas fa-mouse-pointer"></i> ¿Cómo selecciono la mejor punta de soldadura?</h3>
+            <p>
+                Elija una punta cuya forma y tamaño coincidan con la zona a soldar para transferir calor eficientemente.
+            </p>
+            <ul>
+                <li><strong>Punta demasiado grande:</strong> Calienta lento y puede dañar componentes cercanos.</li>
+                <li><strong>Punta demasiado pequeña:</strong> Transfiere calor inefficientemente y aumenta el riesgo de daño.</li>
+            </ul>
+            
+            <h3><i class="fas fa-shapes"></i> Tipos de puntas más comunes:</h3>
+            <ul>
+                <li><strong>Cincel o destornillador:</strong> Punta plana. Ideal para componentes pasantes y uso general.</li>
+                <li><strong>Puntiaguda o cónica:</strong> Punta fina. Perfecta para trabajos de precisión en componentes pequeños.</li>
+                <li><strong>Hoja o cuchilla:</strong> Punta alargada. Diseñada para soldar varias conexiones a la vez (técnica de arrastre).</li>
+            </ul>
+            
+            <div class="image-frame">
+                <img src="imagenes/tipos de punta.jpg" alt="Tipos de puntas de soldador">
+                <div class="image-caption">Diferentes tipos de puntas para soldar</div>
+            </div>
+            
+            <div class="tip-box">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Consejo:</strong> Use siempre puntas diseñadas específicamente para electrónica.
+            </div>
+            
+            <h3><i class="fas fa-thermometer-full"></i> Temperatura de soldadura</h3>
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>No es recomendable usar temperatura máxima.</strong> Aunque se trabaje más rápido, el exceso de calor:
+                <ul>
+                    <li>Acorta la vida útil de la punta</li>
+                    <li>Puede dañar los componentes de la placa</li>
+                </ul>
+                La temperatura ideal para soldadura con estaño está entre 200-400°C dependiendo de la aleación.
+            </div>
+            
+            <h3><i class="fas fa-tint"></i> ¿Por qué el estaño gotea de la punta?</h3>
+            <p>
+                Esto indica que la punta está sucia ("punta fría"). Cuando se acumulan residuos de fundente y oxidación:
+            </p>
+            <ul>
+                <li>El calor no se transfiere correctamente</li>
+                <li>El estaño no se adhiere a la punta</li>
+                <li>En lugar de fluir, el estaño forma gotas y cae</li>
+            </ul>
+            <p>La solución es limpiar bien la punta del soldador.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-broom"></i> Limpieza y Mantenimiento del Soldador</h2>
+            
+            <h3><i class="fas fa-soap"></i> ¿Cómo limpiar un soldador?</h3>
+            
+            <h4><i class="fas fa-calendar-day"></i> Limpieza diaria:</h4>
+            <ul>
+                <li>Use una esponja de celulosa húmeda (exprimida) o una almohadilla de latón</li>
+                <li>Pase la punta caliente para remover exceso de estaño y fundente</li>
+            </ul>
+            
+            <div class="image-frame">
+                <img src="imagenes/metodos para limpiar.jpg" alt="Limpieza del soldador">
+                <div class="image-caption">Métodos para limpiar la punta del soldador</div>
+            </div>
+            
+            <h4><i class="fas fa-bacteria"></i> Cuando la punta está muy sucia (negra):</h4>
+            <ul>
+                <li>Use un limpiador especial ("tip tinner")</li>
+                <li>Enrolle la punta caliente en el limpiador hasta que quede plateada y brillante</li>
+                <li>Limpie el exceso con la esponja</li>
+            </ul>
+            
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Advertencias:</strong>
+                <ul>
+                    <li>No use esponjas sintéticas (se derriten)</li>
+                    <li>Evite las barras de pulir (dañan la punta)</li>
+                    <li>Si la punta tiene hoyos, cámbiela</li>
+                </ul>
+            </div>
+            
+            <h3><i class="fas fa-compress-arrows-alt"></i> Esponja vs Almohadilla de Latón:</h3>
+            
+            <h4><i class="fas fa-spa"></i> Esponja:</h4>
+            <ul>
+                <li><strong>Ventaja:</strong> Limpia rápido y bien</li>
+                <li><strong>Desventaja:</strong> Enfría la punta y puede dañarla si está muy húmeda</li>
+                <li><strong>Consejo:</strong> Use esponja de celulosa natural, apenas húmeda</li>
+            </ul>
+            
+            <h4><i class="fas fa-th"></i> Almohadilla de latón:</h4>
+            <ul>
+                <li><strong>Ventaja:</strong> No enfría la punta</li>
+                <li><strong>Desventaja:</strong> Es abrasiva y puede rayar la punta</li>
+                <li><strong>Consejo:</strong> Use movimientos suaves de "pinchar"</li>
+            </ul>
+            
+            <h3><i class="fas fa-wind"></i> Al terminar de soldar:</h3>
+            <ul>
+                <li>Limpie la punta</li>
+                <li>Aplique una capa fina de estaño nuevo antes de guardar</li>
+                <li>Esto protege la punta de la oxidación</li>
+            </ul>
+            
+            <h3><i class="fas fa-heart"></i> Para alargar la vida de la punta:</h3>
+            <ul>
+                <li>Use la temperatura mínima necesaria</li>
+                <li>Limpie la punta regularmente</li>
+                <li>Apague el soldador cuando no lo use</li>
+                <li>Aplique estaño nuevo antes de guardar</li>
+            </ul>
+            
+            <h3><i class="fas fa-sync-alt"></i> ¿Cuándo cambiar la punta?</h3>
+            <ul>
+                <li>Si está negra pero se puede limpiar: úsela</li>
+                <li>Si tiene hoyos o corrosión: cámbiela</li>
+            </ul>
+            
+            <h3><i class="fas fa-shield-alt"></i> Para evitar corrosión en la PCB:</h3>
+            <ul>
+                <li>Limpie los residuos de fundente después de soldar</li>
+                <li>Use limpiador especial y cepillo suave</li>
+                <li>Incline la placa para que escurran los residuos</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-undo-alt"></i> Técnicas de Desoldadura</h2>
+            
+            <h3><i class="fas fa-tint"></i> Desoldador de pera</h3>
+            <p>
+                Consta de una punta, un depósito para el estaño absorbido, una espiga para adaptarlo al 
+                soldador y una pera de goma que sirve para hacer el vacío.
+            </p>
+            <div class="process-steps">
+                <div class="step">Presionar la pera con el dedo.</div>
+                <div class="step">Acercar la punta hasta la zona de donde se quiera quitar el estaño.</div>
+                <div class="step">Derretir el estaño con la punta del soldador y, en ese momento, soltar la pera para que absorba el estaño.</div>
+                <div class="step">Vaciar el depósito presionando la pera un par de veces sobre un papel o el soporte (con cuidado, el estaño sale a alta temperatura).</div>
+            </div>
+            
+            <h3><i class="fas fa-wind"></i> Desoldador de vacío o chupón</h3>
+            <p>
+                Es una bomba de succión que consta de un cilindro con un émbolo accionado por un muelle. 
+                Tiene una punta de plástico resistente al calor y un depósito de aluminio.
+            </p>
+            <div class="process-steps">
+                <div class="step">Cargar el desoldador presionando el pulsador de carga.</div>
+                <div class="step">Aplicar la punta del soldador para derretir el estaño.</div>
+                <div class="step">Acercar la punta del chupón y pulsar el botón de accionamiento para absorber el estaño.</div>
+                <div class="step">Repetir si es necesario.</div>
+            </div>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="image-frame">
+                        <img src="imagenes/desoldador de pera.jpg" alt="Desoldador de pera">
+                        <div class="image-caption">Desoldador de pera</div>
+                    </div>
+                </div>
+                <div class="flex-item">
+                    <div class="image-frame">
+                        <img src="imagenes/desoldador de vacio.jpg" alt="Desoldador de vacío">
+                        <div class="image-caption">Desoldador de vacío o chupón</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-graduation-cap"></i> Cómo Aprender a Soldar con Estaño</h2>
+            <p>
+                Aprender a soldar con estaño es una tarea ardua puesto que requiere de mucho tacto manual, 
+                pulso y experiencia. Una de las mejores maneras de aprender es realizar un curso de soldadura 
+                con estaño de forma gratuita vía online o buscar un curso especializado para que te ofrezca 
+                el temario completo necesario, la práctica y puedas adquirir las habilidades necesarias para 
+                este tipo de soldadura tan delicada y tan demandada en el mundo laboral.
+            </p>
+            
+            <div class="tip-box">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Consejo:</strong> La práctica constante es fundamental. Comienza con proyectos simples 
+                y ve aumentando la complejidad gradualmente.
+            </div>
+        </div>
+
+         <div class="content-section">
+            <h2><i class="fas fa-images"></i> Galería de Imágenes</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="imagenes/buena soldadura.jpg" alt="Ejemplo de buena soldadura">
+                    <div class="gallery-caption">
+                        <strong>Soldadura correcta</strong>
+                        <p>Unión lisa y brillante que cubre completamente el área de contacto</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/mala soldadura.jpg" alt="Ejemplo de mala soldadura">
+                    <div class="gallery-caption">
+                        <strong>Soldadura incorrecta</strong>
+                        <p>Soldadura con forma de bola y sin cubrir bien la superficie</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/soldaduraElia.jpg" alt="Soldadura de Elia">
+                    <div class="gallery-caption">
+                        <strong>Soldadura de Elia</strong>
+                        
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/sol" alt="Soldadura de Mont">
+                    <div class="gallery-caption">
+                        <strong>Soldadura de Mont</strong>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content-section">
+            <h2><i class="fas fa-lightbulb"></i> Consejos Básicos de Soldadura</h2>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-spray-can"></i>
+                    <h3>Superficies Limpias</h3>
+                    <p>Trabaje siempre sobre superficies limpias para asegurar una buena adherencia del estaño.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-ruler-combined"></i>
+                    <h3>Tamaño Adecuado</h3>
+                    <p>Use la punta y estaño del tamaño adecuado para cada trabajo específico.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-broom"></i>
+                    <h3>Punta Limpia</h3>
+                    <p>Mantenga la punta limpia y bien estañada para una transferencia de calor óptima.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-thermometer-half"></i>
+                    <h3>Calor Controlado</h3>
+                    <p>Aplique calor suficiente pero no excesivo para evitar daños en componentes.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shower"></i>
+                    <h3>Limpieza Final</h3>
+                    <p>Limpie la placa después de soldar para eliminar residuos de fundente corrosivos.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Práctica Constante</h3>
+                    <p>La soldadura es una habilidad que mejora con la práctica regular.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Volver a la Página Principal</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="index.html#herramientas">Información</a></li>
+                    <li><a href="index.html#mapa">Ubicación</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><a href="kicad.html">KiCad</a></li>
+                    <li><a href="mods.html">Mods</a></li>
+                    <li><a href="monofab.html">MonoFab</a></li>
+                    <li><a href="multisim.html">NI Multisim</a></li>
+                    <li><a href="pistas.html">Pistas</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Proyectos</a></li>
+                    <li><a href="#">Foro</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="mailto:contacto@iberopuebla.mx">Email</a></li>
+                    <li><a href="tel:+522222293000">Teléfono</a></li>
+                    <li><a href="index.html#mapa">Dirección</a></li>
+                    <li><a href="index.html#mapa">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

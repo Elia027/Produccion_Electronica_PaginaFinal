@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonoFab - Producción Electrónica</title>
+    <style>
+        :root {
+            --primary-color: #8c2a2a;
+            --secondary-color: #b93b3b;
+            --accent-color: #4cf3ff;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #1F2229;
+            --white: #FFF9FA;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            min-height: 40vh;
+            padding: 80px 0 0 0;
+            position: relative;
+        }
+
+        .menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .menu .navbar ul {
+            display: flex;
+        }
+
+        .menu .navbar ul li {
+            margin: 0 5px;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 10px 15px;
+            color: var(--white);
+            display: block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+            display: none;
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+            align-items: center;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: var(--white);
+            font-size: 55px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #D5D5D5;
+            margin-bottom: 35px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+        }
+
+        .btn-1 {
+            display: inline-block;
+            padding: 13px 35px;
+            color: var(--white);
+            border: 1px solid var(--white);
+            border-radius: 35px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-1:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section li {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .content-section ul li {
+            list-style-type: disc;
+        }
+
+        .content-section ol li {
+            list-style-type: decimal;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin: 30px 0;
+        }
+
+        .flex-item {
+            flex: 1;
+        }
+
+        .image-frame {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .warning {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            flex: 1 1 calc(33.333% - 20px);
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .specs-table th, .specs-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .specs-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .specs-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #6a1f1f;
+        }
+
+        .process-steps {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .step:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .note-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffcc00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .note-box strong {
+            color: #d35400;
+        }
+
+        .footer {
+            padding: 50px 0;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: var(--white);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 991px) {
+            .menu {
+                padding: 20px;
+            }
+
+            .menu label {
+                display: initial;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                display: none;
+                padding: 10px 0;
+            }
+
+            .menu .navbar ul {
+                flex-direction: column;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+                margin: 0;
+            }
+
+            .menu .navbar ul li a {
+                padding: 15px 20px;
+            }
+            
+            #menu:checked ~ .navbar {
+                display: block;
+            }
+
+            .menu-icono {
+                display: block;
+            }
+
+            .header {
+                min-height: auto;
+            }
+
+            .header-content {
+                padding: 30px 20px;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-right: 0;
+                margin-bottom: 35px;
+            }
+
+            .header-img {
+                width: 100%;
+            }
+
+            .flex-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                flex: 1 1 100%;
+            }
+            
+            .specs-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <div class="menu container">
+            <a href="index.html" class="logo">IBERO</a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="imagenes/menu.png" class="menu-icono" alt="Menú">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Integrantes</a></li>
+                    <li><a href="#">Información</a></li>
+                    <li><a href="#">Diseños</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-content container">
+            <div class="header-txt">
+                <h1>MonoFab SRM-20</h1>
+                <p>
+                    Fresadora de precisión de sobremesa que fabrica prototipos y PCBs directamente desde un diseño digital.
+                </p>
+                <a href="index.html" class="btn-1">Volver al Inicio</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/MonoFab.webp" alt="Fresadora MonoFab SRM-20">
+            </div>
+        </div> 
+    </header>
+
+    <section class="content container">
+        <div class="content-section">
+            <h2>¿Qué es la MonoFab SRM-20?</h2>
+            <p>
+                La MonoFab SRM-20 es una fresadora de sobremesa de precisión 
+                utilizada principalmente para prototipado rápido y producción 
+                electrónica, permitiendo fabricar placas de circuitos impresos (PCB) 
+                de manera rápida y accesible directamente desde un diseño digital.
+            </p>
+
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="image-frame">
+                        <img src="imagenes/piezasmonofab.png" alt="Partes de la Fresadora MonoFab SRM-20">
+                    </div>
+                </div>
+                
+                <div class="flex-item">
+                    <h3>Nombre de las piezas y funciones</h3>
+                    <ol>
+                        <li><strong>Cubierta frontal:</strong> Protege los componentes internos.</li>
+                        <li><strong>Botón (Alimentación):</strong> Enciende y apaga la máquina.</li>
+                        <li><strong>Cabeza del rotor:</strong> <span class="warning">PRECAUCIÓN: En ningún caso mueva la unidad del rotor ni la mesa con las manos. Si lo hiciera podría provocar una avería.</span></li>
+                        <li><strong>Mesa:</strong> Superficie de trabajo donde se coloca el material a fresar.</li>
+                        <li><strong>Protección frontal:</strong> Elemento de seguridad durante la operación.</li>
+                        <li><strong>Bandeja para polvo:</strong> Recoge los residuos generados durante el fresado.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Características Principales</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Alta Precisión</h3>
+                    <p>Resolución de 0.0001 mm para trabajos de fresado detallados.</p>
+                </div>
+                <div class="feature">
+                    <h3>Área de Trabajo Compacta</h3>
+                    <p>Mesa de trabajo de 203.2 mm (X) x 152.4 mm (Y) x 60.5 mm (Z).</p>
+                </div>
+                <div class="feature">
+                    <h3>Fácil de Usar</h3>
+                    <p>Interfaz intuitiva y software amigable para usuarios de todos los niveles.</p>
+                </div>
+                <div class="feature">
+                    <h3>Múltiples Materiales</h3>
+                    <p>Capaz de fresar PCB, modelado en cera, plásticos y maderas blandas.</p>
+                </div>
+                <div class="feature">
+                    <h3>Diseño Compacto</h3>
+                    <p>Tamaño reducido ideal para espacios limitados como laboratorios o aulas.</p>
+                </div>
+                <div class="feature">
+                    <h3>Conectividad USB</h3>
+                    <p>Fácil conexión con computadoras para control y transferencia de archivos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Especificaciones Técnicas</h2>
+            <table class="specs-table">
+                <tr>
+                    <th>Característica</th>
+                    <th>Especificación</th>
+                </tr>
+                <tr>
+                    <td>Área de trabajo (X, Y, Z)</td>
+                    <td>203.2 mm × 152.4 mm × 60.5 mm</td>
+                </tr>
+                <tr>
+                    <td>Velocidad del husillo</td>
+                    <td>3,000 - 7,000 rpm</td>
+                </tr>
+                <tr>
+                    <td>Resolución de avance</td>
+                    <td>0.0001 mm/paso</td>
+                </tr>
+                <tr>
+                    <td>Velocidad de avance</td>
+                    <td>1 - 1,800 mm/minuto</td>
+                </tr>
+                <tr>
+                    <td>Interface</td>
+                    <td>USB</td>
+                </tr>
+                <tr>
+                    <td>Dimensiones (W×D×H)</td>
+                    <td>431 mm × 426.5 mm × 426.1 mm</td>
+                </tr>
+                <tr>
+                    <td>Peso</td>
+                    <td>19.5 kg</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h2>Proceso de Fresado con MonoFab</h2>
+            <p>Basado en la información del PDF proporcionado, el proceso de fresado sigue estos pasos:</p>
+            
+            <div class="process-steps">
+                <h3>1. Preparación de la Cama de Sacrificio</h3>
+                <p>Colocar la placa sobre la cama de sacrificio utilizando cinta doble cara. Atornillar lo suficiente, evitando pandear la cama.</p>
+                <img src="imagenes/cama de sacrificio.png" alt="Cama de sacrificio">
+                <h3>2. Selección del Herramental</h3>
+                <p>Seleccionar las herramientas adecuadas según el tipo de operación a realizar.</p>
+                <img src="imagenes/herramental.png" alt="Herramental">
+                <h3>3. Orden de Corte</h3>
+                <p>El orden correcto de los cortes es fundamental para un buen resultado:</p>
+                <div class="step">Perforaciones (0.8mm)</div>
+                <div class="step">Pistas y/o etiquetas (Cortador en V)</div>
+                <div class="step">Borde - corte contorno de la placa (2mm)</div>
+                <p>Con cada paso, es necesario cambiar la herramienta de corte.</p>
+                
+                <div class="note-box">
+                    <strong>NOTA:</strong> La velocidad de corte recomendada en perforación es menor o igual a 0.4 mm/s.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Manejo con VPanel</h2>
+            <p>El manejo de la máquina se realiza a través del software de control VPanel. Desde esta interfaz, el usuario:</p>
+            <ul>
+                <li>Mueve los ejes (X, Y, Z) manualmente para establecer con precisión el origen o "punto cero" desde donde comenzará el fresado.</li>
+                <li>Controla la velocidad del husillo (la herramienta giratoria) y la velocidad de desplazamiento.</li>
+                <li>Carga la lista de archivos de corte (generalmente generados por un software de diseño como SRP Player) en el orden correcto.</li>
+                <li>Supervisa el proceso de corte y puede pausarlo si es necesario.</li>
+            </ul>
+            <img src="imagenes/VPanel.png" alt="Inicio">
+            <h3>Configuración en VPanel</h3>
+            <p>La interfaz VPanel muestra información importante como:</p>
+            <ul>
+                <li>Posición XYZ y Sistema de Coordenadas de Usuario</li>
+                <li>Control de velocidad (mm/min)</li>
+                <li>Control del husillo (RPM y estado ON/OFF)</li>
+                <li>Movimiento en ejes XY y Z</li>
+                <li>Configuración de pasos (x100, x10, x1)</li>
+                <li>Lista de archivos de salida y vista previa</li>
+            </ul>
+            <img src="imagenes/VPanel1.png" alt="">
+            <img src="imagenes/VPanel2.png" alt="">
+            <div class="note-box">
+                <strong>Recomendación clave:</strong> Se recomienda agregar pistas y etiquetas al mismo tiempo, mientras que las perforaciones y bordes deben procesarse por separado.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Aplicaciones de la MonoFab SRM-20</h2>
+            <ul>
+                <li>Fabricación de prototipos de circuitos impresos (PCBs)</li>
+                <li>Prototipado rápido de piezas mecánicas</li>
+                <li>Fabricación de moldes en cera para fundición</li>
+                <li>Grabado y fresado de detalles finos</li>
+                <li>Creación de sellos y troqueles</li>
+                <li>Educación en fabricación digital y prototipado</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Ventajas de la MonoFab SRM-20</h2>
+            <ul>
+                <li>Precisión industrial en un formato de sobremesa</li>
+                <li>Fácil de operar con software intuitivo</li>
+                <li>Ideal para espacios limitados</li>
+                <li>Bajo nivel de ruido durante la operación</li>
+                <li>Capacidad para trabajar con múltiples materiales</li>
+                <li>Mantenimiento mínimo requerido</li>
+                <li>Excelente relación calidad-precio</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Recursos Adicionales</h2>
+            <p>Para obtener más información sobre el uso de la MonoFab SRM-20, consulta los siguientes recursos:</p>
+            <ul>
+                <li><a href="https://fabacademy.org/2025/labs/puebla/students/josecarlos-matanzo/assignments/week08.html" target="_blank">Tutorial de Fab Academy sobre MonoFab SRM-20</a></li>
+                <li><a href="MonoFab.pdf" target="_blank">Documentación PDF de MonoFab (proporcionada)</a> - Incluye información detallada sobre:
+                    <ul>
+                        <li>Preparación de camas de sacrificio</li>
+                        <li>Selección de herramental</li>
+                        <li>Orden de corte recomendado</li>
+                        <li>Configuración del software VPanel</li>
+                    </ul>
+                </li>
+                
+            </ul>
+        </div>
+
+        <a href="index.html" class="back-btn">Volver a la Página Principal</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Integrantes</a></li>
+                    <li><a href="#">Información</a></li>
+                    <li><a href="#">Diseños</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><a href="kicad.html">KiCad</a></li>
+                    <li><a href="mods.html">Mods</a></li>
+                    <li><a href="monofab.html">MonoFab</a></li>
+                    <li><a href="pistas.html">Pistas</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Ejemplos</a></li>
+                    <li><a href="#">Foro</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Teléfono</a></li>
+                    <li><a href="#">Dirección</a></li>
+                    <li><a href="#">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pistas - Producción Electrónica</title>
+    <style>
+        /* El mismo estilo que la página de KiCad, cambiando los colores principales */
+        :root {
+            --primary-color: #8c5c2a;
+            --secondary-color: #b98c3b;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            min-height: 40vh;
+            padding: 80px 0 0 0;
+        }
+
+        .menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .logo {
+            color: #EEEFF3;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .menu .navbar ul li {
+            position: relative;
+            float: left;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 20px;
+            color: #FFF9FA;
+            display: block;
+            font-weight: 600;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: #4cf3ff;
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: #FFF9FA;
+            font-size: 55px;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #D5D5D5;
+            margin-bottom: 45px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+        }
+
+        .btn-1 {
+            display: inline-block;
+            padding: 13px 35px;
+            color: #FFF9FA;
+            border: 1px solid #FFF9FA;
+            border-radius: 35px;
+        }
+
+        .btn-1:hover {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .content-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section ul li {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 10px;
+            list-style-type: disc;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            flex: 1 1 calc(33.333% - 20px);
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .gallery-item p {
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #6a451f;
+        }
+
+        .footer {
+            padding: 50px 0;
+            background-color: #1F2229;
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: #FFF9FA;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .link a:hover {
+            color: #FFBD4C;
+        }
+
+        @media (max-width: 991px) {
+            .menu {
+                padding: 30px;
+            }
+
+            .menu label {
+                display: initial;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #FFBD4C;
+                display: none;
+            }
+
+            .menu .navbar ul li a:hover {
+                color: #2B2B2B;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+            }
+            
+            #menu:checked ~ .navbar{
+                display: initial;
+            }
+
+            .header {
+                min-height: 0vh;
+            }
+
+            .header-content {
+                padding: 30px;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 35px;
+            }
+
+            .header-img {
+                width: 100%;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                flex: 1 1 100%;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <div class="menu container">
+            <a href="index.html" class="logo">IBERO</a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="imagenes/menu.png" class="menu-icono" alt="">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Integrantes</a></li>
+                    <li><a href="#">Información</a></li>
+                    <li><a href="#">Diseños</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-content container">
+            <div class="header-txt">
+                <h1>Pistas de PCB</h1>
+                <p>
+                    Visualización y diseño de las pistas de circuitos impresos que realizaremos a lo largo de este periodo.
+                </p>
+                <a href="index.html" class="btn-1">Volver al Inicio</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/ejemploPista.jpg" alt="Ejemplo de pistas de PCB">
+            </div>
+        </div> 
+    </header>
+
+    <section class="content container">
+        <div class="content-section">
+            <h2>¿Qué son las Pistas de PCB?</h2>
+            <p>
+                Las pistas de un PCB (Printed Circuit Board) son los caminos conductores de cobre que conectan 
+                eléctricamente los diferentes componentes electrónicos en una placa de circuito impreso. 
+                Estas pistas actúan como "cables" que permiten el flujo de señales eléctricas entre 
+                resistencias, condensadores, circuitos integrados y otros componentes.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2>Características de las Pistas</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Ancho de Pista</h3>
+                    <p>Determinado por la corriente que debe transportar y las limitaciones de fabricación.</p>
+                </div>
+                <div class="feature">
+                    <h3>Espaciado</h3>
+                    <p>Distancia entre pistas para evitar cortocircuitos y interferencias.</p>
+                </div>
+                <div class="feature">
+                    <h3>Capas</h3>
+                    <p>Pueden distribuirse en múltiples capas para circuitos complejos.</p>
+                </div>
+                <div class="feature">
+                    <h3>Impedancia Controlada</h3>
+                    <p>Pistas diseñadas para mantener características específicas de impedancia.</p>
+                </div>
+                <div class="feature">
+                    <h3>Vías</h3>
+                    <p>Conexiones entre diferentes capas de la PCB.</p>
+                </div>
+                <div class="feature">
+                    <h3>Áreas de Cobre</h3>
+                    <p>Zonas grandes de cobre para disipación de calor o conexión a tierra.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Consideraciones de Diseño</h2>
+            <p>Al diseñar pistas para PCBs, es importante considerar:</p>
+            <ul>
+                <li>El ancho de pista adecuado para la corriente que circulará por ella</li>
+                <li>La separación entre pistas para evitar cortocircuitos</li>
+                <li>El routing de señales críticas para minimizar interferencias</li>
+                <li>La disposición de las pistas para facilitar la fabricación</li>
+                <li>La gestión térmica en pistas que transportan alta corriente</li>
+                <li>La impedancia característica en circuitos de alta frecuencia</li>
+                <li>La estética y organización del diseño</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Proceso de Fabricación de Pistas</h2>
+            <ul>
+                <li>Diseño del circuito con software EDA (como KiCad)</li>
+                <li>Impresión del diseño en una placa de cobre</li>
+                <li>Grabado químico para eliminar el cobre no deseado</li>
+                <li>Perforado de agujeros para componentes y vías</li>
+                <li>Aplicación de soldermask para proteger las pistas</li>
+                <li>Serigrafía para marcar componentes y valores</li>
+                <li>Acabado superficial (HASL, ENIG, etc.) para proteger el cobre</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Galería de Pistas de PCB</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="imagenes/pista1.jpg" alt="Pistas de ejemplo 1">
+                    <p>Diseño de pistas para un amplificador</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/pista2.jpg" alt="Pistas de ejemplo 2">
+                    <p>Pistas con impedancia controlada</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/pista3.jpg" alt="Pistas de ejemplo 3">
+                    <p>Diseño de doble capa</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/pista4.jpg" alt="Pistas de ejemplo 4">
+                    <p>Pistas para microcontrolador</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn">Volver a la Página Principal</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Integrantes</a></li>
+                    <li><a href="#">Información</a></li>
+                    <li><a href="#">Diseños</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><a href="kicad.html">KiCad</a></li>
+                    <li><a href="mods.html">Mods</a></li>
+                    <li><a href="monofab.html">MonoFab</a></li>
+                    <li><a href="pistas.html">Pistas</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Ejemplos</a></li>
+                    <li><a href="#">Foro</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Teléfono</a></li>
+                    <li><a href="#">Dirección</a></li>
+                    <li><a href="#">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
