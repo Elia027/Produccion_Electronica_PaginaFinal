@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Tamagotchi PCB | IBERO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Colores cute para un Tamagotchi */
+            --primary: #FF6BCB; /* Rosa */
+            --secondary: #6B8EFF; /* Azul */
+            --accent: #FFD166; /* Amarillo */
+            --success: #7CFC00; /* Verde */
+            --dark: #2A2D43; /* Azul oscuro */
+            --light: #FFF9FE; /* Blanco rosado */
+            --card-bg: #FFFFFF;
+            --text: #333333;
+            --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            --radius: 20px;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-light: linear-gradient(135deg, #FFB6E1, #A3C4FF);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: 80px;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* HEADER FIJO */
+        .header-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--gradient);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 10px 0;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: var(--light);
+            font-size: 25px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .menu .navbar ul {
+            display: flex;
+        }
+
+        .menu .navbar ul li {
+            position: relative;
+        }
+
+        .menu .navbar ul li a {
+            font-size: 18px;
+            padding: 20px;
+            color: var(--light);
+            display: block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .menu .navbar ul li a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        #menu {
+            display: none;
+        }
+
+        .menu-icono {
+            width: 25px;
+            filter: invert(1);
+        }
+
+        .menu label {
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Cabecera principal */
+        .header {
+            background: var(--gradient-light);
+            display: flex;
+            align-items: center;
+            min-height: 50vh;
+            padding: 80px 0 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23FF6BCB' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            display: flex;
+            padding: 30px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-txt {
+            width: 50%;
+            margin-right: 80px;
+        }
+
+        .header-txt h1 {
+            color: var(--dark);
+            font-size: 55px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 2px 2px 0px var(--accent);
+        }
+
+        .header-txt .subtitle {
+            font-size: 22px;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .header-txt p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 35px;
+        }
+
+        .header-img {
+            width: 50%;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-img img {
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: transform 0.5s ease;
+            border: 5px solid white;
+        }
+
+        .header-img img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Botones */
+        .btn-1 {
+            display: inline-block;
+            padding: 15px 35px;
+            color: white;
+            background: var(--gradient);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(107, 142, 255, 0.4);
+            border: 2px solid transparent;
+        }
+
+        .btn-1:hover {
+            background: white;
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-2 {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--accent);
+            color: var(--dark);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(255, 209, 102, 0.4);
+            border: 2px solid transparent;
+        }
+
+        .btn-2:hover {
+            background: white;
+            color: var(--dark);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Contenedor principal */
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* TOC mejorado */
+        nav.toc {
+            margin: 30px 0 40px 0;
+            background: white;
+            border: 3px dashed var(--accent);
+            padding: 20px;
+            border-radius: var(--radius);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: var(--shadow);
+            justify-content: center;
+        }
+        
+        nav.toc a {
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+            background: var(--light);
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        nav.toc a:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-5px);
+        }
+
+        /* Secciones de contenido */
+        main.content > section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        main.content > section:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        
+        main.content > section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 100%;
+            background: var(--gradient);
+        }
+        
+        section h2 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 28px;
+            color: var(--primary);
+            padding-bottom: 15px;
+            border-bottom: 3px dotted var(--secondary);
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        section h2 i {
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            font-size: 30px;
+        }
+        
+        .subtitle {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* Contenido de las secciones */
+        .content-box {
+            background: #f9f7ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--success);
+        }
+
+        .content-box h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-box h3 i {
+            color: var(--primary);
+        }
+
+        /* Grid para componentes */
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .component-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .component-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .component-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .component-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .component-desc {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Imágenes del proyecto */
+        .project-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .project-img {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-img:hover img {
+            transform: scale(1.1);
+        }
+
+        .img-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Proceso de desarrollo */
+        .process-steps {
+            counter-reset: step-counter;
+            margin: 30px 0;
+        }
+
+        .process-step {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary);
+            position: relative;
+            padding-left: 80px;
+        }
+
+        .process-step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .process-step h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        /* Notas y tips */
+        .note {
+            background: #FFF9E6;
+            border-left: 5px solid var(--accent);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .note i {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+            color: var(--accent);
+        }
+        
+        .note strong {
+            color: var(--dark);
+        }
+        
+        .tip {
+            background: #E6F7FF;
+            border-left: 5px solid var(--secondary);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .tip i {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+            color: var(--secondary);
+        }
+        
+        .tip strong {
+            color: var(--dark);
+        }
+
+        /* Código */
+        pre.code {
+            background: #2A2D43;
+            color: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            overflow: auto;
+            font-size: 14px;
+            margin: 20px 0;
+            border-left: 5px solid var(--success);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 50px 0;
+            background: var(--dark);
+            color: white;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .link {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+
+        .link h3 {
+            color: var(--accent);
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .link h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .link a {
+            color: #EEEEEE;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            color: #AAA;
+            font-size: 14px;
+            border-top: 1px solid #444;
+            margin-top: 30px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Efectos de Tamagotchi */
+        .tamagotchi-char {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            display: none; /* Oculto por defecto en móviles */
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 991px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .menu {
+                padding: 0 15px;
+            }
+
+            .menu label {
+                display: block;
+            }
+
+            .menu .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--gradient);
+                display: none;
+                width: 100%;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                border-top: 3px solid var(--accent);
+            }
+
+            .menu .navbar ul {
+                flex-direction: column;
+            }
+
+            .menu .navbar ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .menu .navbar ul li a {
+                padding: 15px 20px;
+            }
+            
+            #menu:checked ~ .navbar {
+                display: block;
+            }
+
+            .header {
+                min-height: auto;
+                padding: 40px 0 0 0;
+            }
+
+            .header-content {
+                padding: 30px 0;
+                flex-direction: column;
+            }
+
+            .header-txt {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .header-txt h1 {
+                font-size: 40px;
+            }
+
+            .header-txt .subtitle {
+                font-size: 20px;
+            }
+
+            .header-img {
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .components-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .project-images {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-txt h1 {
+                font-size: 32px;
+            }
+            
+            .header-txt .subtitle {
+                font-size: 18px;
+            }
+            
+            .btn-1 {
+                padding: 12px 25px;
+            }
+            
+            section h2 {
+                font-size: 24px;
+            }
+            
+            .logo-img {
+                height: 35px;
+            }
+            
+            nav.toc {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav.toc a {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .components-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .project-images {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-txt h1 {
+                font-size: 28px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .link {
+                flex: 1 0 100%;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tamagotchi-char {
+                display: none; /* Oculto en móviles pequeños */
+            }
+        }
+
+        @media (min-width: 768px) {
+            .tamagotchi-char {
+                display: flex; /* Mostrado en tablets y desktop */
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header fijo con logo y menú -->
+    <div class="header-fixed">
+        <div class="menu">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <img src="imagenes/iberoblanco.png" alt="Logo IBERO" class="logo-img">
+                <span>Proyecto Tamagotchi</span>
+            </a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="https://cdn-icons-png.flaticon.com/512/56/56763.png" class="menu-icono" alt="Menú">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#integrantes">Integrantes</a></li>
+                    <li><a href="#proyecto">Nuestro Proyecto</a></li>
+                    <li><a href="#resultados">Resultados</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Personaje Tamagotchi flotante -->
+    <div class="tamagotchi-char">
+        <i class="fas fa-gamepad"></i>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-txt">
+                <h1>Tamagotchi en PCB</h1>
+                <div class="subtitle">¡Un proyecto electrónico adorable!</div>
+                <p>
+                    Creamos un Tamagotchi funcional desde cero utilizando KiCad para el diseño de la PCB, 
+                    programando un microcontrolador ATmega32U8P-P y conectando una pantalla OLED. 
+                    ¡Un proyecto lleno de aprendizaje y diversión!
+                </p>
+                <a href="#proyecto" class="btn-1">Ver nuestro proyecto</a>
+            </div>
+            <div class="header-img">
+                <img src="imagenes/tamagotchi_1974884.png" alt="PCB Tamagotchi">
+            </div>
+        </div> 
+    </header>
+
+    <div class="wrap">
+        <nav class="toc" aria-label="Índice">
+            <a href="#proyecto"><i class="fas fa-gamepad"></i> Nuestro Proyecto</a>
+            <a href="#componentes"><i class="fas fa-microchip"></i> Componentes</a>
+            <a href="#proceso"><i class="fas fa-cogs"></i> Proceso de Desarrollo</a>
+            <a href="#esquematico"><i class="fas fa-project-diagram"></i> Esquemático</a>
+            <a href="#pcb"><i class="fas fa-qrcode"></i> Diseño PCB</a>
+            <a href="#codigo"><i class="fas fa-code"></i> Código</a>
+            <a href="#resultados"><i class="fas fa-images"></i> Resultados</a>
+            <a href="#aprendizaje"><i class="fas fa-graduation-cap"></i> Aprendizaje</a>
+        </nav>
+
+        <main class="content">
+
+            <section id="proyecto" aria-labelledby="proyecto-title">
+                <h2 id="proyecto-title"><i class="fas fa-gamepad"></i> Nuestro Proyecto: Tamagotchi en PCB</h2>
+                <p class="subtitle">Una mascota virtual electrónica creada desde cero</p>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-lightbulb"></i> Idea Original</h3>
+                    <p>Inicialmente teníamos en mente crear una consola de videojuegos portátil, pero debido a limitaciones de tiempo y recursos, decidimos enfocarnos en un proyecto más específico pero igualmente desafiante: recrear un Tamagotchi clásico pero con nuestra propia implementación en PCB.</p>
+                    <p>El objetivo era aprender sobre diseño de circuitos impresos, programación de microcontroladores y manejo de interfaces de usuario con pantallas OLED.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-tools"></i> Herramientas Utilizadas</h3>
+                    <div class="components-grid">
+                        <div class="component-item">
+                            <i class="fas fa-desktop component-icon"></i>
+                            <div class="component-name">KiCad</div>
+                            <div class="component-desc">Para el diseño esquemático y de la PCB</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-code component-icon"></i>
+                            <div class="component-name">Arduino IDE</div>
+                            <div class="component-desc">Para programar el microcontrolador</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-splotch component-icon"></i>
+                            <div class="component-name">Mód CNC</div>
+                            <div class="component-desc">Para fabricar la PCB</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-soldering-iron component-icon"></i>
+                            <div class="component-desc">Para ensamblar los componentes</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="componentes" aria-labelledby="componentes-title">
+                <h2 id="componentes-title"><i class="fas fa-microchip"></i> Componentes Utilizados</h2>
+                <p class="subtitle">Lista completa de componentes electrónicos</p>
+
+                <div class="components-grid">
+                    <div class="component-item">
+                        <i class="fas fa-brain component-icon"></i>
+                        <div class="component-name">ATmega32U8P-P</div>
+                        <div class="component-desc">Microcontrolador principal</div>
+                    </div>
+                    <div class="component-item">
+                        <i class="fas fa-tv component-icon"></i>
+                        <div class="component-name">Pantalla OLED</div>
+                        <div class="component-desc">Interfaz de usuario I2C 128x64</div>
+                    </div>
+                    <div class="component-item">
+                        <i class="fas fa-volume-up component-icon"></i>
+                        <div class="component-name">Buzzer 2 patas</div>
+                        <div class="component-desc">Para efectos de sonido</div>
+                    </div>
+                    <div class="component-item">
+                        <i class="fas fa-bolt component-icon"></i>
+                        <div class="component-name">Resistencias</div>
+                        <div class="component-desc">1 de 10kΩ y 1 de 1kΩ</div>
+                    </div>
+                    <div class="component-item">
+                        <i class="fas fa-clock component-icon"></i>
+                        <div class="component-name">Crystal 2 patas</div>
+                        <div class="component-desc">Oscilador de 16MHz</div>
+                    </div>
+                    <div class="component-item">
+                        <i class="fas fa-capacitor component-icon"></i>
+                        <div class="component-name">Capacitores 22pF</div>
+                        <div class="component-desc">(2 unidades) para el crystal</div>
+                    </div>
+                    <div class="component-item">
+                        <i class="fas fa-toggle-on component-icon"></i>
+                        <div class="component-name">Switches DIP</div>
+                        <div class="component-desc">(3 unidades) para controles</div>
+                    </div>
+                    <div class="component-item">
+                        <i class="fas fa-plug component-icon"></i>
+                        <div class="component-name">Pinheaders</div>
+                        <div class="component-desc">(2 de 01x04) para USB y pantalla</div>
+                    </div>
+                    <div class="component-item">
+                        <i class="fas fa-lightbulb component-icon"></i>
+                        <div class="component-name">LED verde</div>
+                        <div class="component-desc">Indicador de alimentación</div>
+                    </div>
+                </div>
+
+                <div class="note">
+                    <i class="fas fa-info-circle"></i>
+                    <p><strong>Nota:</strong> Todos los componentes fueron seleccionados cuidadosamente para cumplir con los requisitos del proyecto manteniendo un bajo costo y disponibilidad en el mercado local.</p>
+                </div>
+            </section>
+
+            <section id="proceso" aria-labelledby="proceso-title">
+                <h2 id="proceso-title"><i class="fas fa-cogs"></i> Proceso de Desarrollo</h2>
+                <p class="subtitle">Pasos que seguimos para crear nuestro Tamagotchi</p>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <h4>Investigación y Planeación</h4>
+                        <p>Estudiamos el funcionamiento de los Tamagotchi originales y determinamos los requisitos técnicos para nuestra versión. Definimos las funciones básicas: alimentar, jugar, dormir y monitorear estado.</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>Diseño Esquemático en KiCad</h4>
+                        <p>Utilizamos KiCad para crear el esquemático del circuito, conectando todos los componentes según sus especificaciones y asegurando la compatibilidad entre ellos.</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>Diseño de la PCB</h4>
+                        <p>Convertimos el esquemático en un diseño de placa de circuito impreso, organizando los componentes para minimizar el tamaño y optimizar las rutas de las pistas.</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>Fabricación de la PCB</h4>
+                        <p>Utilizamos la monofab para fresar la placa y crear las pistas del circuito según nuestro diseño. Luego aplicamos soldadura para proteger las pistas.</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>Ensamblaje de Componentes</h4>
+                        <p>Soldamos cuidadosamente cada componente en su lugar correspondiente en la PCB, verificando continuamente que no hubiera cortocircuitos o conexiones incorrectas.</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>Programación del Microcontrolador</h4>
+                        <p>Desarrollamos el código en Arduino IDE para controlar la pantalla OLED, leer los switches, generar sonidos en el buzzer y gestionar la lógica del Tamagotchi.</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>Pruebas y Depuración</h4>
+                        <p>Probamos cada función del Tamagotchi, corrigiendo errores en el código y solucionando problemas de hardware cuando era necesario.</p>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <p><strong>Consejo:</strong> La organización y planificación son clave en proyectos de electrónica. Documentar cada paso nos ayudó a identificar y resolver problemas rápidamente.</p>
+                </div>
+            </section>
+
+            <section id="esquematico" aria-labelledby="esquematico-title">
+                <h2 id="esquematico-title"><i class="fas fa-project-diagram"></i> Diseño Esquemático</h2>
+                <p class="subtitle">Diagrama eléctrico de nuestro Tamagotchi</p>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-sitemap"></i> Conexiones Principales</h3>
+                    <p>El esquemático muestra cómo interconectamos todos los componentes:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>ATmega32U8P-P:</strong> Corazón del sistema, con conexiones a todos los periféricos</li>
+                        <li><strong>Pantalla OLED:</strong> Conectada via I2C (SDA y SCL) para comunicación</li>
+                        <li><strong>Buzzer:</strong> Conectado a un pin PWM para generar diferentes tonos</li>
+                        <li><strong>Switches:</strong> Conectados con resistencias pull-up para entrada digital</li>
+                        <li><strong>Crystal y capacitores:</strong> Proporcionan el reloj de 16MHz para el microcontrolador</li>
+                        <li><strong>LED verde:</strong> Indicador de alimentación con resistencia limitadora</li>
+                    </ul>
+                </div>
+
+                <div class="project-images">
+                    <div class="project-img">
+                        <img src="imagenes/editor de esquemas.png" alt="Esquemático en KiCad">
+                        <div class="img-label">Esquemático en KiCad</div>
+                    </div>
+                    <div class="project-img">
+                        <img src="imagenes/editor de placas.png" alt="Diagrama de conexiones">
+                        <div class="img-label">Diagrama de Conexiones</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pcb" aria-labelledby="pcb-title">
+                <h2 id="pcb-title"><i class="fas fa-qrcode"></i> Diseño de la PCB</h2>
+                <p class="subtitle">Placa de circuito impreso personalizada</p>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-layer-group"></i> Características del Diseño</h3>
+                    <p>Nuestra PCB fue diseñada con las siguientes consideraciones:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Tamaño compacto:</strong> Similar a un Tamagotchi original</li>
+                        <li><strong>Doble capa:</strong> Para optimizar el espacio y reducir complejidad</li>
+                        <li><strong>Pistas anchas:</strong> Para manejar adecuadamente la corriente</li>
+                        <li><strong>Agujeros de montaje:</strong> Para futura carcasa (aunque no la implementamos)</li>
+                        <li><strong>Organización lógica:</strong> Componentes agrupados por función</li>
+                    </ul>
+                </div>
+
+                <div class="project-images">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1624996752380-8ec242e0f6ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Diseño PCB en KiCad">
+                        <div class="img-label">Diseño PCB en KiCad</div>
+                    </div>
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1558449028-b53a39d10009?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="PCB fabricada">
+                        <div class="img-label">PCB Fabricada</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="codigo" aria-labelledby="codigo-title">
+                <h2 id="codigo-title"><i class="fas fa-code"></i> Implementación del Código</h2>
+                <p class="subtitle">Programando la lógica del Tamagotchi</p>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-laptop-code"></i> Estructura del Programa</h3>
+                    <p>El código gestiona todas las funciones del Tamagotchi:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Máquina de estados:</strong> Controla los diferentes modos (comer, jugar, dormir)</li>
+                        <li><strong>Temporizadores:</strong> Gestiona el envejecimiento y necesidades de la mascota</li>
+                        <li><strong>Gráficos:</strong> Dibuja la mascota y la interfaz en la pantalla OLED</li>
+                        <li><strong>Entrada:</strong> Lee los switches para interacción del usuario</li>
+                        <li><strong>Sonido:</strong> Genera efectos de audio mediante el buzzer</li>
+                    </ul>
+                </div>
+
+                <pre class="code">
+// Fragmento de código del Tamagotchi
+#include &lt;Wire.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+
+// Definición de pines
+#define BUZZER_PIN 9
+#define BUTTON_FOOD 2
+#define BUTTON_PLAY 3
+#define BUTTON_SLEEP 4
+
+// Estados del Tamagotchi
+enum PetState {HAPPY, HUNGRY, BORED, SLEEPY, SLEEPING};
+
+PetState currentState = HAPPY;
+int hunger = 50;
+int happiness = 70;
+int energy = 80;
+
+void setup() {
+  // Inicializar pantalla OLED
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  display.clearDisplay();
+  
+  // Configurar pines
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(BUTTON_FOOD, INPUT_PULLUP);
+  pinMode(BUTTON_PLAY, INPUT_PULLUP);
+  pinMode(BUTTON_SLEEP, INPUT_PULLUP);
+  
+  // Mostrar pantalla de inicio
+  displayWelcome();
+}
+
+void loop() {
+  // Actualizar estado según el tiempo
+  updatePetStatus();
+  
+  // Leer botones
+  checkButtons();
+  
+  // Mostrar estado actual
+  displayPetStatus();
+  
+  delay(100);
+}
+
+void feedPet() {
+  hunger = min(100, hunger + 30);
+  playSound(HAPPY_SOUND);
+}
+
+void playWithPet() {
+  happiness = min(100, happiness + 25);
+  energy = max(0, energy - 15);
+  playSound(PLAY_SOUND);
+}
+                </pre>
+
+                <div class="note">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p><strong>Reto superado:</strong> La gestión de memoria fue un desafío importante debido a las limitaciones del microcontrolador. Optimizamos el código para usar la menor memoria posible mientras manteníamos todas las funcionalidades.</p>
+                </div>
+            </section>
+
+            <section id="resultados" aria-labelledby="resultados-title">
+                <h2 id="resultados-title"><i class="fas fa-images"></i> Resultados Finales</h2>
+                <p class="subtitle">Nuestro Tamagotchi en funcionamiento</p>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-check-circle"></i> Funcionalidades Implementadas</h3>
+                    <div class="components-grid">
+                        <div class="component-item">
+                            <i class="fas fa-utensils component-icon"></i>
+                            <div class="component-name">Alimentación</div>
+                            <div class="component-desc">La mascota puede comer y su hambre disminuye</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-gamepad component-icon"></i>
+                            <div class="component-name">Juego</div>
+                            <div class="component-desc">Minijuegos simples para aumentar felicidad</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-bed component-icon"></i>
+                            <div class="component-name">Sueño</div>
+                            <div class="component-desc">La mascota duerme y recupera energía</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-heart component-icon"></i>
+                            <div class="component-name">Estados de ánimo</div>
+                            <div class="component-desc">Muestra diferentes emociones en pantalla</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-images">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1331&q=80" alt="Tamagotchi funcionando">
+                        <div class="img-label">Tamagotchi en Funcionamiento</div>
+                    </div>
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Detalle de componentes">
+                        <div class="img-label">Detalle de Componentes</div>
+                    </div>
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80" alt="Interfaz en pantalla OLED">
+                        <div class="img-label">Interfaz en Pantalla OLED</div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <i class="fas fa-award"></i>
+                    <p><strong>Logro:</strong> Aunque no implementamos una carcasa, el proyecto funciona perfectamente y demuestra nuestro dominio en diseño de PCBs, programación de microcontroladores y desarrollo de interfaces de usuario.</p>
+                </div>
+            </section>
+
+            <section id="aprendizaje" aria-labelledby="aprendizaje-title">
+                <h2 id="aprendizaje-title"><i class="fas fa-graduation-cap"></i> Lo que Aprendimos</h2>
+                <p class="subtitle">Habilidades y conocimientos adquiridos</p>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-book-open"></i> Conocimientos Técnicos</h3>
+                    <div class="components-grid">
+                        <div class="component-item">
+                            <i class="fas fa-drafting-compass component-icon"></i>
+                            <div class="component-name">Diseño de PCBs</div>
+                            <div class="component-desc">Uso avanzado de KiCad para esquemáticos y diseño de placas</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-microchip component-icon"></i>
+                            <div class="component-name">Microcontroladores</div>
+                            <div class="component-desc">Programación del ATmega32U8P-P y gestión de periféricos</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-tv component-icon"></i>
+                            <div class="component-name">Interfaces</div>
+                            <div class="component-desc">Comunicación I2C y control de pantallas OLED</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-code component-icon"></i>
+                            <div class="component-name">Programación</div>
+                            <div class="component-desc">Desarrollo de máquinas de estado y gestión de memoria</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-users"></i> Habilidades de Trabajo en Equipo</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Comunicación efectiva:</strong> Coordinar tareas entre dos personas con diferentes responsabilidades</li>
+                        <li><strong>Resolución de problemas:</strong> Enfrentar y superar desafíos técnicos inesperados</li>
+                        <li><strong>Gestión del tiempo:</strong> Cumplir con los plazos del proyecto académico</li>
+                        <li><strong>Documentación:</strong> Mantener registros claros de diseño y desarrollo</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <i class="fas fa-rocket"></i>
+                    <p><strong>Próximos pasos:</strong> Si tuviéramos más tiempo, nos gustaría agregar una carcasa impresa en 3D, una batería recargable y más minijuegos. También podríamos implementar conectividad Bluetooth para interactuar con una aplicación móvil.</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="index.html" class="btn-1"><i class="fas fa-arrow-left"></i> Volver al Inicio</a>
+                    <a href="#proyecto" class="btn-2"><i class="fas fa-redo"></i> Ver Proyecto Nuevamente</a>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="link">
+                <h3>Proyecto</h3>
+                <ul>
+                    <li><a href="#proyecto">Nuestro Tamagotchi</a></li>
+                    <li><a href="#componentes">Componentes</a></li>
+                    <li><a href="#proceso">Proceso</a></li>
+                    <li><a href="#resultados">Resultados</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Integrantes</h3>
+                <ul>
+                    <li><a href="index.html#integrantes">Mi compañera</a></li>
+                    <li><a href="index.html#integrantes">Yo</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Tecnologías</h3>
+                <ul>
+                    <li><a href="#esquematico">KiCad</a></li>
+                    <li><a href="#codigo">Programación</a></li>
+                    <li><a href="#pcb">Diseño PCB</a></li>
+                    <li><a href="#componentes">Electrónica</a></li>
+                </ul>
+            </div>
+            <div class="link">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><a href="mailto:contacto@iberopuebla.mx">Email</a></li>
+                    <li><a href="tel:+522222293000">Teléfono</a></li>
+                    <li><a href="index.html#mapa">Dirección</a></li>
+                    <li><a href="index.html#mapa">Mapa</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2023 Proyecto Tamagotchi PCB - Universidad Iberoamericana Puebla</p>
+            <p>Diseñado y desarrollado con ❤️ por nosotros</p>
+        </div>
+    </footer>
+
+</body>
+</html>
